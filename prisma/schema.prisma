@@ -11,6 +11,7 @@ datasource db {
 model User {
   id            Int          @id @default(autoincrement())
   name          String       @unique
+  npsso         String?      @unique
   psnId         String       @unique
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
