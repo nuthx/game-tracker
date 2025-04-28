@@ -27,7 +27,8 @@ model PsnRecord {
   launchPlatform    String
   conceptIconUrl    String
   startAt           DateTime @default(now())
-  endAt             DateTime
-  playTime          Int      @default(0)
+  endAt             DateTime?
+  playTime          Int?
+  error             Int      @default(0)
   user              User[]
 }
