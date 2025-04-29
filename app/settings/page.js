@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image"
+import { toast } from "sonner"
 import { useEffect } from "react";
 import { useData, API } from "@/lib/swr";
 import { handleRequest } from "@/lib/http";
@@ -49,6 +50,7 @@ export default function Page() {
     const result = await handleRequest("PATCH", API.CONFIG, values);
     if (result) {
       configMutate();
+      toast("配置已保存")
     }
   };
 

@@ -1,6 +1,7 @@
 import "@/app/globals.css";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Toaster } from "@/components/ui/sonner"
 import { Settings2 } from "lucide-react";
 
 export const metadata = {
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
         <div className="container mx-auto max-w-screen-xl flex flex-col gap-4 p-4 md:p-8">
           {children}
         </div>
+        <Toaster position="top-center" />
       </body>
     </html>
   );
