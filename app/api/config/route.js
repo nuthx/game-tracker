@@ -10,7 +10,8 @@ export async function GET(request) {
         avatar: user.avatar,
         psnId: user.psnId,
         npsso: `${user.npsso.slice(0, 4)}****${user.npsso.slice(-4)}`,
-        monitorId: user.monitorId
+        monitorId: user.monitorId,
+        monitorInterval: user.monitorInterval
       }
     });
   } catch (error) {
@@ -32,10 +33,13 @@ export async function PATCH(request) {
       });
     }
 
-    if (data.new_monitorId) {
+    if (data.new_monitorId && data.new_monitorInterval) {
       await prisma.user.update({
         where: { id: 1 },
-        data: { monitorId: data.new_monitorId }
+        data: { 
+          monitorId: data.new_monitorId,
+          monitorInterval: data.new_monitorInterval
+        }
       });
     }
 

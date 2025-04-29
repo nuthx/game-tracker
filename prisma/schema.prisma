@@ -9,16 +9,17 @@ datasource db {
 
 // 用户
 model User {
-  id            Int          @id @default(autoincrement())
-  username      String       @unique
-  password      String
-  npsso         String       @unique @default("")
-  psnId         String       @unique @default("me")
-  avatar        String       @default("")
-  monitorId     String       @default("me")
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  gameRecords   PsnRecord[]
+  id              Int          @id @default(autoincrement())
+  username        String       @unique
+  password        String
+  npsso           String       @unique @default("")
+  psnId           String       @unique @default("me")
+  avatar          String       @default("")
+  monitorId       String       @default("me")
+  monitorInterval String       @default("1")
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  gameRecords     PsnRecord[]
 }
 
 // PSN游戏记录

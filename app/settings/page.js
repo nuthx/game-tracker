@@ -20,6 +20,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
@@ -32,6 +39,7 @@ export default function Page() {
 
   const monitorForm = createForm({
     new_monitorId: { schema: "required" },
+    new_monitorInterval: { schema: "required" },
   })();
 
   const userForm = createForm({
@@ -42,6 +50,7 @@ export default function Page() {
   useEffect(() => {
     if (configData?.username) {
       monitorForm.setValue("new_monitorId", configData.monitorId);
+      monitorForm.setValue("new_monitorInterval", configData.monitorInterval);
       userForm.setValue("new_username", configData.username);
     }
   }, [configData]);
@@ -98,6 +107,26 @@ export default function Page() {
                     <FormLabel>PSNID</FormLabel>
                     <FormControl>
                       <Input className="w-full" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField control={monitorForm.control} name="new_monitorInterval" render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>刷新间隔</FormLabel>
+                    <FormControl>
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <SelectTrigger className="w-full">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1">1分钟</SelectItem>
+                          <SelectItem value="2">2分钟</SelectItem>
+                          <SelectItem value="3">3分钟</SelectItem>
+                          <SelectItem value="5">5分钟</SelectItem>
+                          <SelectItem value="10">10分钟</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
