@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { toast } from "sonner"
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useData, API } from "@/lib/swr";
 import { handleRequest } from "@/lib/http";
 import { createForm } from "@/lib/form";
@@ -29,8 +29,11 @@ import {
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Loader2 } from "lucide-react"
 
 export default function Page() {
+  const [npssoLoading, setNpssoLoading] = useState(false);
+
   const { data: configData, error: configError, isLoading: configLoading, mutate: configMutate } = useData(API.CONFIG);
 
   const npssoForm = createForm({
@@ -59,7 +62,20 @@ export default function Page() {
     const result = await handleRequest("PATCH", API.CONFIG, values);
     if (result) {
       configMutate();
-      toast("配置已保存")
+      toast("配置已保存");
+    }
+  };
+
+  const handleNpssoConfig = async (values) => {
+    try {
+      setNpssoLoading(true);
+      const result = await handleRequest("PATCH", API.CONFIG, values);
+      if (result) {
+        configMutate();
+        toast("配置已保存");
+      }
+    } finally {
+      setNpssoLoading(false);
     }
   };
 
@@ -80,7 +96,7 @@ export default function Page() {
           </CardHeader>
           <CardContent>
             <Form {...npssoForm}>
-              <form onSubmit={npssoForm.handleSubmit((values) => handleConfig(values))} className="space-y-6" noValidate>
+              <form onSubmit={npssoForm.handleSubmit((values) => handleNpssoConfig(values))} className="space-y-6" noValidate>
                 <FormField control={npssoForm.control} name="new_npsso" render={({ field }) => (
                   <FormItem>
                     <FormLabel>NPSSO</FormLabel>
@@ -90,7 +106,10 @@ export default function Page() {
                     <FormMessage />
                   </FormItem>
                 )} />
-                <Button type="submit">保存</Button>
+                <div className="flex items-center gap-4">
+                  <Button type="submit" disabled={npssoLoading}>保存</Button>
+                  {npssoLoading && <Loader2 className="size-6 animate-spin text-muted-foreground" />}
+                </div>
               </form>
             </Form>
           </CardContent>
