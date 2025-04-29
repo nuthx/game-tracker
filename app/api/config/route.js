@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { sendResponse } from "@/lib/http";
+import { updateNpsso } from "@/lib/update";
 
 export async function GET(request) {
   try {
@@ -7,9 +8,11 @@ export async function GET(request) {
     return sendResponse(request, {
       data: { 
         username: user.username,
-        avatar: user.avatar,
-        psnId: user.psnId,
         npsso: `${user.npsso.slice(0, 4)}****${user.npsso.slice(-4)}`,
+        onlineId: user.onlineId,
+        accountId: user.accountId,
+        npId: user.npId,
+        avatar: user.avatar,
         monitorId: user.monitorId,
         monitorInterval: user.monitorInterval
       }
@@ -31,6 +34,7 @@ export async function PATCH(request) {
         where: { id: 1 },
         data: { npsso: data.new_npsso }
       });
+      await updateNpsso(data.new_npsso);
     }
 
     if (data.new_monitorId && data.new_monitorInterval) {

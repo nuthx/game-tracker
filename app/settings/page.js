@@ -170,10 +170,14 @@ export default function Page() {
 
       <Card className="w-80 h-fit">
         <CardContent className="flex flex-col items-center gap-4">
-          <Image src="https://blog.playstation.com/tachyon/2028/04/cb6472ba78b0978c5190f3abd6897c1e1ce1eb01.png" alt="User Avatar" className="rounded-full object-cover w-30 h-30" width={120} height={120} priority draggable="false"/>
+          {configData.avatar && (
+            <Image src={configData.avatar} alt="User Avatar" className="rounded-full object-cover w-30 h-30" width={120} height={120} priority draggable="false"/>
+          )}
           <div className="flex flex-col items-center gap-1">
-            <p className="text-lg font-bold">Name</p>
-            <p className="text-sm text-muted-foreground">PSNID: 123456789</p>
+            <p className="text-lg font-bold">{configData.onlineId || "请先登录PSN账号"}</p>
+            {configData.accountId && (
+              <p className="text-sm text-muted-foreground">Account ID: {configData.accountId}</p>
+            )}
           </div>
           <Button variant="secondary" className="mt-2 w-full shadow-none">登出系统</Button>
         </CardContent>

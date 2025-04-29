@@ -12,8 +12,10 @@ model User {
   id              Int          @id @default(autoincrement())
   username        String       @unique
   password        String
-  npsso           String       @unique @default("")
-  psnId           String       @unique @default("me")
+  npsso           String       @default("")
+  onlineId        String       @default("")
+  accountId       String       @default("")
+  npId            String       @default("")
   avatar          String       @default("")
   monitorId       String       @default("me")
   monitorInterval String       @default("1")
