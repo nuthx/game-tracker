@@ -10,9 +10,10 @@ datasource db {
 // 用户
 model User {
   id            Int          @id @default(autoincrement())
-  name          String       @unique
-  npsso         String?      @unique
-  psnId         String       @unique
+  username      String       @unique
+  password      String
+  npsso         String       @unique @default("")
+  psnId         String       @unique @default("me")
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   gameRecords   PsnRecord[]
