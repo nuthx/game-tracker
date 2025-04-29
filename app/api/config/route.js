@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { sendResponse } from "@/lib/response";
+import { sendResponse } from "@/lib/http";
 
 export async function GET(request) {
   try {
@@ -7,8 +7,10 @@ export async function GET(request) {
     return sendResponse(request, {
       data: { 
         username: user.username,
+        avatar: user.avatar,
+        psnId: user.psnId,
         npsso: `${user.npsso.slice(0, 4)}****${user.npsso.slice(-4)}`,
-        psnId: user.psnId
+        monitorId: user.monitorId
       }
     });
   } catch (error) {
@@ -23,6 +25,20 @@ export async function PATCH(request) {
   try {
     const data = await request.json();
 
+    if (data.new_npsso) {
+      await prisma.user.update({
+        where: { id: 1 },
+        data: { npsso: data.new_npsso }
+      });
+    }
+
+    if (data.new_monitorId) {
+      await prisma.user.update({
+        where: { id: 1 },
+        data: { monitorId: data.new_monitorId }
+      });
+    }
+
     if (data.new_username) {
       await prisma.user.update({
         where: { id: 1 },
@@ -34,20 +50,6 @@ export async function PATCH(request) {
       await prisma.user.update({
         where: { id: 1 },
         data: { password: data.new_password }
-      });
-    }
-
-    if (data.new_npsso) {
-      await prisma.user.update({
-        where: { id: 1 },
-        data: { npsso: data.new_npsso }
-      });
-    }
-
-    if (data.new_psnId) {
-      await prisma.user.update({
-        where: { id: 1 },
-        data: { psnId: data.new_psnId }
       });
     }
 
