@@ -134,7 +134,7 @@ export default function Page() {
                   <FormItem>
                     <FormLabel>刷新间隔</FormLabel>
                     <FormControl>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select onValueChange={field.onChange} value={configData.monitorInterval}>
                         <SelectTrigger className="w-full">
                           <SelectValue />
                         </SelectTrigger>
