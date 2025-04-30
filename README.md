@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">ゲーム時計</h1>
 
-## Getting Started
+<p align="center">
+  <br />
+  <p align="center">Track and record your PSN gaming time</p>
+  <p align="center">
+    English |
+    <a href="./README.zh.md">中文</a>
+  </p>
+  <br />
+</p>
 
-First, run the development server:
+## 📖 Introduction
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+ゲーム時計 is designed to track and record your PlayStation Network gaming time.
+
+With third-party API support, the application automatically retrieves current game status and playtime, presenting them in chart form.
+
+## ✨ Features
+
+- Automatic PSN gaming time recording
+- Visual representation of gaming time and statistics (developing)
+- Support for exporting game records in JSON format
+- Quick deployment to Docker or Vercel
+
+## 🚀 Deployment
+
+(To be added)
+
+## 🎮 Usage
+
+### 1. Obtaining NPSSO
+
+Visit [PlayStation](https://www.playstation.com/) in your browser, click the "Login" button, and sign in with your PSN account.
+
+Open [https://ca.account.sony.com/api/v1/ssocookie](https://ca.account.sony.com/api/v1/ssocookie) in a new tab. The browser will return a JSON response in the following format:
+
+```
+{ "npsso": "<64 character token>" }
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The 64-character string is your NPSSO.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 2. Adding an Account
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Log in to the system using the default account `admin` with password `admin`. The login status will be saved in local cookies for 30 days.
 
-## Learn More
+Add your NPSSO in the settings and save it. The system will automatically update your user profile and display your avatar and ID information on the right.
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Tracking Game Records
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+By default, the system tracks your own gaming time. If you want to track another user's gaming time, enter their Account ID in the PSN account field in the settings.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To reduce resource consumption, you can also adjust to a longer refresh interval (default is 1 minute).
 
-## Deploy on Vercel
+## 📝 Contributions and Feedback
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Pull Requests are welcome. Please ensure you follow the project's coding and submission standards.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To request additional features, please submit an Issue, and they will be considered for addition.
+
+If you encounter any errors, please describe the problem in detail in the Issues section to help reproduce and resolve the issue.
+
+## 🙏 Acknowledgements
+
+- [psn-api](https://github.com/achievements-app/psn-api) - Provides third-party PlayStation Network API support
+
+## ⚠️ Disclaimer
+
+This project's code is for learning and exchange purposes only and should not be used for commercial purposes.
