@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
             </Link>
           </div>
         </nav>
-        <div className="container mx-auto max-w-screen-xl flex flex-col gap-4 p-4 md:p-8">
+        <div className="container mx-auto max-w-screen-lg flex flex-col gap-4 p-4 md:p-8">
           {children}
         </div>
         <Toaster position="top-center" />

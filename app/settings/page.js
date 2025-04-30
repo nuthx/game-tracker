@@ -88,8 +88,23 @@ export default function Page() {
   }
 
   return (
-    <div className="flex gap-6">
-      <div className="flex flex-col gap-6 flex-1">
+    <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+      <Card className="md:order-last w-full md:w-60 lg:w-72 h-fit transition-all">
+        <CardContent className="flex flex-col items-center gap-4">
+          {configData.avatar && (
+            <Image src={configData.avatar} alt="User Avatar" className="rounded-full object-cover w-30 h-30" width={120} height={120} priority draggable="false"/>
+          )}
+          <div className="flex flex-col items-center gap-1">
+            <p className="text-lg font-bold">{configData.onlineId || "请先登录PSN账号"}</p>
+            {configData.accountId && (
+              <p className="text-sm text-muted-foreground">{configData.accountId}</p>
+            )}
+          </div>
+          <Button variant="secondary" className="mt-2 w-full shadow-none">登出系统</Button>
+        </CardContent>
+      </Card>
+
+      <div className="flex flex-col gap-4 md:gap-6 flex-1">
         <Card>
           <CardHeader className="gap-0">
             <CardTitle>PSN账号</CardTitle>
@@ -187,20 +202,7 @@ export default function Page() {
         </Card>
       </div>
 
-      <Card className="w-80 h-fit">
-        <CardContent className="flex flex-col items-center gap-4">
-          {configData.avatar && (
-            <Image src={configData.avatar} alt="User Avatar" className="rounded-full object-cover w-30 h-30" width={120} height={120} priority draggable="false"/>
-          )}
-          <div className="flex flex-col items-center gap-1">
-            <p className="text-lg font-bold">{configData.onlineId || "请先登录PSN账号"}</p>
-            {configData.accountId && (
-              <p className="text-sm text-muted-foreground">Account ID: {configData.accountId}</p>
-            )}
-          </div>
-          <Button variant="secondary" className="mt-2 w-full shadow-none">登出系统</Button>
-        </CardContent>
-      </Card>
+      
     </div>
   );
 }
