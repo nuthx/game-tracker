@@ -140,7 +140,7 @@ export default function Page() {
                   <FormItem>
                     <FormLabel>PSNID</FormLabel>
                     <FormControl>
-                      <Input className="w-full" {...field} />
+                      <Input className="w-full" placeholder={configData.monitorId} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -181,7 +181,7 @@ export default function Page() {
                   <FormItem>
                     <FormLabel>用户名</FormLabel>
                     <FormControl>
-                      <Input className="w-full" {...field} />
+                      <Input className="w-full" placeholder={configData.username} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -190,7 +190,7 @@ export default function Page() {
                   <FormItem>
                     <FormLabel>新密码</FormLabel>
                     <FormControl>
-                      <Input className="w-full" {...field} />
+                      <Input className="w-full" placeholder="请输入新密码" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
