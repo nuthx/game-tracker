@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { toast } from "sonner"
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useData, API } from "@/lib/swr";
 import { handleRequest } from "@/lib/http";
@@ -32,6 +33,7 @@ import { Input } from "@/components/ui/input"
 import { Loader2 } from "lucide-react"
 
 export default function Page() {
+  const router = useRouter();
   const [npssoLoading, setNpssoLoading] = useState(false);
 
   const { data: configData, error: configError, isLoading: configLoading, mutate: configMutate } = useData(API.CONFIG);
@@ -95,6 +97,14 @@ export default function Page() {
     }
   };
 
+  const handleLogout = async () => {
+    const result = await handleRequest("DELETE", API.LOGOUT);
+    if (result) {
+      router.push("/login");
+      router.refresh();
+    }
+  };
+
   if (configLoading) {
     return <div className="flex justify-center text-sm text-muted-foreground">加载中...</div>;
   }
@@ -116,7 +126,7 @@ export default function Page() {
               <p className="text-sm text-muted-foreground">{configData.accountId}</p>
             )}
           </div>
-          <Button variant="secondary" className="mt-2 w-full shadow-none">登出系统</Button>
+          <Button variant="secondary" className="mt-2 w-full shadow-none" onClick={handleLogout}>登出系统</Button>
         </CardContent>
       </Card>
 
