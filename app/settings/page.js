@@ -79,6 +79,22 @@ export default function Page() {
     }
   };
 
+  const handleExport = async () => {
+    const result = await handleRequest("GET", API.EXPORT);
+    if (result) {
+      const blob = new Blob([JSON.stringify(result.data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "export.json";
+      link.click();
+
+      URL.revokeObjectURL(url);
+      toast("导出成功");
+    }
+  };
+
   if (configLoading) {
     return <div className="flex justify-center text-sm text-muted-foreground">加载中...</div>;
   }
@@ -200,9 +216,15 @@ export default function Page() {
             </Form>
           </CardContent>
         </Card>
+        <Card>
+          <CardHeader className="gap-0">
+            <CardTitle>记录导出</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Button onClick={handleExport}>导出</Button>
+          </CardContent>
+        </Card>
       </div>
-
-      
     </div>
   );
 }
