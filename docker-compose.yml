@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  app:
+    image: nuthx/game-tracker:latest
+    ports:
+      - "4200:4200"
+    restart: unless-stopped
+    environment:
+      - JWT_SECRET=your_secret_key_here
+    volumes:
+      - ./data:/app/data
