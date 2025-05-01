@@ -7,10 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "p": "prisma generate && prisma db push && prisma studio",
-    "p-f": "prisma generate && prisma db push --force-reset && prisma studio"
     "ncu:check": "ncu",
     "ncu:update": "ncu -u",
+    "db:push": "prisma generate && prisma db push --force-reset && prisma studio",
+    "db:migrate": "prisma migrate dev",
+    "docker:build": "docker build -t game-tracker:$(npm pkg get version | tr -d '\"') -t game-tracker:latest .",
+    "docker:run": "docker run -p 4200:4200 -e JWT_SECRET=123456 game-tracker:latest"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
