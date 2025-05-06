@@ -4,6 +4,7 @@ import Image from "next/image"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useData, API } from "@/lib/swr";
 import { handleRequest } from "@/lib/http";
 import { createForm } from "@/lib/form";
@@ -34,6 +35,7 @@ import { Loader2 } from "lucide-react"
 
 export default function Page() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [npssoLoading, setNpssoLoading] = useState(false);
 
   const { data: configData, error: configError, isLoading: configLoading, mutate: configMutate } = useData(API.CONFIG);
@@ -64,7 +66,7 @@ export default function Page() {
     const result = await handleRequest("PATCH", API.CONFIG, values);
     if (result) {
       configMutate();
-      toast("配置已保存");
+      toast(t("settings.save_config"));
     }
   };
 
@@ -74,7 +76,7 @@ export default function Page() {
       const result = await handleRequest("PATCH", API.CONFIG, values);
       if (result) {
         configMutate();
-        toast("配置已保存");
+        toast(t("settings.save_config"));
       }
     } finally {
       setNpssoLoading(false);
@@ -93,7 +95,7 @@ export default function Page() {
       link.click();
 
       URL.revokeObjectURL(url);
-      toast("导出成功");
+      toast(t("settings.export_success"));
     }
   };
 
@@ -106,11 +108,11 @@ export default function Page() {
   };
 
   if (configLoading) {
-    return <div className="flex justify-center text-sm text-muted-foreground">加载中...</div>;
+    return <div className="flex justify-center text-sm text-muted-foreground">{t("toast.loading")}</div>;
   }
 
   if (configError) {
-    return <div className="flex justify-center text-sm text-muted-foreground">配置信息获取失败</div>;
+    return <div className="flex justify-center text-sm text-muted-foreground">{t("toast.error_config")}</div>;
   }
 
   return (
@@ -121,19 +123,19 @@ export default function Page() {
             <Image src={configData.avatar} alt="User Avatar" className="rounded-full object-cover w-30 h-30" width={120} height={120} priority draggable="false"/>
           )}
           <div className="flex flex-col items-center gap-1">
-            <p className="text-lg font-bold">{configData.onlineId || "请先登录PSN账号"}</p>
+            <p className="text-lg font-bold">{configData.onlineId || t("settings.login_first")}</p>
             {configData.accountId && (
               <p className="text-sm text-muted-foreground">{configData.accountId}</p>
             )}
           </div>
-          <Button variant="secondary" className="mt-2 w-full shadow-none" onClick={handleLogout}>登出系统</Button>
+          <Button variant="secondary" className="mt-2 w-full shadow-none" onClick={handleLogout}>{t("btn.logout")}</Button>
         </CardContent>
       </Card>
 
       <div className="flex flex-col gap-4 md:gap-6 flex-1">
         <Card>
           <CardHeader className="gap-0">
-            <CardTitle>PSN账号</CardTitle>
+            <CardTitle>{t("settings.psn_account")}</CardTitle>
           </CardHeader>
           <CardContent>
             <Form {...npssoForm}>
@@ -148,7 +150,7 @@ export default function Page() {
                   </FormItem>
                 )} />
                 <div className="flex items-center gap-4">
-                  <Button type="submit" disabled={npssoLoading}>保存</Button>
+                  <Button type="submit" disabled={npssoLoading}>{t("btn.save")}</Button>
                   {npssoLoading && <Loader2 className="size-6 animate-spin text-muted-foreground" />}
                 </div>
               </form>
@@ -157,7 +159,7 @@ export default function Page() {
         </Card>
         <Card>
           <CardHeader className="gap-0">
-            <CardTitle>监控设置</CardTitle>
+            <CardTitle>{t("settings.monitor_settings")}</CardTitle>
           </CardHeader>
           <CardContent>
             <Form {...monitorForm}>
@@ -173,39 +175,39 @@ export default function Page() {
                 )} />
                 <FormField control={monitorForm.control} name="new_monitorInterval" render={({ field }) => (
                   <FormItem>
-                    <FormLabel>刷新间隔</FormLabel>
+                    <FormLabel>{t("settings.monitor_interval")}</FormLabel>
                     <FormControl>
                       <Select onValueChange={field.onChange} defaultValue={configData.monitorInterval}>
                         <SelectTrigger className="w-full">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="1">1分钟</SelectItem>
-                          <SelectItem value="2">2分钟</SelectItem>
-                          <SelectItem value="3">3分钟</SelectItem>
-                          <SelectItem value="5">5分钟</SelectItem>
-                          <SelectItem value="10">10分钟</SelectItem>
+                          <SelectItem value="1">{t("settings.monitor_interval_1")}</SelectItem>
+                          <SelectItem value="2">{t("settings.monitor_interval_2")}</SelectItem>
+                          <SelectItem value="3">{t("settings.monitor_interval_3")}</SelectItem>
+                          <SelectItem value="5">{t("settings.monitor_interval_5")}</SelectItem>
+                          <SelectItem value="10">{t("settings.monitor_interval_10")}</SelectItem>
                         </SelectContent>
                       </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )} />
-                <Button type="submit">保存</Button>
+                <Button type="submit">{t("btn.save")}</Button>
               </form>
             </Form>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="gap-0">
-            <CardTitle>用户资料</CardTitle>
+            <CardTitle>{t("settings.user_info")}</CardTitle>
           </CardHeader>
           <CardContent>
             <Form {...userForm}>
               <form onSubmit={userForm.handleSubmit((values) => handleConfig(values))} className="space-y-6" noValidate>
                 <FormField control={userForm.control} name="new_username" render={({ field }) => (
                   <FormItem>
-                    <FormLabel>用户名</FormLabel>
+                    <FormLabel>{t("settings.username")}</FormLabel>
                     <FormControl>
                       <Input className="w-full" placeholder={configData.username} {...field} />
                     </FormControl>
@@ -214,24 +216,24 @@ export default function Page() {
                 )} />
                 <FormField control={userForm.control} name="new_password" render={({ field }) => (
                   <FormItem>
-                    <FormLabel>新密码</FormLabel>
+                    <FormLabel>{t("settings.password")}</FormLabel>
                     <FormControl>
-                      <Input className="w-full" placeholder="请输入新密码" {...field} />
+                      <Input className="w-full" placeholder={t("settings.password_placeholder")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )} />
-                <Button type="submit">保存</Button>
+                <Button type="submit">{t("btn.save")}</Button>
               </form>
             </Form>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="gap-0">
-            <CardTitle>记录导出</CardTitle>
+            <CardTitle>{t("settings.export")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <Button onClick={handleExport}>导出</Button>
+            <Button onClick={handleExport}>{t("btn.export")}</Button>
           </CardContent>
         </Card>
       </div>

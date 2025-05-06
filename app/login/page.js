@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { API } from "@/lib/swr";
 import { handleRequest } from "@/lib/http";
 import { createForm } from "@/lib/form";
@@ -21,6 +22,7 @@ import { Input } from "@/components/ui/input";
 
 export default function Page() {
   const router = useRouter();
+  const { t } = useTranslation();
 
   const loginForm = createForm({
     username: { schema: "required" },
@@ -44,7 +46,7 @@ export default function Page() {
             <form onSubmit={loginForm.handleSubmit((values) => handleLogin(values))} className="w-full space-y-6" noValidate>
               <FormField control={loginForm.control} name="username" render={({ field }) => (
                 <FormItem>
-                  <FormLabel>用户名</FormLabel>
+                  <FormLabel>{t("login.username")}</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -53,14 +55,14 @@ export default function Page() {
               )} />
               <FormField control={loginForm.control} name="password" render={({ field }) => (
                 <FormItem>
-                  <FormLabel>密码</FormLabel>
+                  <FormLabel>{t("login.password")}</FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )} />
-              <Button type="submit" className="w-full mt-2">登录</Button>
+              <Button type="submit" className="w-full mt-2">{t("btn.login")}</Button>
             </form>
           </Form>
         </CardContent>

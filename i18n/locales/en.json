@@ -1,0 +1,51 @@
+{
+  "btn": {
+    "save": "Save",
+    "export": "Export",
+    "login": "Log In",
+    "logout": "Log Out"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "toast": {
+    "loading": "Loading...",
+    "error_user": "Failed to retrieve user information",
+    "error_config": "Failed to load configuration",
+    "save_config": "Settings saved",
+    "export_success": "Export successful"
+  },
+  "validate": {
+    "required": "This field is required",
+    "username_2": "Username must be at least 2 characters",
+    "username_16": "Username must be no more than 16 characters",
+    "password_6": "Password must be at least 6 characters",
+    "password_24": "Password must be no more than 24 characters"
+  },
+  "login": {
+    "username": "Username",
+    "password": "Password"
+  },
+  "home": {
+    "playing_platform": "Playing on {{platform}}",
+    "playing_time": "Played for {{time}} minutes"
+  },
+  "settings": {
+    "login_first": "Please log in to your PSN account first",
+    "psn_account": "PSN Account",
+    "monitor_settings": "Monitoring Settings",
+    "monitor_interval": "Refresh Interval",
+    "monitor_interval_1": "Every 1 minute",
+    "monitor_interval_2": "Every 2 minutes",
+    "monitor_interval_3": "Every 3 minutes",
+    "monitor_interval_5": "Every 5 minutes",
+    "monitor_interval_10": "Every 10 minutes",
+    "user_info": "User Profile",
+    "username": "Username",
+    "password": "New Password",
+    "password_placeholder": "Enter new password",
+    "export": "Export Records"
+  }
+}

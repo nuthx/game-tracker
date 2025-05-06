@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "next-themes";
+import { useTranslation } from "react-i18next";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,11 +12,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Settings2, Sun, Moon } from "lucide-react";
+import { Settings2, Globe, Sun, Moon } from "lucide-react";
 
 export function NavBar() {
   const pathname = usePathname();
   const { setTheme } = useTheme();
+  const { t, i18n } = useTranslation();
+
+  const handleLanguageChange = (value) => {
+    i18n.changeLanguage(value);
+  };
 
   if (pathname === "/login") {
     return null;
@@ -36,9 +42,21 @@ export function NavBar() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => setTheme("light")} className="text-sm">浅色</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("dark")} className="text-sm">深色</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("system")} className="text-sm">跟随系统</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("light")} className="text-sm">{t("theme.light")}</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("dark")} className="text-sm">{t("theme.dark")}</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("system")} className="text-sm">{t("theme.system")}</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="size-10">
+              <Globe className="size-5" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => handleLanguageChange("en")} className="text-sm">English</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => handleLanguageChange("zh")} className="text-sm">中文</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 

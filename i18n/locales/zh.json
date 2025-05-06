@@ -1,0 +1,51 @@
+{
+  "btn": {
+    "save": "保存",
+    "export": "导出",
+    "login": "登录",
+    "logout": "登出系统"
+  },
+  "theme": {
+    "light": "浅色",
+    "dark": "深色",
+    "system": "跟随系统"
+  },
+  "toast": {
+    "loading": "加载中...",
+    "error_user": "用户信息获取失败",
+    "error_config": "配置信息获取失败",
+    "save_config": "配置已保存",
+    "export_success": "导出成功"
+  },
+  "validate": {
+    "required": "请输入内容",
+    "username_2": "用户名至少需要2个字符",
+    "username_16": "用户名不能超过16个字符",
+    "password_6": "密码至少需要6个字符",
+    "password_24": "密码不能超过24个字符"
+  },
+  "login": {
+    "username": "用户名",
+    "password": "密码"
+  },
+  "home": {
+    "playing_platform": "正在游玩{{platform}}游戏",
+    "playing_time": "已游玩{{time}}分钟"
+  },
+  "settings": {
+    "login_first": "请先登录PSN账号",
+    "psn_account": "PSN账号",
+    "monitor_settings": "监控设置",
+    "monitor_interval": "刷新间隔",
+    "monitor_interval_1": "1分钟",
+    "monitor_interval_2": "2分钟",
+    "monitor_interval_3": "3分钟",
+    "monitor_interval_5": "5分钟",
+    "monitor_interval_10": "10分钟",
+    "user_info": "用户资料",
+    "username": "用户名",
+    "password": "新密码",
+    "password_placeholder": "请输入新密码",
+    "export": "记录导出"
+  }
+}
