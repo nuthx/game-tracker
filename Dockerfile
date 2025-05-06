@@ -32,7 +32,7 @@ RUN chown -R nextjs:nodejs /app/data
 # 复制构建文件
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-# COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 # 复制 Prisma 文件
 COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
