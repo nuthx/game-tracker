@@ -12,7 +12,6 @@ export async function GET(request) {
         npsso: `${user.npsso.slice(0, 4)}****${user.npsso.slice(-4)}`,
         onlineId: user.onlineId,
         accountId: user.accountId,
-        npId: user.npId,
         avatar: user.avatar,
         monitorId: user.monitorId,
         monitorInterval: user.monitorInterval

@@ -15,26 +15,23 @@ model User {
   npsso           String       @default("")
   onlineId        String       @default("")
   accountId       String       @default("")
-  npId            String       @default("")
   avatar          String       @default("")
   monitorId       String       @default("me")
   monitorInterval String       @default("1")
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
-  gameRecords     PsnRecord[]
 }
 
 // PSN游戏记录
 model PsnRecord {
-  id                Int      @id @default(autoincrement())
-  npTitleId         String
-  titleName         String
-  format            String
-  launchPlatform    String
-  conceptIconUrl    String
-  startAt           DateTime @default(now())
-  endAt             DateTime?
-  playTime          Int?
-  error             Int      @default(0)
-  user              User[]
+  id                Int        @id @default(autoincrement())
+  state             String
+  npTitleId         String     @default("")
+  titleName         String     @default("")
+  format            String     @default("")
+  launchPlatform    String     @default("")
+  conceptIconUrl    String     @default("")
+  startAt           DateTime   @default(now())
+  endAt             DateTime   @default(now())
+  playTime          Int        @default(0)
 }
