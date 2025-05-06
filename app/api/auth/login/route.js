@@ -1,26 +1,29 @@
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
-import { prisma } from "@/lib/prisma";
+import { prisma, initUser } from "@/lib/prisma";
 import { sendResponse } from "@/lib/http";
+import { startTask } from "@/lib/schedule";
 
 export async function POST(request) {
   try {
     const data = await request.json();
-    const user = await prisma.user.findUnique({ where: { username: data.username } });
+    let user = await prisma.user.findUnique({ where: { id: 1 } });
 
-    if (!user) {
-      return sendResponse(request, {
-        code: 401,
-        message: "用户不存在"
-      });
+    if (user) {
+      if (data.username !== user.username || data.password !== user.password) {
+        return sendResponse(request, {
+          code: 401,
+          message: "用户名或密码错误"
+        });
+      }
+    } else {
+      // Vercel: 用户不存在时创建默认用户
+      await initUser();
+      user = await prisma.user.findUnique({ where: { id: 1 } });
     }
 
-    if (user.password !== data.password) {
-      return sendResponse(request, {
-        code: 401,
-        message: "密码错误"
-      });
-    }
+    // Vercel: 启动任务
+    await startTask();
 
     // 创建JWT
     const token = jwt.sign(
@@ -43,6 +46,7 @@ export async function POST(request) {
 
     return sendResponse(request, {});
   } catch (error) {
+    console.error(error);
     return sendResponse(request, {
       code: 500,
       message: error.message
