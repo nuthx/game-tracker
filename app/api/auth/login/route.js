@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { prisma, initUser } from "@/lib/prisma";
 import { sendResponse } from "@/lib/http";
-import { startTask } from "@/lib/schedule";
 
 export async function POST(request) {
   try {
@@ -21,9 +20,6 @@ export async function POST(request) {
       await initUser();
       user = await prisma.user.findUnique({ where: { id: 1 } });
     }
-
-    // Vercel: 启动任务
-    await startTask();
 
     // 创建JWT
     const token = jwt.sign(
