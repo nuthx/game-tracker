@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import pkg from "@/package.json";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { API } from "@/lib/swr";
@@ -42,7 +43,10 @@ export default function Page() {
     <div className="flex items-center justify-center mt-20">
       <Card className="w-100">
         <CardContent className="flex flex-col items-center gap-10">
-          <Image src="/logo.svg" alt="ゲーム時計" className="mt-3" width={120} height={30} draggable="false"/>
+          <div className="flex flex-col items-center gap-3">
+            <Image src="/logo.svg" alt="ゲーム時計" className="mt-3" width={120} height={30} draggable="false"/>
+            <p className="text-sm text-muted-foreground">{pkg.version}</p>
+          </div>
           <Form {...loginForm}>
             <form onSubmit={loginForm.handleSubmit((values) => handleLogin(values))} className="w-full space-y-6" noValidate>
               <FormField control={loginForm.control} name="username" render={({ field }) => (
