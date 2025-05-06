@@ -66,7 +66,7 @@ export default function Page() {
     const result = await handleRequest("PATCH", API.CONFIG, values);
     if (result) {
       configMutate();
-      toast(t("settings.save_config"));
+      toast(t("toast.save_config"));
     }
   };
 
@@ -76,7 +76,7 @@ export default function Page() {
       const result = await handleRequest("PATCH", API.CONFIG, values);
       if (result) {
         configMutate();
-        toast(t("settings.save_config"));
+        toast(t("toast.save_config"));
       }
     } finally {
       setNpssoLoading(false);
@@ -95,7 +95,7 @@ export default function Page() {
       link.click();
 
       URL.revokeObjectURL(url);
-      toast(t("settings.export_success"));
+      toast(t("toast.export_success"));
     }
   };
 
