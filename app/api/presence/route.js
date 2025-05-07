@@ -6,6 +6,14 @@ import { sendResponse } from "@/lib/http";
 export async function GET(request) {
   try {
     const user = await prisma.user.findUnique({ where: { id: 1 } });
+
+    if (!user.npsso) {
+      return sendResponse(request, {
+        code: 400,
+        message: "请先登录PSN账号",
+      });
+    }
+
     const authorization = await getAuthorization();
     const presence = await getBasicPresence(authorization, user.monitorId);
 

@@ -13,6 +13,7 @@
   "toast": {
     "loading": "Loading...",
     "error_user": "Failed to retrieve user information",
+    "no_npsso": "Please log in to your PSN account first",
     "error_config": "Failed to load configuration",
     "save_config": "Settings saved",
     "export_success": "Export successful"
@@ -29,6 +30,7 @@
     "password": "Password"
   },
   "home": {
+    "user_offline": "User is offline",
     "playing_platform": "Playing on {{platform}}",
     "playing_time": "Played for {{time}} minutes"
   },

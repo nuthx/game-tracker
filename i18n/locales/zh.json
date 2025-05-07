@@ -13,6 +13,7 @@
   "toast": {
     "loading": "加载中...",
     "error_user": "用户信息获取失败",
+    "no_npsso": "请先登录PSN账号",
     "error_config": "配置信息获取失败",
     "save_config": "配置已保存",
     "export_success": "导出成功"
@@ -29,6 +30,7 @@
     "password": "密码"
   },
   "home": {
+    "user_offline": "用户已离线",
     "playing_platform": "正在游玩{{platform}}游戏",
     "playing_time": "已游玩{{time}}分钟"
   },

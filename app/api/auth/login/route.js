@@ -42,7 +42,6 @@ export async function POST(request) {
 
     return sendResponse(request, {});
   } catch (error) {
-    console.error(error);
     return sendResponse(request, {
       code: 500,
       message: error.message
