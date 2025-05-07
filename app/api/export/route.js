@@ -5,6 +5,7 @@ export async function GET(request) {
   try {
     const records = await prisma.psnRecord.findMany({
       select: {
+        state: true,
         npTitleId: true,
         titleName: true,
         format: true,
@@ -13,7 +14,6 @@ export async function GET(request) {
         startAt: true,
         endAt: true,
         playTime: true,
-        error: true,
       },
       orderBy: {
         startAt: "desc"
