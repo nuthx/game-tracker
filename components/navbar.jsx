@@ -12,7 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Settings2, Globe, Sun, Moon } from "lucide-react";
+import { Settings2, Languages, Sun, Moon } from "lucide-react";
 
 export function NavBar() {
   const pathname = usePathname();
@@ -51,7 +51,7 @@ export function NavBar() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="size-10">
-              <Globe className="size-5" />
+              <Languages className="size-5" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
