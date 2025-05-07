@@ -108,7 +108,7 @@ export default function Page() {
   };
 
   if (configLoading) {
-    return <div className="flex justify-center text-sm text-muted-foreground">{t("toast.loading")}</div>;
+    return <></>;
   }
 
   if (configError) {
