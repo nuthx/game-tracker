@@ -1,5 +1,5 @@
-import { prisma } from "@/lib/prisma";
-import { sendResponse } from "@/lib/http";
+import { prisma } from "@/lib/prisma"
+import { sendResponse } from "@/lib/http"
 
 export async function GET(request) {
   try {
@@ -13,18 +13,18 @@ export async function GET(request) {
         conceptIconUrl: true,
         startAt: true,
         endAt: true,
-        playTime: true,
+        playTime: true
       },
       orderBy: {
         startAt: "desc"
       }
-    });
+    })
 
-    return sendResponse(request, { data: records });
+    return sendResponse(request, { data: records })
   } catch (error) {
     return sendResponse(request, {
       code: 500,
       message: error.message
-    });
+    })
   }
 }
