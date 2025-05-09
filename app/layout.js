@@ -1,12 +1,12 @@
-import "@/app/globals.css";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { I18nWrapper } from "@/i18n/wrapper";
+import "@/app/globals.css"
+import { ThemeProvider as NextThemesProvider } from "next-themes"
+import { I18nWrapper } from "@/i18n/wrapper"
 import { Toaster } from "@/components/ui/sonner"
-import { NavBar } from "@/components/navbar";
+import { NavBar } from "@/components/navbar"
 
 export const metadata = {
-  title: "ゲーム時計",
-};
+  title: "ゲーム時計"
+}
 
 export default function RootLayout({ children }) {
   return (
@@ -23,5 +23,5 @@ export default function RootLayout({ children }) {
         </NextThemesProvider>
       </body>
     </html>
-  );
+  )
 }
