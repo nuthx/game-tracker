@@ -50,6 +50,7 @@ export default defineConfig([
       "@stylistic/brace-style": ["error", "1tbs"],
       "@stylistic/comma-dangle": ["error", "never"],
       "@stylistic/jsx-first-prop-new-line": ["error", "multiline"],
+      "@stylistic/jsx-one-expression-per-line": ["error", { allow: "non-jsx" }],
       "@stylistic/jsx-quotes": ["error", "prefer-double"],
       "@stylistic/multiline-ternary": ["error", "always-multiline"],
       "@stylistic/quotes": ["error", "double"]
