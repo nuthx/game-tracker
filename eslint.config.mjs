@@ -39,7 +39,11 @@ export default defineConfig([
   },
   {
     name: "me/react-hooks-rules",
-    plugins: { "react-hooks": reactHooks }
+    plugins: { "react-hooks": reactHooks },
+    rules: {
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn"
+    }
   },
   {
     name: "me/stylistic-rules",

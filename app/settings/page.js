@@ -60,7 +60,7 @@ export default function Page() {
       monitorForm.setValue("new_monitorInterval", configData.monitorInterval)
       userForm.setValue("new_username", configData.username)
     }
-  }, [configData])
+  }, [configData, monitorForm, userForm])
 
   const handleConfig = async (values) => {
     const result = await handleRequest("PATCH", API.CONFIG, values)
