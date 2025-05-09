@@ -1,4 +1,4 @@
-name: Build and Push to Docker Hub
+name: Build and Release
 
 on:
   workflow_dispatch:
@@ -30,3 +30,34 @@ jobs:
           docker buildx create --use
           docker buildx build --platform linux/amd64,linux/arm64 -t nuthx/game-tracker:latest . --push
           docker buildx build --platform linux/amd64,linux/arm64 -t nuthx/game-tracker:${{ github.ref_name }} . --push
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          draft: true
+          name: v${{ github.ref_name }}
+          body: |
+            ## New features
+            - New content
+            
+            ## Improvement
+            - Improvement content
+
+            ## Bug fixes
+            - Bug fixes content
+
+            ## 新增
+            - 新增内容
+            
+            ## 改进
+            - 改进内容
+
+            ## 修复
+            - 修复内容
