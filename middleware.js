@@ -28,7 +28,7 @@ async function verifyToken(token) {
     const secret = new TextEncoder().encode(process.env.JWT_SECRET)
     await jwtVerify(token.value, secret)
     return true
-  } catch (error) {
+  } catch {
     return false
   }
 }
