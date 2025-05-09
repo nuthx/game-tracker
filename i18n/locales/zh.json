@@ -32,10 +32,13 @@
   "home": {
     "user_offline": "用户已离线",
     "last_online": "最后在线时间",
+    "last_gaming": "最后游戏时间",
     "user_online": "{{platform}} 在线",
     "not_playing": "不在游戏中",
     "playing_platform": "正在游玩 {{platform}} 游戏",
-    "playing_time": "已游玩 {{time}} 分钟"
+    "playing_time": "已游玩 {{time}} 分钟",
+    "online": "用户在线",
+    "minutes": "分钟"
   },
   "settings": {
     "login_first": "请先登录 PSN 账号",

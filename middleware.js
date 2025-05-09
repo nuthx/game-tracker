@@ -38,6 +38,7 @@ export const config = {
     "/api/config",
     "/api/export",
     "/api/presence",
+    "/api/record",
 
     "/",
     "/settings",

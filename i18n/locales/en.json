@@ -32,10 +32,13 @@
   "home": {
     "user_offline": "User is offline",
     "last_online": "Last online",
+    "last_gaming": "Last gaming",
     "user_online": "Online on {{platform}}",
     "not_playing": "Not playing",
     "playing_platform": "Playing on {{platform}}",
-    "playing_time": "Played for {{time}} minutes"
+    "playing_time": "Played for {{time}} minutes",
+    "online": "User is online",
+    "minutes": "minutes"
   },
   "settings": {
     "login_first": "Please log in to your PSN account first",
