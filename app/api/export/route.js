@@ -3,7 +3,7 @@ import { sendResponse } from "@/lib/http"
 
 export async function GET(request) {
   try {
-    const records = await prisma.psnRecord.findMany({
+    const psnRecords = await prisma.psnRecord.findMany({
       select: {
         state: true,
         npTitleId: true,
@@ -20,7 +20,13 @@ export async function GET(request) {
       }
     })
 
-    return sendResponse(request, { data: records })
+    return sendResponse(request, {
+      data: {
+        recordVersion: "1.0",
+        recordDate: new Date().toLocaleString(),
+        psnRecords
+      }
+    })
   } catch (error) {
     return sendResponse(request, {
       code: 500,
