@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="image/logo.png" width=90%/ alt="ゲーム時計">
+  <img src="image/logo.png" width=98%/ alt="ゲーム時計">
   <br />
   <p align="center">
     <a href="./README.md">English</a>
