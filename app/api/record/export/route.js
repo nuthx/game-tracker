@@ -22,7 +22,7 @@ export async function GET(request) {
 
     return sendResponse(request, {
       data: {
-        recordVersion: "1.0",
+        recordVersion: "v1",
         recordDate: new Date().toLocaleString(),
         psnRecords
       }

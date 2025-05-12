@@ -36,7 +36,6 @@ async function verifyToken(token) {
 export const config = {
   matcher: [
     "/api/config",
-    "/api/export",
     "/api/presence",
     "/api/record",
 
