@@ -193,11 +193,12 @@ export default function Page() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="1">{t("settings.monitor_interval_1")}</SelectItem>
-                            <SelectItem value="2">{t("settings.monitor_interval_2")}</SelectItem>
-                            <SelectItem value="3">{t("settings.monitor_interval_3")}</SelectItem>
-                            <SelectItem value="5">{t("settings.monitor_interval_5")}</SelectItem>
-                            <SelectItem value="10">{t("settings.monitor_interval_10")}</SelectItem>
+                            <SelectItem value="2">2 {t("time.seconds")}</SelectItem>
+                            <SelectItem value="3">3 {t("time.seconds")}</SelectItem>
+                            <SelectItem value="5">5 {t("time.seconds")}</SelectItem>
+                            <SelectItem value="10">10 {t("time.seconds")}</SelectItem>
+                            <SelectItem value="30">30 {t("time.seconds")}</SelectItem>
+                            <SelectItem value="60">60 {t("time.seconds")}</SelectItem>
                           </SelectContent>
                         </Select>
                       </FormControl>

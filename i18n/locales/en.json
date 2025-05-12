@@ -25,6 +25,10 @@
     "password_6": "Password must be at least 6 characters",
     "password_24": "Password must be no more than 24 characters"
   },
+  "time": {
+    "minutes": "minutes",
+    "seconds": "seconds"
+  },
   "login": {
     "username": "Username",
     "password": "Password"
@@ -37,19 +41,13 @@
     "not_playing": "Not playing",
     "playing_platform": "Playing on {{platform}}",
     "playing_time": "Played for {{time}} minutes",
-    "online": "User is online",
-    "minutes": "minutes"
+    "online": "User is online"
   },
   "settings": {
     "login_first": "Please log in to your PSN account first",
     "psn_account": "PSN Account",
     "monitor_settings": "Monitoring Settings",
     "monitor_interval": "Refresh Interval",
-    "monitor_interval_1": "Every 1 minute",
-    "monitor_interval_2": "Every 2 minutes",
-    "monitor_interval_3": "Every 3 minutes",
-    "monitor_interval_5": "Every 5 minutes",
-    "monitor_interval_10": "Every 10 minutes",
     "user_info": "User Profile",
     "username": "Username",
     "password": "New Password",

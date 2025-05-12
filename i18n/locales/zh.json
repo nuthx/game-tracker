@@ -25,6 +25,10 @@
     "password_6": "密码至少需要 6 个字符",
     "password_24": "密码不能超过 24 个字符"
   },
+  "time": {
+    "minutes": "分钟",
+    "seconds": "秒"
+  },
   "login": {
     "username": "用户名",
     "password": "密码"
@@ -37,19 +41,13 @@
     "not_playing": "不在游戏中",
     "playing_platform": "正在游玩 {{platform}} 游戏",
     "playing_time": "已游玩 {{time}} 分钟",
-    "online": "用户在线",
-    "minutes": "分钟"
+    "online": "用户在线"
   },
   "settings": {
     "login_first": "请先登录 PSN 账号",
     "psn_account": "PSN 账号",
     "monitor_settings": "监控设置",
     "monitor_interval": "刷新间隔",
-    "monitor_interval_1": "1 分钟",
-    "monitor_interval_2": "2 分钟",
-    "monitor_interval_3": "3 分钟",
-    "monitor_interval_5": "5 分钟",
-    "monitor_interval_10": "10 分钟",
     "user_info": "用户资料",
     "username": "用户名",
     "password": "新密码",
