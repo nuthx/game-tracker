@@ -16,7 +16,7 @@ export async function GET(request) {
         playSeconds: true
       },
       orderBy: {
-        startAt: "desc"
+        endAt: "desc"
       }
     })
 

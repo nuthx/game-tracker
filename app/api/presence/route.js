@@ -21,7 +21,7 @@ export async function GET(request) {
     // 计算游戏时长
     let playSeconds = 0
     if (presence.basicPresence.gameTitleInfoList?.length) {
-      const lastRecord = await prisma.psnRecord.findFirst({ orderBy: { id: "desc" } })
+      const lastRecord = await prisma.psnRecord.findFirst({ orderBy: { endAt: "desc" } })
       playSeconds = lastRecord.playSeconds
     }
 

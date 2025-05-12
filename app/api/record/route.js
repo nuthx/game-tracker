@@ -15,7 +15,7 @@ export async function GET(request) {
         playSeconds: true
       },
       orderBy: {
-        id: "desc"
+        endAt: "desc"
       }
     })
 
