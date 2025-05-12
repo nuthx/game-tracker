@@ -2,6 +2,7 @@
   "btn": {
     "save": "Save",
     "export": "Export",
+    "import": "Import",
     "login": "Log In",
     "logout": "Log Out"
   },
@@ -16,7 +17,8 @@
     "no_npsso": "Please log in to your PSN account first",
     "error_config": "Failed to load configuration",
     "save_config": "Settings saved",
-    "export_success": "Export successful"
+    "export_success": "Export successful",
+    "import_success": "Import successful"
   },
   "validate": {
     "required": "This field is required",

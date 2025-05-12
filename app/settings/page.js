@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { useData, API } from "@/lib/swr"
 import { handleRequest } from "@/lib/http"
@@ -37,6 +37,7 @@ export default function Page() {
   const router = useRouter()
   const { t } = useTranslation()
   const [npssoLoading, setNpssoLoading] = useState(false)
+  const fileInputRef = useRef(null)
 
   const { data: configData, error: configError, isLoading: configLoading, mutate: configMutate } = useData(API.CONFIG)
 
@@ -97,6 +98,19 @@ export default function Page() {
       URL.revokeObjectURL(url)
       toast(t("toast.export_success"))
     }
+  }
+
+  const handleImport = async (event) => {
+    const file = event.target.files[0]
+    if (!file) return
+
+    const formData = new FormData()
+    formData.append("file", file)
+    const result = await handleRequest("POST", API.IMPORT, formData, "formData")
+    if (result) {
+      toast(t("toast.import_success"))
+    }
+    event.target.value = "" // 重置文件选择器
   }
 
   const handleLogout = async () => {
@@ -252,8 +266,12 @@ export default function Page() {
           <CardHeader className="gap-0">
             <CardTitle>{t("settings.export")}</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex flex-row gap-3">
             <Button onClick={handleExport}>{t("btn.export")}</Button>
+            <div className="relative">
+              <Input type="file" accept=".json" className="hidden" ref={fileInputRef} onChange={handleImport} />
+              <Button onClick={() => fileInputRef.current?.click()}>{t("btn.import")}</Button>
+            </div>
           </CardContent>
         </Card>
       </div>

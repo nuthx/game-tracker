@@ -2,6 +2,7 @@
   "btn": {
     "save": "保存",
     "export": "导出",
+    "import": "导入",
     "login": "登录",
     "logout": "登出系统"
   },
@@ -16,7 +17,8 @@
     "no_npsso": "请先登录 PSN 账号",
     "error_config": "配置信息获取失败",
     "save_config": "配置已保存",
-    "export_success": "导出成功"
+    "export_success": "导出成功",
+    "import_success": "导入成功"
   },
   "validate": {
     "required": "请输入内容",
