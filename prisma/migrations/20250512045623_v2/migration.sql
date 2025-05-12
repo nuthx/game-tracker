@@ -1,5 +1,5 @@
 /*
-  1. monitorInterval默认值从1改为3
+  1. monitorInterval默认值从1改为10
   2. 将playTime转换为playSeconds，且值*60
 */
 
@@ -19,7 +19,7 @@ CREATE TABLE "new_PsnRecord" (
     "playSeconds" INTEGER NOT NULL DEFAULT 0
 );
 INSERT INTO "new_PsnRecord" ("conceptIconUrl", "endAt", "format", "id", "launchPlatform", "npTitleId", "startAt", "state", "titleName", "playSeconds") 
-SELECT "conceptIconUrl", "endAt", "format", "id", "launchPlatform", "npTitleId", "startAt", "state", "titleName", "playTime * 60" 
+SELECT "conceptIconUrl", "endAt", "format", "id", "launchPlatform", "npTitleId", "startAt", "state", "titleName", CAST("playTime" AS INTEGER) * 60 
 FROM "PsnRecord";
 DROP TABLE "PsnRecord";
 ALTER TABLE "new_PsnRecord" RENAME TO "PsnRecord";
@@ -32,7 +32,7 @@ CREATE TABLE "new_User" (
     "accountId" TEXT NOT NULL DEFAULT '',
     "avatar" TEXT NOT NULL DEFAULT '',
     "monitorId" TEXT NOT NULL DEFAULT 'me',
-    "monitorInterval" TEXT NOT NULL DEFAULT '3',
+    "monitorInterval" TEXT NOT NULL DEFAULT '10',
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL
 );
