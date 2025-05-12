@@ -1,8 +1,6 @@
-<h1 align="center">ゲーム時計</h1>
-
 <p align="center">
+  <img src="image/logo.png" width=90%/ alt="ゲーム時計">
   <br />
-  <p align="center">Track and record your PSN gaming time.</p>
   <p align="center">
     English |
     <a href="./README.zh.md">中文</a>
