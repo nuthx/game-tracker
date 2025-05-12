@@ -107,8 +107,9 @@ export default function Page() {
     const formData = new FormData()
     formData.append("file", file)
     const result = await handleRequest("POST", API.IMPORT, formData, "formData")
+    console.log(result)
     if (result) {
-      toast(t("toast.import_success"))
+      toast(t("toast.import_success", { success: result.data.success, skipped: result.data.skipped, failed: result.data.failed }))
     }
     event.target.value = "" // 重置文件选择器
   }
