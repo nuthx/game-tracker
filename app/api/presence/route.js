@@ -2,6 +2,7 @@ import { getBasicPresence } from "psn-api"
 import { prisma } from "@/lib/prisma"
 import { getAuthorization } from "@/lib/auth"
 import { sendResponse } from "@/lib/http"
+import { tf } from "@/lib/utils"
 
 export async function GET(request) {
   try {
@@ -18,21 +19,17 @@ export async function GET(request) {
     const presence = await getBasicPresence(authorization, user.monitorId)
 
     // 计算游戏时长
-    let gameTime = 0
+    let playSeconds = 0
     if (presence.basicPresence.gameTitleInfoList?.length) {
-      const lastGame = await prisma.psnRecord.findFirst({
-        where: {
-          endAt: null,
-          user: { some: { id: user.id } }
-        }
-      })
-      gameTime = Math.floor((new Date() - new Date(lastGame.startAt)) / 1000 / 60)
+      const lastRecord = await prisma.psnRecord.findFirst({ orderBy: { id: "desc" } })
+      playSeconds = lastRecord.playSeconds
     }
 
     return sendResponse(request, {
       data: {
         ...presence.basicPresence,
-        gameTime
+        playSeconds,
+        playTime: tf(playSeconds)
       }
     })
   } catch (error) {

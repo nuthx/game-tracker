@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import { sendResponse } from "@/lib/http"
+import { tf } from "@/lib/utils"
 
 export async function GET(request) {
   try {
@@ -11,7 +12,7 @@ export async function GET(request) {
         conceptIconUrl: true,
         startAt: true,
         endAt: true,
-        playTime: true
+        playSeconds: true
       },
       orderBy: {
         id: "desc"
@@ -19,7 +20,10 @@ export async function GET(request) {
     })
 
     return sendResponse(request, {
-      data: records
+      data: records.map((record) => ({
+        ...record,
+        playTime: tf(record.playSeconds)
+      }))
     })
   } catch (error) {
     return sendResponse(request, {

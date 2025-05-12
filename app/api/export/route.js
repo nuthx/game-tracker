@@ -13,7 +13,7 @@ export async function GET(request) {
         conceptIconUrl: true,
         startAt: true,
         endAt: true,
-        playTime: true
+        playSeconds: true
       },
       orderBy: {
         startAt: "desc"

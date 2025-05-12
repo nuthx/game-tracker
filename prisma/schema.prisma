@@ -33,5 +33,5 @@ model PsnRecord {
   conceptIconUrl    String     @default("")
   startAt           DateTime   @default(now())
   endAt             DateTime   @default(now())
-  playTime          Int        @default(0)
+  playSeconds       Int        @default(0)
 }

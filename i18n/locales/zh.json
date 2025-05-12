@@ -40,7 +40,7 @@
     "user_online": "{{platform}} 在线",
     "not_playing": "不在游戏中",
     "playing_platform": "正在游玩 {{platform}} 游戏",
-    "playing_time": "已游玩 {{time}} 分钟",
+    "playing_time": "已游玩",
     "online": "用户在线"
   },
   "settings": {

@@ -48,7 +48,7 @@ export default function Page() {
                   <div className="flex flex-col gap-1.5">
                     <p className="text-sm text-muted-foreground">{t("home.playing_platform", { platform: presenceData.primaryPlatformInfo.platform.toUpperCase() })}</p>
                     <p className="font-bold">{presenceData.gameTitleInfoList[0].titleName}</p>
-                    <p className="text-sm text-muted-foreground">{t("home.playing_time", { time: presenceData.gameTime })}</p>
+                    <p className="text-sm text-muted-foreground">{t("home.playing_time")} {presenceData.playTime.minutes > 0 ? `${presenceData.playTime.minutes} ${t("time.minutes")} ` : ""}{presenceData.playTime.seconds} {t("time.seconds")}</p>
                   </div>
                 )
               : (
@@ -82,7 +82,11 @@ function GamingRecord({ record }) {
       <Image src={record.conceptIconUrl} alt={record.titleName} className="rounded-sm object-cover size-14" width={64} height={64} priority draggable="false" />
       <div className="flex flex-col gap-1.5">
         <p className="text-sm font-bold">[{record.launchPlatform}] {record.titleName}</p>
-        <p className="text-sm text-muted-foreground">{t("home.last_gaming")}: {new Date(record.endAt).toLocaleString()} [{record.playTime} {t("home.minutes")}]</p>
+        <p className="text-sm text-muted-foreground">
+          {t("home.last_gaming")}: {new Date(record.endAt).toLocaleString()} [
+          {record.playTime.minutes > 0 ? `${record.playTime.minutes} ${t("time.minutes")} ` : ""}
+          {record.playTime.seconds} {t("time.seconds")}]
+        </p>
       </div>
     </div>
   )
@@ -96,7 +100,11 @@ function OnlineRecord({ record }) {
       <div className="size-14 bg-muted rounded-sm"></div>
       <div className="flex flex-col gap-1.5">
         <p className="text-sm font-bold">{t("home.online")}</p>
-        <p className="text-sm text-muted-foreground">{t("home.last_online")}: {new Date(record.endAt).toLocaleString()} [{record.playTime} {t("home.minutes")}]</p>
+        <p className="text-sm text-muted-foreground">
+          {t("home.last_online")}: {new Date(record.endAt).toLocaleString()} [
+          {record.playTime.minutes > 0 ? `${record.playTime.minutes} ${t("time.minutes")} ` : ""}
+          {record.playTime.seconds} {t("time.seconds")}]
+        </p>
       </div>
     </div>
   )
