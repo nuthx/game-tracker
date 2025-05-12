@@ -193,10 +193,9 @@ export default function Page() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="2">2 {t("time.seconds")}</SelectItem>
-                            <SelectItem value="3">3 {t("time.seconds")}</SelectItem>
                             <SelectItem value="5">5 {t("time.seconds")}</SelectItem>
                             <SelectItem value="10">10 {t("time.seconds")}</SelectItem>
+                            <SelectItem value="20">20 {t("time.seconds")}</SelectItem>
                             <SelectItem value="30">30 {t("time.seconds")}</SelectItem>
                             <SelectItem value="60">60 {t("time.seconds")}</SelectItem>
                           </SelectContent>
