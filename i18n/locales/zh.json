@@ -64,7 +64,7 @@
       "export_json": "导出为 JSON",
       "delete": "删除记录",
       "delete_all": "删除所有记录",
-      "delete_dialog": "确定要删除所有记录吗？删除后记录不可恢复。"
+      "delete_dialog": "游戏记录删除后不可恢复。若要继续，请在下方输入 DELETE"
     }
   }
 }

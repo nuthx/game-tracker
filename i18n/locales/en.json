@@ -64,7 +64,7 @@
       "export_json": "Export as JSON",
       "delete": "Delete Record",
       "delete_all": "Delete All Records",
-      "delete_dialog": "Are you sure to delete all records? This action cannot be undone."
+      "delete_dialog": "Game records cannot be recovered after deletion. To continue, please enter DELETE in the input box."
     }
   }
 }

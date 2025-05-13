@@ -48,6 +48,7 @@ export default function Page() {
   const router = useRouter()
   const { t } = useTranslation()
   const [npssoLoading, setNpssoLoading] = useState(false)
+  const [deleteConfirmText, setDeleteConfirmText] = useState("")
   const fileInputRef = useRef(null)
 
   const { data: configData, error: configError, isLoading: configLoading, mutate: configMutate } = useData(API.CONFIG)
@@ -322,9 +323,18 @@ export default function Page() {
                     <AlertDialogTitle>{t("settings.record.delete_all")}</AlertDialogTitle>
                     <AlertDialogDescription>{t("settings.record.delete_dialog")}</AlertDialogDescription>
                   </AlertDialogHeader>
+                  <Input
+                    type="text"
+                    className="w-full mb-2"
+                    placeholder="DELETE"
+                    value={deleteConfirmText}
+                    onChange={(e) => setDeleteConfirmText(e.target.value)}
+                  />
                   <AlertDialogFooter>
-                    <AlertDialogCancel>{t("btn.cancel")}</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleDelete}>{t("btn.delete")}</AlertDialogAction>
+                    <AlertDialogCancel onClick={() => setDeleteConfirmText("")}>{t("btn.cancel")}</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleDelete} disabled={deleteConfirmText !== "DELETE"}>
+                      {t("btn.delete")}
+                    </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
