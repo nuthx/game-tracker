@@ -22,13 +22,15 @@ export async function GET(request) {
 
     return sendResponse(request, {
       data: {
-        recordVersion: "v1",
-        recordDate: new Date().toLocaleString(),
-        psnRecords
+        version: "v1",
+        date: new Date().toLocaleString(),
         count: {
           total: psnRecords.length,
           psn: psnRecords.length
         },
+        records: {
+          psn: psnRecords
+        }
       }
     })
   } catch (error) {

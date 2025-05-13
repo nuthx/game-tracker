@@ -17,7 +17,7 @@ export async function POST(request) {
 
     // 根据JSON版本使用不同的导入规则
     let importResult = { success: 0, skipped: 0, failed: 0 }
-    if (jsonData.recordVersion === "v1") {
+    if (jsonData.version === "v1") {
       importResult = await importRecordV1(jsonData)
     } else {
       throw { code: 400, message: "JSON记录文件的版本错误" }
@@ -36,7 +36,7 @@ export async function POST(request) {
 
 async function importRecordV1(jsonData) {
   try {
-    const records = jsonData.psnRecords
+    const records = jsonData.records.psn
     const result = { success: 0, skipped: 0, failed: 0 }
 
     for (const record of records) {
