@@ -121,7 +121,7 @@ export default function Page() {
       link.click()
 
       URL.revokeObjectURL(url)
-      toast(t("toast.export_success"))
+      toast(t("toast.export_success", { count: result.data.count.total }))
     }
   }
 

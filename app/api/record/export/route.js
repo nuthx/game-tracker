@@ -25,6 +25,10 @@ export async function GET(request) {
         recordVersion: "v1",
         recordDate: new Date().toLocaleString(),
         psnRecords
+        count: {
+          total: psnRecords.length,
+          psn: psnRecords.length
+        },
       }
     })
   } catch (error) {
