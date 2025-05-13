@@ -46,17 +46,17 @@ async function importRecordV1(jsonData) {
             OR: [
               // 条件1: startAt和endAt都相同
               {
-                startAt: new Date(Number(record.startAt)),
-                endAt: new Date(Number(record.endAt))
+                startAt: new Date(record.startAt),
+                endAt: new Date(record.endAt)
               },
               // 条件2: startAt和npTitleId都相同
               {
-                startAt: new Date(Number(record.startAt)),
+                startAt: new Date(record.startAt),
                 npTitleId: record.npTitleId
               },
               // 条件3: endAt和npTitleId都相同
               {
-                endAt: new Date(Number(record.endAt)),
+                endAt: new Date(record.endAt),
                 npTitleId: record.npTitleId
               }
             ]
@@ -78,8 +78,8 @@ async function importRecordV1(jsonData) {
             format: record.format,
             launchPlatform: record.launchPlatform,
             conceptIconUrl: record.conceptIconUrl,
-            startAt: new Date(Number(record.startAt)),
-            endAt: new Date(Number(record.endAt)),
+            startAt: new Date(record.startAt),
+            endAt: new Date(record.endAt),
             playSeconds: record.playSeconds
           }
         })
