@@ -9,6 +9,17 @@ import { useData, API } from "@/lib/swr"
 import { handleRequest } from "@/lib/http"
 import { createForm } from "@/lib/form"
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from "@/components/ui/alert-dialog"
+import {
   Card,
   CardContent,
   CardHeader,
@@ -31,7 +42,7 @@ import {
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Loader2 } from "lucide-react"
+import { Loader2, FileDown, FileUp, Trash2 } from "lucide-react"
 
 export default function Page() {
   const router = useRouter()
@@ -84,6 +95,20 @@ export default function Page() {
     }
   }
 
+  const handleImport = async (event) => {
+    const file = event.target.files[0]
+    if (!file) return
+
+    const formData = new FormData()
+    formData.append("file", file)
+    const result = await handleRequest("POST", API.IMPORT_GT, formData, "formData")
+    console.log(result)
+    if (result) {
+      toast(t("toast.import_success", { success: result.data.success, skipped: result.data.skipped, failed: result.data.failed }))
+    }
+    event.target.value = "" // 重置文件选择器
+  }
+
   const handleExport = async () => {
     const result = await handleRequest("GET", API.EXPORT)
     if (result) {
@@ -92,7 +117,7 @@ export default function Page() {
 
       const link = document.createElement("a")
       link.href = url
-      link.download = "export.json"
+      link.download = "gt-export.json"
       link.click()
 
       URL.revokeObjectURL(url)
@@ -100,18 +125,11 @@ export default function Page() {
     }
   }
 
-  const handleImport = async (event) => {
-    const file = event.target.files[0]
-    if (!file) return
-
-    const formData = new FormData()
-    formData.append("file", file)
-    const result = await handleRequest("POST", API.IMPORT, formData, "formData")
-    console.log(result)
+  const handleDelete = async () => {
+    const result = await handleRequest("DELETE", API.DELETE_ALL)
     if (result) {
-      toast(t("toast.import_success", { success: result.data.success, skipped: result.data.skipped, failed: result.data.failed }))
+      toast(t("toast.delete_success", { count: result.data.count }))
     }
-    event.target.value = "" // 重置文件选择器
   }
 
   const handleLogout = async () => {
@@ -265,13 +283,51 @@ export default function Page() {
         </Card>
         <Card>
           <CardHeader className="gap-0">
-            <CardTitle>{t("settings.export")}</CardTitle>
+            <CardTitle>{t("settings.record.title")}</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-row gap-3">
-            <Button onClick={handleExport}>{t("btn.export")}</Button>
-            <div className="relative">
-              <Input type="file" accept=".json" className="hidden" ref={fileInputRef} onChange={handleImport} />
-              <Button onClick={() => fileInputRef.current?.click()}>{t("btn.import")}</Button>
+          <CardContent className="flex flex-col gap-6">
+            <div className="flex flex-col gap-3">
+              <p className="text-sm font-medium">{t("settings.record.import")}</p>
+              <div className="flex flex-row gap-3">
+                <Input type="file" accept=".json" className="hidden" ref={fileInputRef} onChange={handleImport} />
+                <Button variant="outline" className="w-fit" onClick={() => fileInputRef.current?.click()}>
+                  <FileUp />
+                  {t("settings.record.import_gt")}
+                </Button>
+                <Input type="file" accept=".json" className="hidden" ref={fileInputRef} onChange={handleImport} />
+                <Button variant="outline" className="w-fit" onClick={() => fileInputRef.current?.click()}>
+                  <FileUp />
+                  {t("settings.record.import_nx")}
+                </Button>
+              </div>
+            </div>
+            <div className="flex flex-col gap-3">
+              <p className="text-sm font-medium">{t("settings.record.export")}</p>
+              <Button variant="outline" onClick={handleExport} className="w-fit">
+                <FileDown />
+                {t("settings.record.export_json")}
+              </Button>
+            </div>
+            <div className="flex flex-col gap-3">
+              <p className="text-sm font-medium">{t("settings.record.delete")}</p>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="outline" className="w-fit hover:border-destructive/30 hover:bg-destructive/10 hover:text-destructive">
+                    <Trash2 />
+                    {t("settings.record.delete_all")}
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>{t("settings.record.delete_all")}</AlertDialogTitle>
+                    <AlertDialogDescription>{t("settings.record.delete_dialog")}</AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>{t("btn.cancel")}</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleDelete}>{t("btn.delete")}</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           </CardContent>
         </Card>

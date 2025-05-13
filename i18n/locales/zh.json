@@ -1,8 +1,8 @@
 {
   "btn": {
     "save": "保存",
-    "export": "导出",
-    "import": "导入",
+    "cancel": "取消",
+    "delete": "删除",
     "login": "登录",
     "logout": "登出系统"
   },
@@ -17,8 +17,9 @@
     "no_npsso": "请先登录 PSN 账号",
     "error_config": "配置信息获取失败",
     "save_config": "配置已保存",
+    "import_success": "导入完成，新增 {{success}} 条，跳过 {{skipped}} 条，失败 {{failed}} 条",
     "export_success": "导出成功",
-    "import_success": "导入完成，新增 {{success}} 条，跳过 {{skipped}} 条，失败 {{failed}} 条"
+    "delete_success": "已删除 {{count}} 条记录"
   },
   "validate": {
     "required": "请输入内容",
@@ -54,6 +55,16 @@
     "username": "用户名",
     "password": "新密码",
     "password_placeholder": "请输入新密码",
-    "export": "记录导出"
+    "record": {
+      "title": "记录管理",
+      "import": "导入记录",
+      "import_gt": "ゲーム時計",
+      "import_nx": "NX-Activity-Log",
+      "export": "导出记录",
+      "export_json": "导出为 JSON",
+      "delete": "删除记录",
+      "delete_all": "删除所有记录",
+      "delete_dialog": "确定要删除所有记录吗？删除后记录不可恢复。"
+    }
   }
 }
