@@ -3,9 +3,13 @@ import { sendResponse } from "@/lib/http"
 
 export async function DELETE(request) {
   try {
-    await prisma.psnRecord.deleteMany({})
+    const result = await prisma.psnRecord.deleteMany({})
 
-    return sendResponse(request, {})
+    return sendResponse(request, {
+      data: {
+        count: result.count
+      }
+    })
   } catch (error) {
     return sendResponse(request, {
       code: error.code || 500,
