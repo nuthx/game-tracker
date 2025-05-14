@@ -78,9 +78,11 @@ export default function Page() {
 
   const handleConfig = async (values) => {
     const result = await handleRequest("PATCH", API.CONFIG, values)
-    if (result) {
+    if (result.ok) {
       configMutate()
       toast(t("toast.save_config"))
+    } else {
+      toast.error(`[${result.code}] ${result.message}`)
     }
   }
 
@@ -88,9 +90,11 @@ export default function Page() {
     try {
       setNpssoLoading(true)
       const result = await handleRequest("PATCH", API.CONFIG, values)
-      if (result) {
+      if (result.ok) {
         configMutate()
         toast(t("toast.save_config"))
+      } else {
+        toast.error(`[${result.code}] ${result.message}`)
       }
     } finally {
       setNpssoLoading(false)
@@ -99,7 +103,7 @@ export default function Page() {
 
   const handleExport = async () => {
     const result = await handleRequest("GET", API.EXPORT)
-    if (result) {
+    if (result.ok) {
       const blob = new Blob([JSON.stringify(result.data, null, 2)], { type: "application/json" })
       const url = URL.createObjectURL(blob)
 
@@ -110,21 +114,27 @@ export default function Page() {
 
       URL.revokeObjectURL(url)
       toast(t("toast.export_success", { count: result.data.count.total }))
+    } else {
+      toast.error(`[${result.code}] ${result.message}`)
     }
   }
 
   const handleDelete = async () => {
     const result = await handleRequest("DELETE", API.DELETE_ALL)
-    if (result) {
+    if (result.ok) {
       toast(t("toast.delete_success", { count: result.data.count }))
+    } else {
+      toast.error(`[${result.code}] ${result.message}`)
     }
   }
 
   const handleLogout = async () => {
     const result = await handleRequest("DELETE", API.LOGOUT)
-    if (result) {
+    if (result.ok) {
       router.push("/login")
       router.refresh()
+    } else {
+      toast.error(`[${result.code}] ${result.message}`)
     }
   }
 
