@@ -3,33 +3,21 @@ import { sendResponse } from "@/lib/http/response"
 
 export async function GET(request) {
   try {
-    const psnRecords = await prisma.psnRecord.findMany({
-      select: {
-        state: true,
-        npTitleId: true,
-        titleName: true,
-        format: true,
-        launchPlatform: true,
-        conceptIconUrl: true,
-        startAt: true,
-        endAt: true,
-        playSeconds: true
-      },
-      orderBy: {
-        endAt: "desc"
-      }
-    })
+    const psnRecords = await prisma.psnRecord.findMany({ orderBy: { endAt: "desc" } })
+    const nxRecords = await prisma.nxRecord.findMany({ orderBy: { endAt: "desc" } })
 
     return sendResponse(request, {
       data: {
         version: "v1",
         date: new Date().toLocaleString(),
         count: {
-          total: psnRecords.length,
-          psn: psnRecords.length
+          total: psnRecords.length + nxRecords.length,
+          psn: psnRecords.length,
+          nx: nxRecords.length
         },
         records: {
-          psn: psnRecords
+          psn: psnRecords,
+          nx: nxRecords
         }
       }
     })
