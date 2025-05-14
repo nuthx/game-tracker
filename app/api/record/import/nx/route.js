@@ -64,11 +64,13 @@ export async function POST(request) {
           }
         })
 
+        // 如果存在重复记录，则跳过
         if (existingRecord) {
           importResult.skipped++
           continue
         }
 
+        // 创建新记录
         await prisma.nxRecord.create({ data: record })
         importResult.success++
       } catch (error) {

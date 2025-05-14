@@ -61,19 +61,7 @@ async function importRecordV1(jsonData) {
         }
 
         // 创建新记录
-        await prisma.psnRecord.create({
-          data: {
-            state: record.state,
-            npTitleId: record.npTitleId,
-            titleName: record.titleName,
-            format: record.format,
-            launchPlatform: record.launchPlatform,
-            conceptIconUrl: record.conceptIconUrl,
-            startAt: new Date(record.startAt),
-            endAt: new Date(record.endAt),
-            playSeconds: record.playSeconds
-          }
-        })
+        await prisma.psnRecord.create({ data: record })
         result.success++
       } catch (recordError) {
         result.failed++
