@@ -8,6 +8,7 @@ import { handleRequest } from "@/lib/http/request"
 import { readFileAsJson } from "@/lib/file"
 import {
   AlertDialog,
+  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -15,6 +16,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from "@/components/ui/alert-dialog"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { FileUp } from "lucide-react"
@@ -60,6 +68,7 @@ export function ImportNx() {
   const fileInputRef = useRef(null)
   const [open, setOpen] = useState(false)
   const [users, setUsers] = useState([])
+  const [selectedUserId, setSelectedUserId] = useState("")
   const [jsonData, setJsonData] = useState(null)
 
   const handleUserSelect = async (event) => {
@@ -79,14 +88,15 @@ export function ImportNx() {
     if (fileData.data.users && fileData.data.users.length > 0) {
       setJsonData(fileData)
       setUsers(fileData.data.users)
+      setSelectedUserId(fileData.data.users[0].id)
       setOpen(true)
     } else {
       toast.error(t("toast.read_error"))
     }
   }
 
-  const handleImport = async (userId) => {
-    const result = await handleRequest("POST", `${API.IMPORT_NX}?userId=${userId}`, jsonData.data)
+  const handleImport = async () => {
+    const result = await handleRequest("POST", `${API.IMPORT_NX}?userId=${selectedUserId}`, jsonData.data)
     if (result.ok) {
       toast(t("toast.import_success", { success: result.data.success, skipped: result.data.skipped, failed: result.data.failed }))
     } else {
@@ -109,16 +119,24 @@ export function ImportNx() {
             <AlertDialogTitle>{t("settings.record.import_nx")}</AlertDialogTitle>
             <AlertDialogDescription>{t("settings.record.import_nx_dialog")}</AlertDialogDescription>
           </AlertDialogHeader>
-          <div className="flex flex-col gap-2 mb-2">
-            {users.map((user) => (
-              <Button key={user.id} variant="outline" onClick={() => handleImport(user.id)}>
-                {user.name}
-                <span className="text-xs text-muted-foreground">({user.id})</span>
-              </Button>
-            ))}
-          </div>
+          <Select value={selectedUserId} onValueChange={setSelectedUserId}>
+            <SelectTrigger className="w-full mb-2">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {users.map((user) => (
+                <SelectItem key={user.id} value={user.id}>
+                  {user.name}
+                  <span className="text-xs text-muted-foreground">({user.id})</span>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <AlertDialogFooter>
             <AlertDialogCancel>{t("btn.cancel")}</AlertDialogCancel>
+            <AlertDialogAction onClick={handleImport} disabled={!selectedUserId}>
+              {t("btn.import")}
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

@@ -4,7 +4,8 @@
     "cancel": "Cancel",
     "delete": "Delete",
     "login": "Log In",
-    "logout": "Log Out"
+    "logout": "Log Out",
+    "import": "Import"
   },
   "theme": {
     "light": "Light",
@@ -59,11 +60,11 @@
     "record": {
       "title": "Record Management",
       "import": "Import Record",
-      "import_gt": "ゲーム時計",
-      "import_nx": "NX-Activity-Log",
-      "import_nx_dialog": "Please select the username to be imported",
+      "import_gt": "Import Backup Record",
+      "import_nx": "Import Switch Record",
+      "import_nx_dialog": "Multiple user game records exist, please select one user to continue importing.",
       "export": "Export Record",
-      "export_json": "Export as JSON",
+      "export_json": "Export Backup Record",
       "delete": "Delete Record",
       "delete_all": "Delete All Records",
       "delete_dialog": "Game records cannot be recovered after deletion. To continue, please enter DELETE in the input box."
