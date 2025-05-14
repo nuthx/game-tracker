@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import { startTask } from "@/lib/schedule"
-import { sendResponse } from "@/lib/http"
+import { sendResponse } from "@/lib/http/response"
 import { updateNpsso } from "@/lib/update"
 
 export async function GET(request) {

@@ -1,7 +1,7 @@
 import { getBasicPresence } from "psn-api"
 import { prisma } from "@/lib/prisma"
 import { getAuthorization } from "@/lib/auth"
-import { sendResponse } from "@/lib/http"
+import { sendResponse } from "@/lib/http/response"
 import { tf } from "@/lib/utils"
 
 export async function GET(request) {

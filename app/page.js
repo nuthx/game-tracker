@@ -2,7 +2,8 @@
 
 import Image from "next/image"
 import { useTranslation } from "react-i18next"
-import { useData, API } from "@/lib/swr"
+import { API } from "@/lib/http/api"
+import { useData } from "@/lib/http/swr"
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 

@@ -1,5 +1,5 @@
 import { cookies } from "next/headers"
-import { sendResponse } from "@/lib/http"
+import { sendResponse } from "@/lib/http/response"
 
 export async function DELETE(request) {
   try {

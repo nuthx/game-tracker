@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma"
-import { sendResponse } from "@/lib/http"
+import { sendResponse } from "@/lib/http/response"
 
 export async function DELETE(request) {
   try {

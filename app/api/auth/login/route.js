@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken"
 import { cookies } from "next/headers"
 import { prisma, initUser } from "@/lib/prisma"
-import { sendResponse } from "@/lib/http"
+import { sendResponse } from "@/lib/http/response"
 
 export async function POST(request) {
   try {

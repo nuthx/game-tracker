@@ -4,8 +4,8 @@ import Image from "next/image"
 import pkg from "@/package.json"
 import { useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
-import { API } from "@/lib/swr"
-import { handleRequest } from "@/lib/http"
+import { API } from "@/lib/http/api"
+import { handleRequest } from "@/lib/http/request"
 import { createForm } from "@/lib/form"
 import {
   Card,

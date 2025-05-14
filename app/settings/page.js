@@ -5,8 +5,9 @@ import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { useData, API } from "@/lib/swr"
-import { handleRequest } from "@/lib/http"
+import { API } from "@/lib/http/api"
+import { useData } from "@/lib/http/swr"
+import { handleRequest } from "@/lib/http/request"
 import { createForm } from "@/lib/form"
 import {
   AlertDialog,
