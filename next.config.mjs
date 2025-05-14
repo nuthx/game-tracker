@@ -18,6 +18,14 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "**.playstation.net"
+      },
+      {
+        protocol: "http",
+        hostname: "tinfoil.media"
+      },
+      {
+        protocol: "https",
+        hostname: "tinfoil.media"
       }
     ]
   }
