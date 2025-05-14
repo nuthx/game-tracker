@@ -23,6 +23,7 @@ export default defineConfig([
   },
   {
     name: "me/react-rules",
+    files: ["**/*.{js,jsx}"],
     plugins: { react: reactPlugin },
     extends: [
       reactPlugin.configs.flat.recommended,
@@ -39,6 +40,7 @@ export default defineConfig([
   },
   {
     name: "me/react-hooks-rules",
+    files: ["**/*.{js,jsx}"],
     plugins: { "react-hooks": reactHooks },
     rules: {
       "react-hooks/rules-of-hooks": "error",
@@ -47,6 +49,7 @@ export default defineConfig([
   },
   {
     name: "me/stylistic-rules",
+    files: ["**/*.{js,jsx}"],
     plugins: { "@stylistic": stylistic },
     extends: [stylistic.configs.recommended],
     rules: {
