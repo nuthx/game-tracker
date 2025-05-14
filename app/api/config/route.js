@@ -19,7 +19,7 @@ export async function GET(request) {
     })
   } catch (error) {
     return sendResponse(request, {
-      code: 500,
+      code: error.code || 500,
       message: error.message
     })
   }
@@ -65,7 +65,7 @@ export async function PATCH(request) {
     return sendResponse(request, {})
   } catch (error) {
     return sendResponse(request, {
-      code: 500,
+      code: error.code || 500,
       message: error.message
     })
   }

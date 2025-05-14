@@ -9,10 +9,7 @@ export async function GET(request) {
     const user = await prisma.user.findUnique({ where: { id: 1 } })
 
     if (!user.npsso) {
-      return sendResponse(request, {
-        code: 400,
-        message: "请先登录PSN账号"
-      })
+      throw { code: 400, message: "请先登录PSN账号" }
     }
 
     const authorization = await getAuthorization()
@@ -34,7 +31,7 @@ export async function GET(request) {
     })
   } catch (error) {
     return sendResponse(request, {
-      code: 500,
+      code: error.code || 500,
       message: error.message
     })
   }
