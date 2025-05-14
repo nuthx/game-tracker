@@ -35,3 +35,16 @@ model PsnRecord {
   endAt             DateTime   @default(now())
   playSeconds       Int        @default(0)
 }
+
+// Switch游戏记录（NX-Activity-Log）
+model NxRecord {
+  id                Int        @id @default(autoincrement())
+  gameId            String     @default("")
+  gameName          String     @default("")
+  gameCoverUrl      String     @default("")
+  userId            String     @default("")
+  userName          String     @default("")
+  startAt           DateTime   @default(now())
+  endAt             DateTime   @default(now())
+  playSeconds       Int        @default(0)
+}

@@ -1,26 +1,80 @@
 import { prisma } from "@/lib/prisma"
+import { logger } from "@/lib/logger"
 import { sendResponse } from "@/lib/http/response"
 
 export async function POST(request) {
   try {
-    const formData = await request.formData()
-    const file = formData.get("file")
+    const userId = request.nextUrl.searchParams.get("userId")
+    const jsonData = await request.json()
+    let importResult = { success: 0, skipped: 0, failed: 0 }
 
-    // 检查文件有效性
-    if (!file) {
-      throw { code: 400, message: "请上传JSON格式的记录文件" }
+    // 整理游戏记录
+    const records = []
+    const targetUser = jsonData.users.find((user) => user.id === userId)
+    for (const title of targetUser.titles) {
+      const gameId = title.id
+      const gameName = title.name
+      const gameCoverUrl = `https://tinfoil.media/ti/${gameId}/800/800`
+      const userName = targetUser.name
+
+      let focusStartTime = null
+
+      for (let i = 0; i < title.events.length; i++) {
+        const event = title.events[i]
+
+        // 找到Gained Focus作为开始时间
+        if (event.type === "Gained Focus") {
+          focusStartTime = new Date(event.clockTimestamp * 1000)
+        }
+
+        // 找到Lost Focus事件作为结束时间
+        if (event.type === "Lost Focus" && focusStartTime) {
+          const focusEndTime = new Date(event.clockTimestamp * 1000)
+          const playSeconds = Math.floor((focusEndTime - focusStartTime) / 1000)
+
+          // 只添加30秒以上的记录
+          if (playSeconds >= 30) {
+            records.push({
+              gameId,
+              gameName,
+              gameCoverUrl,
+              userId,
+              userName,
+              startAt: focusStartTime,
+              endAt: focusEndTime,
+              playSeconds
+            })
+          }
+
+          focusStartTime = null
+        }
+      }
     }
 
-    // 解析 JSON
-    const fileContent = await file.text()
-    const jsonData = JSON.parse(fileContent)
+    // 保存到数据库
+    for (const record of records) {
+      try {
+        // 检查记录是否已存在
+        const existingRecord = await prisma.nxRecord.findFirst({
+          where: {
+            userId: record.userId,
+            gameId: record.gameId,
+            startAt: record.startAt,
+            endAt: record.endAt
+          }
+        })
 
-    // 根据JSON版本使用不同的导入规则
-    let importResult = { success: 0, skipped: 0, failed: 0 }
-    if (jsonData.recordVersion === "v1") {
-      importResult = await importRecordV1(jsonData)
-    } else {
-      throw { code: 400, message: "JSON记录文件的版本错误" }
+        if (existingRecord) {
+          importResult.skipped++
+          continue
+        }
+
+        await prisma.nxRecord.create({ data: record })
+        importResult.success++
+      } catch (error) {
+        importResult.failed++
+        logger(`导入记录失败: ${error}`, "error")
+      }
     }
 
     return sendResponse(request, {
@@ -31,67 +85,5 @@ export async function POST(request) {
       code: error.code || 500,
       message: error.message
     })
-  }
-}
-
-async function importRecordV1(jsonData) {
-  try {
-    const records = jsonData.psnRecords
-    const result = { success: 0, skipped: 0, failed: 0 }
-
-    for (const record of records) {
-      try {
-        const existingRecord = await prisma.psnRecord.findFirst({
-          where: {
-            OR: [
-              // 条件1: startAt和endAt都相同
-              {
-                startAt: new Date(Number(record.startAt)),
-                endAt: new Date(Number(record.endAt))
-              },
-              // 条件2: startAt和npTitleId都相同
-              {
-                startAt: new Date(Number(record.startAt)),
-                npTitleId: record.npTitleId
-              },
-              // 条件3: endAt和npTitleId都相同
-              {
-                endAt: new Date(Number(record.endAt)),
-                npTitleId: record.npTitleId
-              }
-            ]
-          }
-        })
-
-        // 如果存在重复记录，则跳过
-        if (existingRecord) {
-          result.skipped++
-          continue
-        }
-
-        // 创建新记录
-        await prisma.psnRecord.create({
-          data: {
-            state: record.state,
-            npTitleId: record.npTitleId,
-            titleName: record.titleName,
-            format: record.format,
-            launchPlatform: record.launchPlatform,
-            conceptIconUrl: record.conceptIconUrl,
-            startAt: new Date(Number(record.startAt)),
-            endAt: new Date(Number(record.endAt)),
-            playSeconds: record.playSeconds
-          }
-        })
-        result.success++
-      } catch (recordError) {
-        result.failed++
-        console.error("导入失败:", recordError)
-      }
-    }
-
-    return result
-  } catch (error) {
-    throw new Error(error)
   }
 }

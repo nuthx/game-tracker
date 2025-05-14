@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma"
+import { logger } from "@/lib/logger"
 import { sendResponse } from "@/lib/http/response"
 
 export async function POST(request) {
@@ -76,7 +77,7 @@ async function importRecordV1(jsonData) {
         result.success++
       } catch (recordError) {
         result.failed++
-        console.error("导入失败:", recordError)
+        logger(`导入记录失败: ${recordError}`, "error")
       }
     }
 
