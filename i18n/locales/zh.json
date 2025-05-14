@@ -61,6 +61,7 @@
       "import": "导入记录",
       "import_gt": "ゲーム時計",
       "import_nx": "NX-Activity-Log",
+      "import_nx_dialog": "请选择待导入的用户名",
       "export": "导出记录",
       "export_json": "导出为 JSON",
       "delete": "删除记录",

@@ -61,6 +61,7 @@
       "import": "Import Record",
       "import_gt": "ゲーム時計",
       "import_nx": "NX-Activity-Log",
+      "import_nx_dialog": "Please select the username to be imported",
       "export": "Export Record",
       "export_json": "Export as JSON",
       "delete": "Delete Record",
