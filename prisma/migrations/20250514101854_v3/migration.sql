@@ -1,8 +1,14 @@
+/*
+  1. 添加NxRecord表
+*/
+
 -- CreateTable
 CREATE TABLE "NxRecord" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "state" TEXT NOT NULL DEFAULT 'gaming',
     "gameId" TEXT NOT NULL DEFAULT '',
     "gameName" TEXT NOT NULL DEFAULT '',
+    "gamePlatform" TEXT NOT NULL DEFAULT 'NS',
     "gameCoverUrl" TEXT NOT NULL DEFAULT '',
     "userId" TEXT NOT NULL DEFAULT '',
     "userName" TEXT NOT NULL DEFAULT '',
