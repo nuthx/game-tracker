@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useData, API } from "@/lib/swr"
 import { handleRequest } from "@/lib/http"
@@ -42,14 +42,14 @@ import {
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Loader2, FileDown, FileUp, Trash2 } from "lucide-react"
+import { ImportGt, ImportNx } from "@/components/import"
+import { Loader2, FileDown, Trash2 } from "lucide-react"
 
 export default function Page() {
   const router = useRouter()
   const { t } = useTranslation()
   const [npssoLoading, setNpssoLoading] = useState(false)
   const [deleteConfirmText, setDeleteConfirmText] = useState("")
-  const fileInputRef = useRef(null)
 
   const { data: configData, error: configError, isLoading: configLoading, mutate: configMutate } = useData(API.CONFIG)
 
@@ -94,20 +94,6 @@ export default function Page() {
     } finally {
       setNpssoLoading(false)
     }
-  }
-
-  const handleImport = async (event) => {
-    const file = event.target.files[0]
-    if (!file) return
-
-    const formData = new FormData()
-    formData.append("file", file)
-    const result = await handleRequest("POST", API.IMPORT_GT, formData, "formData")
-    console.log(result)
-    if (result) {
-      toast(t("toast.import_success", { success: result.data.success, skipped: result.data.skipped, failed: result.data.failed }))
-    }
-    event.target.value = "" // 重置文件选择器
   }
 
   const handleExport = async () => {
@@ -290,16 +276,8 @@ export default function Page() {
             <div className="flex flex-col gap-3">
               <p className="text-sm font-medium">{t("settings.record.import")}</p>
               <div className="flex flex-row gap-3">
-                <Input type="file" accept=".json" className="hidden" ref={fileInputRef} onChange={handleImport} />
-                <Button variant="outline" className="w-fit" onClick={() => fileInputRef.current?.click()}>
-                  <FileUp />
-                  {t("settings.record.import_gt")}
-                </Button>
-                <Input type="file" accept=".json" className="hidden" ref={fileInputRef} onChange={handleImport} />
-                <Button variant="outline" className="w-fit" onClick={() => fileInputRef.current?.click()}>
-                  <FileUp />
-                  {t("settings.record.import_nx")}
-                </Button>
+                <ImportGt />
+                <ImportNx />
               </div>
             </div>
             <div className="flex flex-col gap-3">

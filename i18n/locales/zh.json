@@ -19,7 +19,8 @@
     "save_config": "配置已保存",
     "import_success": "导入完成，新增 {{success}} 条，跳过 {{skipped}} 条，失败 {{failed}} 条",
     "export_success": "已导出 {{count}} 条记录",
-    "delete_success": "已删除 {{count}} 条记录"
+    "delete_success": "已删除 {{count}} 条记录",
+    "read_error": "无效的 JSON 文件"
   },
   "validate": {
     "required": "请输入内容",

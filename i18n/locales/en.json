@@ -19,7 +19,8 @@
     "save_config": "Settings saved",
     "import_success": "Import completed, added {{success}} records, skipped {{skipped}} records, failed {{failed}} records",
     "export_success": "Exported {{count}} records",
-    "delete_success": "Deleted {{count}} records"
+    "delete_success": "Deleted {{count}} records",
+    "read_error": "Invalid JSON file"
   },
   "validate": {
     "required": "This field is required",

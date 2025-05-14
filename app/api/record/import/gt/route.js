@@ -3,20 +3,10 @@ import { sendResponse } from "@/lib/http"
 
 export async function POST(request) {
   try {
-    const formData = await request.formData()
-    const file = formData.get("file")
-
-    // 检查文件有效性
-    if (!file) {
-      throw { code: 400, message: "请上传JSON格式的记录文件" }
-    }
-
-    // 解析 JSON
-    const fileContent = await file.text()
-    const jsonData = JSON.parse(fileContent)
+    const jsonData = await request.json()
+    let importResult = { success: 0, skipped: 0, failed: 0 }
 
     // 根据JSON版本使用不同的导入规则
-    let importResult = { success: 0, skipped: 0, failed: 0 }
     if (jsonData.version === "v1") {
       importResult = await importRecordV1(jsonData)
     } else {
