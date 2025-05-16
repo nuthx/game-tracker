@@ -19,7 +19,7 @@ model User {
   monitorId       String       @default("me")
   monitorName     String       @default("")
   monitorAvatar   String       @default("")
-  monitorInterval String       @default("5")
+  monitorInterval String       @default("10")
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
 }

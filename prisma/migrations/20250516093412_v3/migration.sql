@@ -68,7 +68,7 @@ CREATE TABLE "new_User" (
     "monitorId" TEXT NOT NULL DEFAULT 'me',
     "monitorName" TEXT NOT NULL DEFAULT '',
     "monitorAvatar" TEXT NOT NULL DEFAULT '',
-    "monitorInterval" TEXT NOT NULL DEFAULT '5',
+    "monitorInterval" TEXT NOT NULL DEFAULT '10',
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL
 );
