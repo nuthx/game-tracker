@@ -1,9 +1,11 @@
 {
   "btn": {
     "save": "Save",
-    "export": "Export",
+    "cancel": "Cancel",
+    "delete": "Delete",
     "login": "Log In",
-    "logout": "Log Out"
+    "logout": "Log Out",
+    "import": "Import"
   },
   "theme": {
     "light": "Light",
@@ -16,7 +18,10 @@
     "no_npsso": "Please log in to your PSN account first",
     "error_config": "Failed to load configuration",
     "save_config": "Settings saved",
-    "export_success": "Export successful"
+    "import_success": "Import completed, added {{success}} records, skipped {{skipped}} records, failed {{failed}} records",
+    "export_success": "Exported {{count}} records",
+    "delete_success": "Deleted {{count}} records",
+    "read_error": "Invalid JSON file"
   },
   "validate": {
     "required": "This field is required",
@@ -52,6 +57,17 @@
     "username": "Username",
     "password": "New Password",
     "password_placeholder": "Enter new password",
-    "export": "Export Records"
+    "record": {
+      "title": "Record Management",
+      "import": "Import Record",
+      "import_gt": "Import Backup Record",
+      "import_nx": "Import Switch Record",
+      "import_nx_dialog": "Multiple user game records exist, please select one user to continue importing.",
+      "export": "Export Record",
+      "export_json": "Export Backup Record",
+      "delete": "Delete Record",
+      "delete_all": "Delete All Records",
+      "delete_dialog": "Game records cannot be recovered after deletion. To continue, please enter DELETE in the input box."
+    }
   }
 }

@@ -2,10 +2,11 @@
 
 import Image from "next/image"
 import pkg from "@/package.json"
+import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
-import { API } from "@/lib/swr"
-import { handleRequest } from "@/lib/http"
+import { API } from "@/lib/http/api"
+import { handleRequest } from "@/lib/http/request"
 import { createForm } from "@/lib/form"
 import {
   Card,
@@ -33,9 +34,11 @@ export default function Page() {
 
   const handleLogin = async (values) => {
     const result = await handleRequest("POST", API.LOGIN, values)
-    if (result) {
+    if (result.ok) {
       router.push("/")
       router.refresh()
+    } else {
+      toast.error(`[${result.code}] ${result.message}`)
     }
   }
 

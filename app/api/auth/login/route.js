@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken"
 import { cookies } from "next/headers"
 import { prisma, initUser } from "@/lib/prisma"
-import { sendResponse } from "@/lib/http"
+import { sendResponse } from "@/lib/http/response"
 
 export async function POST(request) {
   try {
@@ -10,10 +10,7 @@ export async function POST(request) {
 
     if (user) {
       if (data.username !== user.username || data.password !== user.password) {
-        return sendResponse(request, {
-          code: 401,
-          message: "用户名或密码错误"
-        })
+        throw { code: 401, message: "用户名或密码错误" }
       }
     } else {
       // Vercel: 用户不存在时创建默认用户
@@ -43,7 +40,7 @@ export async function POST(request) {
     return sendResponse(request, {})
   } catch (error) {
     return sendResponse(request, {
-      code: 500,
+      code: error.code || 500,
       message: error.message
     })
   }

@@ -5,9 +5,21 @@ import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { useData, API } from "@/lib/swr"
-import { handleRequest } from "@/lib/http"
+import { API } from "@/lib/http/api"
+import { useData } from "@/lib/http/swr"
+import { handleRequest } from "@/lib/http/request"
 import { createForm } from "@/lib/form"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from "@/components/ui/alert-dialog"
 import {
   Card,
   CardContent,
@@ -31,12 +43,14 @@ import {
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Loader2 } from "lucide-react"
+import { ImportGt, ImportNx } from "@/components/import"
+import { Loader2, FileDown, Trash2 } from "lucide-react"
 
 export default function Page() {
   const router = useRouter()
   const { t } = useTranslation()
   const [npssoLoading, setNpssoLoading] = useState(false)
+  const [deleteConfirmText, setDeleteConfirmText] = useState("")
 
   const { data: configData, error: configError, isLoading: configLoading, mutate: configMutate } = useData(API.CONFIG)
 
@@ -64,9 +78,11 @@ export default function Page() {
 
   const handleConfig = async (values) => {
     const result = await handleRequest("PATCH", API.CONFIG, values)
-    if (result) {
+    if (result.ok) {
       configMutate()
       toast(t("toast.save_config"))
+    } else {
+      toast.error(`[${result.code}] ${result.message}`)
     }
   }
 
@@ -74,9 +90,11 @@ export default function Page() {
     try {
       setNpssoLoading(true)
       const result = await handleRequest("PATCH", API.CONFIG, values)
-      if (result) {
+      if (result.ok) {
         configMutate()
         toast(t("toast.save_config"))
+      } else {
+        toast.error(`[${result.code}] ${result.message}`)
       }
     } finally {
       setNpssoLoading(false)
@@ -85,25 +103,38 @@ export default function Page() {
 
   const handleExport = async () => {
     const result = await handleRequest("GET", API.EXPORT)
-    if (result) {
+    if (result.ok) {
       const blob = new Blob([JSON.stringify(result.data, null, 2)], { type: "application/json" })
       const url = URL.createObjectURL(blob)
 
       const link = document.createElement("a")
       link.href = url
-      link.download = "export.json"
+      link.download = "gt-export.json"
       link.click()
 
       URL.revokeObjectURL(url)
-      toast(t("toast.export_success"))
+      toast(t("toast.export_success", { count: result.data.count.total }))
+    } else {
+      toast.error(`[${result.code}] ${result.message}`)
+    }
+  }
+
+  const handleDelete = async () => {
+    const result = await handleRequest("DELETE", API.DELETE_ALL)
+    if (result.ok) {
+      toast(t("toast.delete_success", { count: result.data.count }))
+    } else {
+      toast.error(`[${result.code}] ${result.message}`)
     }
   }
 
   const handleLogout = async () => {
     const result = await handleRequest("DELETE", API.LOGOUT)
-    if (result) {
+    if (result.ok) {
       router.push("/login")
       router.refresh()
+    } else {
+      toast.error(`[${result.code}] ${result.message}`)
     }
   }
 
@@ -250,10 +281,53 @@ export default function Page() {
         </Card>
         <Card>
           <CardHeader className="gap-0">
-            <CardTitle>{t("settings.export")}</CardTitle>
+            <CardTitle>{t("settings.record.title")}</CardTitle>
           </CardHeader>
-          <CardContent>
-            <Button onClick={handleExport}>{t("btn.export")}</Button>
+          <CardContent className="flex flex-col gap-6">
+            <div className="flex flex-col gap-3">
+              <p className="text-sm font-medium">{t("settings.record.import")}</p>
+              <div className="flex flex-row gap-3">
+                <ImportGt />
+                <ImportNx />
+              </div>
+            </div>
+            <div className="flex flex-col gap-3">
+              <p className="text-sm font-medium">{t("settings.record.export")}</p>
+              <Button variant="outline" onClick={handleExport} className="w-fit">
+                <FileDown />
+                {t("settings.record.export_json")}
+              </Button>
+            </div>
+            <div className="flex flex-col gap-3">
+              <p className="text-sm font-medium">{t("settings.record.delete")}</p>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="outline" className="w-fit hover:border-destructive/30 hover:bg-destructive/10 hover:text-destructive">
+                    <Trash2 />
+                    {t("settings.record.delete_all")}
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>{t("settings.record.delete_all")}</AlertDialogTitle>
+                    <AlertDialogDescription>{t("settings.record.delete_dialog")}</AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <Input
+                    type="text"
+                    className="w-full mb-2"
+                    placeholder="DELETE"
+                    value={deleteConfirmText}
+                    onChange={(e) => setDeleteConfirmText(e.target.value)}
+                  />
+                  <AlertDialogFooter>
+                    <AlertDialogCancel onClick={() => setDeleteConfirmText("")}>{t("btn.cancel")}</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleDelete} disabled={deleteConfirmText !== "DELETE"}>
+                      {t("btn.delete")}
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
           </CardContent>
         </Card>
       </div>

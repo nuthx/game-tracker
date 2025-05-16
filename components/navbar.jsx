@@ -1,36 +1,36 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import Image from "next/image";
-import { useTheme } from "next-themes";
-import { useTranslation } from "react-i18next";
-import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import Link from "next/link"
+import Image from "next/image"
+import { useTheme } from "next-themes"
+import { useTranslation } from "react-i18next"
+import { usePathname } from "next/navigation"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Settings2, Languages, Sun, Moon } from "lucide-react";
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu"
+import { Settings2, Languages, Sun, Moon } from "lucide-react"
 
 export function NavBar() {
-  const pathname = usePathname();
-  const { setTheme } = useTheme();
-  const { t, i18n } = useTranslation();
+  const pathname = usePathname()
+  const { setTheme } = useTheme()
+  const { t, i18n } = useTranslation()
 
   const handleLanguageChange = (value) => {
-    i18n.changeLanguage(value);
-  };
+    i18n.changeLanguage(value)
+  }
 
   if (pathname === "/login") {
-    return null;
+    return null
   }
 
   return (
     <nav className="flex justify-between items-center h-16 px-4 md:px-12 sticky top-0 z-50 border-b bg-background/90 dark:bg-background backdrop-blur-sm">
       <Link href="/" className="cursor-pointer dark:invert fill-red-500 text-red-500">
-        <Image src="/logo.svg" alt="ゲーム時計" width={110} height={25} draggable="false"/>
+        <Image src="/logo.svg" alt="ゲーム時計" width={110} height={25} draggable="false" />
       </Link>
 
       <div className="flex items-center gap-2">
@@ -61,9 +61,11 @@ export function NavBar() {
         </DropdownMenu>
 
         <Link href="/settings">
-          <Button variant="ghost" className="size-10"><Settings2 className="size-5" /></Button>
+          <Button variant="ghost" className="size-10">
+            <Settings2 className="size-5" />
+          </Button>
         </Link>
       </div>
     </nav>
-  );
+  )
 }

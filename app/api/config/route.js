@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import { startTask } from "@/lib/schedule"
-import { sendResponse } from "@/lib/http"
+import { sendResponse } from "@/lib/http/response"
 import { updateNpsso } from "@/lib/update"
 
 export async function GET(request) {
@@ -19,7 +19,7 @@ export async function GET(request) {
     })
   } catch (error) {
     return sendResponse(request, {
-      code: 500,
+      code: error.code || 500,
       message: error.message
     })
   }
@@ -65,7 +65,7 @@ export async function PATCH(request) {
     return sendResponse(request, {})
   } catch (error) {
     return sendResponse(request, {
-      code: 500,
+      code: error.code || 500,
       message: error.message
     })
   }

@@ -1,5 +1,5 @@
 import { cookies } from "next/headers"
-import { sendResponse } from "@/lib/http"
+import { sendResponse } from "@/lib/http/response"
 
 export async function DELETE(request) {
   try {
@@ -9,7 +9,7 @@ export async function DELETE(request) {
     return sendResponse(request, {})
   } catch (error) {
     return sendResponse(request, {
-      code: 500,
+      code: error.code || 500,
       message: error.message
     })
   }

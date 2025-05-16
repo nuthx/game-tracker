@@ -1,9 +1,11 @@
 {
   "btn": {
     "save": "保存",
-    "export": "导出",
+    "cancel": "取消",
+    "delete": "删除",
     "login": "登录",
-    "logout": "登出系统"
+    "logout": "登出系统",
+    "import": "导入"
   },
   "theme": {
     "light": "浅色",
@@ -16,7 +18,10 @@
     "no_npsso": "请先登录 PSN 账号",
     "error_config": "配置信息获取失败",
     "save_config": "配置已保存",
-    "export_success": "导出成功"
+    "import_success": "导入完成，新增 {{success}} 条，跳过 {{skipped}} 条，失败 {{failed}} 条",
+    "export_success": "已导出 {{count}} 条记录",
+    "delete_success": "已删除 {{count}} 条记录",
+    "read_error": "无效的 JSON 文件"
   },
   "validate": {
     "required": "请输入内容",
@@ -52,6 +57,17 @@
     "username": "用户名",
     "password": "新密码",
     "password_placeholder": "请输入新密码",
-    "export": "记录导出"
+    "record": {
+      "title": "记录管理",
+      "import": "导入记录",
+      "import_gt": "导入备份记录",
+      "import_nx": "导入 Switch 记录",
+      "import_nx_dialog": "发现了多个用户的游戏记录，请选择要导入的用户",
+      "export": "导出记录",
+      "export_json": "导出备份记录",
+      "delete": "删除记录",
+      "delete_all": "删除所有记录",
+      "delete_dialog": "游戏记录删除后不可恢复。若要继续，请在下方输入 DELETE"
+    }
   }
 }

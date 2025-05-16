@@ -2,7 +2,8 @@
 
 import Image from "next/image"
 import { useTranslation } from "react-i18next"
-import { useData, API } from "@/lib/swr"
+import { API } from "@/lib/http/api"
+import { useData } from "@/lib/http/swr"
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 
@@ -79,9 +80,9 @@ function GamingRecord({ record }) {
 
   return (
     <div className="flex flex-row gap-4 items-center">
-      <Image src={record.conceptIconUrl} alt={record.titleName} className="rounded-sm object-cover size-14" width={64} height={64} priority draggable="false" />
+      <Image src={record.cover} alt={record.name} className="rounded-sm object-cover size-14" width={64} height={64} priority draggable="false" />
       <div className="flex flex-col gap-1.5">
-        <p className="text-sm font-bold">[{record.launchPlatform}] {record.titleName}</p>
+        <p className="text-sm font-bold">[{record.platform}] {record.name}</p>
         <p className="text-sm text-muted-foreground">
           {t("home.last_gaming")}: {new Date(record.endAt).toLocaleString()} [
           {record.playTime.minutes > 0 ? `${record.playTime.minutes} ${t("time.minutes")} ` : ""}
