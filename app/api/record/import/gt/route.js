@@ -1,5 +1,4 @@
-import { prisma } from "@/lib/prisma"
-import { logger } from "@/lib/logger"
+import { importRecords } from "@/lib/import"
 import { sendResponse } from "@/lib/http/response"
 
 export async function POST(request) {
@@ -9,7 +8,17 @@ export async function POST(request) {
 
     // 根据JSON版本使用不同的导入规则
     if (jsonData.version === "v1") {
-      importResult = await importRecordV1(jsonData)
+      // 导入 PSN 记录
+      await importRecords("psnRecord", jsonData.records.psn, importResult, (record) => ({
+        startAt: new Date(record.startAt),
+        endAt: new Date(record.endAt)
+      }))
+
+      // 导入 NX 记录
+      await importRecords("nxRecord", jsonData.records.nx, importResult, (record) => ({
+        startAt: new Date(record.startAt),
+        endAt: new Date(record.endAt)
+      }))
     } else {
       throw { code: 400, message: "JSON记录文件的版本错误" }
     }
@@ -22,55 +31,5 @@ export async function POST(request) {
       code: error.code || 500,
       message: error.message
     })
-  }
-}
-
-async function importRecordV1(jsonData) {
-  try {
-    const records = jsonData.records.psn
-    const result = { success: 0, skipped: 0, failed: 0 }
-
-    for (const record of records) {
-      try {
-        const existingRecord = await prisma.psnRecord.findFirst({
-          where: {
-            OR: [
-              // 条件1: startAt和endAt都相同
-              {
-                startAt: new Date(record.startAt),
-                endAt: new Date(record.endAt)
-              },
-              // 条件2: startAt和npTitleId都相同
-              {
-                startAt: new Date(record.startAt),
-                npTitleId: record.npTitleId
-              },
-              // 条件3: endAt和npTitleId都相同
-              {
-                endAt: new Date(record.endAt),
-                npTitleId: record.npTitleId
-              }
-            ]
-          }
-        })
-
-        // 如果存在重复记录，则跳过
-        if (existingRecord) {
-          result.skipped++
-          continue
-        }
-
-        // 创建新记录
-        await prisma.psnRecord.create({ data: record })
-        result.success++
-      } catch (recordError) {
-        result.failed++
-        logger(`导入记录失败: ${recordError}`, "error")
-      }
-    }
-
-    return result
-  } catch (error) {
-    throw new Error(error)
   }
 }

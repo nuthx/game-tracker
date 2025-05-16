@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import { logger } from "@/lib/logger"
+import { importRecords } from "@/lib/import"
 import { sendResponse } from "@/lib/http/response"
 
 export async function POST(request) {
@@ -52,32 +53,12 @@ export async function POST(request) {
     }
 
     // 保存到数据库
-    for (const record of records) {
-      try {
-        // 检查记录是否已存在
-        const existingRecord = await prisma.nxRecord.findFirst({
-          where: {
-            userId: record.userId,
-            gameId: record.gameId,
-            startAt: record.startAt,
-            endAt: record.endAt
-          }
-        })
-
-        // 如果存在重复记录，则跳过
-        if (existingRecord) {
-          importResult.skipped++
-          continue
-        }
-
-        // 创建新记录
-        await prisma.nxRecord.create({ data: record })
-        importResult.success++
-      } catch (error) {
-        importResult.failed++
-        logger(`导入记录失败: ${error}`, "error")
-      }
-    }
+    await importRecords("nxRecord", records, importResult, (record) => ({
+      userId: record.userId,
+      gameId: record.gameId,
+      startAt: record.startAt,
+      endAt: record.endAt
+    }))
 
     return sendResponse(request, {
       data: importResult
