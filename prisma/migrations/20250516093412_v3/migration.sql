@@ -2,6 +2,7 @@
   1. 添加NxRecord表
   2. 新增PsnRecord字段userId，如果monitorId为me则设置为accountId，否则设置为monitorId
   3. 新增NxRecord字段userName，默认值为空
+  4. 新增User表字段monitorName，默认值为空
 */
 
 -- CreateTable
@@ -64,6 +65,7 @@ CREATE TABLE "new_User" (
     "accountId" TEXT NOT NULL DEFAULT '',
     "avatar" TEXT NOT NULL DEFAULT '',
     "monitorId" TEXT NOT NULL DEFAULT 'me',
+    "monitorName" TEXT NOT NULL DEFAULT '',
     "monitorInterval" TEXT NOT NULL DEFAULT '5',
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL
