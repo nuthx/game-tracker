@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma"
 import { startTask } from "@/lib/schedule"
 import { sendResponse } from "@/lib/http/response"
-import { updateNpsso } from "@/lib/update"
+import { getAuthorization } from "@/lib/auth"
+import { getProfileFromUserName, getProfileFromAccountId } from "psn-api"
 
 export async function GET(request) {
   try {
@@ -14,6 +15,8 @@ export async function GET(request) {
         accountId: user.accountId,
         avatar: user.avatar,
         monitorId: user.monitorId,
+        monitorName: user.monitorName,
+        monitorAvatar: user.monitorAvatar,
         monitorInterval: user.monitorInterval
       }
     })
@@ -30,18 +33,30 @@ export async function PATCH(request) {
     const data = await request.json()
 
     if (data.new_npsso) {
+      const authorization = await getAuthorization(data.new_npsso)
+      const profile = await getProfileFromUserName(authorization, "me")
       await prisma.user.update({
         where: { id: 1 },
-        data: { npsso: data.new_npsso }
+        data: {
+          npsso: data.new_npsso,
+          onlineId: profile.profile.onlineId,
+          accountId: profile.profile.accountId,
+          avatar: profile.profile.avatarUrls[0].avatarUrl,
+          monitorName: profile.profile.onlineId,
+          monitorAvatar: profile.profile.avatarUrls[0].avatarUrl
+        }
       })
-      await updateNpsso(data.new_npsso)
     }
 
     if (data.new_monitorId && data.new_monitorInterval) {
+      const authorization = await getAuthorization()
+      const profile = await getProfileFromAccountId(authorization, data.new_monitorId)
       await prisma.user.update({
         where: { id: 1 },
         data: {
           monitorId: data.new_monitorId,
+          monitorName: profile.onlineId,
+          monitorAvatar: profile.avatars[2].url,
           monitorInterval: data.new_monitorInterval
         }
       })

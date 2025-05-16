@@ -17,6 +17,8 @@ model User {
   accountId       String       @default("")
   avatar          String       @default("")
   monitorId       String       @default("me")
+  monitorName     String       @default("")
+  monitorAvatar   String       @default("")
   monitorInterval String       @default("10")
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
@@ -31,6 +33,8 @@ model PsnRecord {
   format            String     @default("")
   launchPlatform    String     @default("")
   conceptIconUrl    String     @default("")
+  userId            String     @default("")
+  userName          String     @default("")
   startAt           DateTime   @default(now())
   endAt             DateTime   @default(now())
   playSeconds       Int        @default(0)
