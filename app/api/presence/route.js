@@ -26,7 +26,11 @@ export async function GET(request) {
       data: {
         ...presence.basicPresence,
         playSeconds,
-        playTime: tf(playSeconds)
+        playTime: tf(playSeconds),
+        monitorUser: {
+          name: user.monitorName,
+          avatar: user.monitorAvatar
+        }
       }
     })
   } catch (error) {

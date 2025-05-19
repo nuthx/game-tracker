@@ -6,60 +6,23 @@ import { API } from "@/lib/http/api"
 import { useData } from "@/lib/http/swr"
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { UserCard } from "@/components/user"
 
 export default function Page() {
   const { t } = useTranslation()
-  const { data: presenceData, error: presenceError, isLoading: presenceLoading } = useData(API.PRESENCE)
   const { data: recordData, error: recordError, isLoading: recordLoading } = useData(API.RECORD)
 
-  if (presenceLoading || recordLoading) {
+  if (recordLoading) {
     return <div className="flex justify-center text-sm text-muted-foreground">{t("toast.loading")}</div>
   }
 
-  if (presenceError || recordError) {
-    if (presenceError.code === 400) {
-      return <div className="flex justify-center text-sm text-muted-foreground">{t("toast.no_npsso")}</div>
-    } else {
-      return <div className="flex justify-center text-sm text-muted-foreground">{t("toast.error_user")}</div>
-    }
+  if (recordError) {
+    return <div className="flex justify-center text-sm text-muted-foreground">{t("toast.error_user")}</div>
   }
 
   return (
     <div className="flex flex-col gap-4 md:gap-6">
-      <Card className="w-full">
-        <CardContent className="flex flex-row items-center gap-5">
-          <Image
-            src={presenceData.gameTitleInfoList?.[0]?.conceptIconUrl || presenceData.gameTitleInfoList?.[0]?.npTitleIconUrl || "/images/playstation.jpg"}
-            alt={presenceData.gameTitleInfoList?.[0]?.titleName || "PlayStation"}
-            className={`rounded-sm object-cover size-20 ${presenceData.availability === "unavailable" ? "grayscale opacity-50" : ""}`}
-            width={80}
-            height={80}
-            priority
-            draggable="false"
-          />
-          {presenceData.availability === "unavailable"
-            ? (
-                <div className="flex flex-col gap-2">
-                  <p className="font-bold">{t("home.user_offline")}</p>
-                  <p className="text-sm text-muted-foreground">{t("home.last_online")}: {new Date(presenceData.primaryPlatformInfo.lastOnlineDate).toLocaleString()}</p>
-                </div>
-              )
-            : presenceData.gameTitleInfoList && presenceData.gameTitleInfoList.length > 0
-              ? (
-                  <div className="flex flex-col gap-1.5">
-                    <p className="text-sm text-muted-foreground">{t("home.playing_platform", { platform: presenceData.primaryPlatformInfo.platform.toUpperCase() })}</p>
-                    <p className="font-bold">{presenceData.gameTitleInfoList[0].titleName}</p>
-                    <p className="text-sm text-muted-foreground">{t("home.playing_time")} {presenceData.playTime.minutes > 0 ? `${presenceData.playTime.minutes} ${t("time.minutes")} ` : ""}{presenceData.playTime.seconds} {t("time.seconds")}</p>
-                  </div>
-                )
-              : (
-                  <div className="flex flex-col gap-2">
-                    <p className="font-bold">{t("home.user_online", { platform: presenceData.primaryPlatformInfo.platform.toUpperCase() })}</p>
-                    <p className="text-sm text-muted-foreground">{t("home.not_playing")}</p>
-                  </div>
-                )}
-        </CardContent>
-      </Card>
+      <UserCard />
 
       <Card>
         <CardContent className="flex flex-col gap-4">

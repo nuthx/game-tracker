@@ -39,14 +39,17 @@
     "password": "密码"
   },
   "home": {
-    "user_offline": "用户已离线",
+    "error": {
+      "load_error": "加载失败",
+      "no_login": "未登录",
+      "login_first": "请先在设置中添加账号"
+    },
+    "offline": "离线",
+    "online": "等待游玩中...",
+    "online_time": "已在线",
+    "gaming_time": "已游玩",
     "last_online": "最后在线时间",
-    "last_gaming": "最后游戏时间",
-    "user_online": "{{platform}} 在线",
-    "not_playing": "不在游戏中",
-    "playing_platform": "正在游玩 {{platform}} 游戏",
-    "playing_time": "已游玩",
-    "online": "用户在线"
+    "last_gaming": "最后游戏时间"
   },
   "settings": {
     "login_first": "请先登录 PSN 账号",

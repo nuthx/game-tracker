@@ -39,14 +39,17 @@
     "password": "Password"
   },
   "home": {
-    "user_offline": "User is offline",
+    "error": {
+      "load_error": "Load Failed",
+      "no_login": "Not Logged In",
+      "login_first": "Please add your account in the settings first"
+    },
+    "offline": "Offline",
+    "online": "Waiting to play...",
+    "online_time": "online for",
+    "gaming_time": "played for",
     "last_online": "Last online",
-    "last_gaming": "Last gaming",
-    "user_online": "Online on {{platform}}",
-    "not_playing": "Not playing",
-    "playing_platform": "Playing on {{platform}}",
-    "playing_time": "Played for",
-    "online": "User is online"
+    "last_gaming": "Last gaming"
   },
   "settings": {
     "login_first": "Please log in to your PSN account first",
