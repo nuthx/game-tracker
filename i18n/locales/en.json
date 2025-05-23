@@ -52,6 +52,16 @@
     "last_gaming": "Last gaming"
   },
   "settings": {
+    "title": "Settings",
+    "menu": {
+      "monitor": "Monitor",
+      "psn": "PlayStation",
+      "ns": "Nintendo Switch",
+      "steam": "Steam",
+      "system": "System",
+      "account": "Account",
+      "backup": "Backup"
+    },
     "login_first": "Please log in to your PSN account first",
     "psn_account": "PSN Account",
     "monitor_settings": "Monitoring Settings",

@@ -52,6 +52,16 @@
     "last_gaming": "最后游戏时间"
   },
   "settings": {
+    "title": "设置",
+    "menu": {
+      "monitor": "监控设置",
+      "psn": "PlayStation",
+      "ns": "Nintendo Switch",
+      "steam": "Steam",
+      "system": "系统设置",
+      "account": "账号管理",
+      "backup": "备份"
+    },
     "login_first": "请先登录 PSN 账号",
     "psn_account": "PSN 账号",
     "monitor_settings": "监控设置",

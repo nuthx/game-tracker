@@ -12,7 +12,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import { Settings2, Languages, Sun, Moon } from "lucide-react"
+import { Languages, Sun, Moon } from "lucide-react"
+import { Settings } from "@/components/settings"
 
 export function NavBar() {
   const pathname = usePathname()
@@ -60,11 +61,7 @@ export function NavBar() {
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <Link href="/settings">
-          <Button variant="ghost" className="size-10">
-            <Settings2 className="size-5" />
-          </Button>
-        </Link>
+        <Settings />
       </div>
     </nav>
   )
