@@ -73,7 +73,7 @@ export function NavBar() {
               <Settings2 className="size-5" />
             </Button>
           </DialogTrigger>
-          <DialogContent className="flex gap-0 p-0 h-[90vh] max-h-[720px] w-[80vw] sm:max-w-[1160px] overflow-hidden">
+          <DialogContent className="flex gap-0 p-0 h-[90vh] max-h-[680px] w-[80vw] sm:max-w-[1080px] overflow-hidden">
             <DialogTitle className="sr-only">{t("settings.title")}</DialogTitle>
             <Settings />
           </DialogContent>

@@ -54,7 +54,7 @@
   "settings": {
     "title": "Settings",
     "menu": {
-      "monitor": "Monitor",
+      "monitor": "Tracking",
       "psn": "PlayStation",
       "ns": "Nintendo Switch",
       "steam": "Steam",
@@ -62,10 +62,14 @@
       "account": "Account",
       "backup": "Backup"
     },
-    "login_first": "Please log in to your PSN account first",
-    "psn_account": "PSN Account",
-    "monitor_settings": "Monitoring Settings",
-    "monitor_interval": "Refresh Interval",
+    "psn": {
+      "npsso": "NPSSO",
+      "npsso_desc": "Login with PlayStation Network account to track user's game status.",
+      "monitor": "Tracking User",
+      "monitor_desc": "The Account ID of the user to be tracked.",
+      "interval": "Refresh Interval",
+      "interval_desc": "The automatic update interval when tracking the user's game status."
+    },
     "user_info": "User Profile",
     "username": "Username",
     "password": "New Password",

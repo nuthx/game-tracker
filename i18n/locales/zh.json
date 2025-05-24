@@ -54,7 +54,7 @@
   "settings": {
     "title": "设置",
     "menu": {
-      "monitor": "监控设置",
+      "monitor": "追踪设置",
       "psn": "PlayStation",
       "ns": "Nintendo Switch",
       "steam": "Steam",
@@ -62,10 +62,14 @@
       "account": "账号管理",
       "backup": "备份"
     },
-    "login_first": "请先登录 PSN 账号",
-    "psn_account": "PSN 账号",
-    "monitor_settings": "监控设置",
-    "monitor_interval": "刷新间隔",
+    "psn": {
+      "npsso": "NPSSO",
+      "npsso_desc": "使用 PlayStation Network 账号登录，用于追踪用户的游戏状态",
+      "monitor": "追踪用户",
+      "monitor_desc": "需要追踪的用户的 Account ID",
+      "interval": "刷新间隔",
+      "interval_desc": "追踪用户游戏状态时的自动更新间隔"
+    },
     "user_info": "用户资料",
     "username": "用户名",
     "password": "新密码",
