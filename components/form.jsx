@@ -1,5 +1,5 @@
 import { toast } from "sonner"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { API } from "@/lib/http/api"
 import { handleRequest } from "@/lib/http/request"
@@ -20,12 +20,13 @@ import {
 } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Loader2 } from "lucide-react"
 
-export function FormInput({ name, schema = "required", defaultValue = "", placeholder }) {
 export function FormInput({ name, schema = "required", defaultValue = "", placeholder, mutate }) {
   const { t } = useTranslation()
   const userForm = createForm({ [name]: { schema: schema } })()
   const currentValue = userForm.watch(name)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const isDirty = currentValue !== defaultValue
 
   useEffect(() => {
@@ -33,12 +34,17 @@ export function FormInput({ name, schema = "required", defaultValue = "", placeh
   }, [userForm, name, defaultValue])
 
   const handleSubmit = async (values) => {
-    const result = await handleRequest("PATCH", API.CONFIG, values)
-    if (result.ok) {
-      toast(t("toast.save_config"))
-    } else {
-      toast.error(`[${result.code}] ${result.message}`)
+    setIsSubmitting(true)
+    try {
+      const result = await handleRequest("PATCH", API.CONFIG, values)
+      if (result.ok) {
+        toast(t("toast.save_config"))
         mutate()
+      } else {
+        toast.error(`[${result.code}] ${result.message}`)
+      }
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -57,13 +63,17 @@ export function FormInput({ name, schema = "required", defaultValue = "", placeh
             </FormItem>
           )}
         />
-        {isDirty && <Button type="submit">{t("btn.save")}</Button>}
+        {isDirty && (
+          <Button type="submit" disabled={isSubmitting}>
+            {isSubmitting && <Loader2 className="animate-spin" />}
+            {t("btn.save")}
+          </Button>
+        )}
       </form>
     </Form>
   )
 }
 
-export function FormSelect({ name, defaultValue, options }) {
 export function FormSelect({ name, defaultValue, options, mutate }) {
   const { t } = useTranslation()
 
