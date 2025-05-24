@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
 export function FormInput({ name, schema = "required", defaultValue = "", placeholder }) {
+export function FormInput({ name, schema = "required", defaultValue = "", placeholder, mutate }) {
   const { t } = useTranslation()
   const userForm = createForm({ [name]: { schema: schema } })()
   const currentValue = userForm.watch(name)
@@ -37,6 +38,7 @@ export function FormInput({ name, schema = "required", defaultValue = "", placeh
       toast(t("toast.save_config"))
     } else {
       toast.error(`[${result.code}] ${result.message}`)
+        mutate()
     }
   }
 
@@ -62,12 +64,14 @@ export function FormInput({ name, schema = "required", defaultValue = "", placeh
 }
 
 export function FormSelect({ name, defaultValue, options }) {
+export function FormSelect({ name, defaultValue, options, mutate }) {
   const { t } = useTranslation()
 
   const handleSubmit = async (values) => {
     const result = await handleRequest("PATCH", API.CONFIG, values)
     if (result.ok) {
       toast(t("toast.save_config"))
+      mutate()
     } else {
       toast.error(`[${result.code}] ${result.message}`)
     }

@@ -137,7 +137,7 @@ function CurrentComponent({ items, activeComponent }) {
   )
 }
 
-function PSMonitor({ configData }) {
+function PSMonitor({ configData, configMutate }) {
   const { t } = useTranslation()
   return (
     <>
@@ -151,12 +151,12 @@ function PSMonitor({ configData }) {
       <div className="flex flex-col gap-1.5">
         <Label>{t("settings.psn.npsso")}</Label>
         <CardDescription>{t("settings.psn.npsso_desc")}</CardDescription>
-        <FormInput name="new_npsso" schema="npsso" placeholder={configData.npsso} />
+        <FormInput name="new_npsso" schema="npsso" placeholder={configData.npsso} mutate={configMutate} />
       </div>
       <div className="flex flex-col gap-1.5">
         <Label>{t("settings.psn.monitor")}</Label>
         <CardDescription>{t("settings.psn.monitor_desc")}</CardDescription>
-        <FormInput name="new_monitorId" defaultValue={configData.monitorId} placeholder={configData.monitorId} />
+        <FormInput name="new_monitorId" defaultValue={configData.monitorId} placeholder={configData.monitorId} mutate={configMutate} />
       </div>
       <div className="flex flex-col gap-1.5">
         <Label>{t("settings.psn.interval")}</Label>
@@ -171,6 +171,7 @@ function PSMonitor({ configData }) {
             { value: "30", label: `30 ${t("time.seconds")}` },
             { value: "60", label: `60 ${t("time.seconds")}` }
           ]}
+          mutate={configMutate}
         />
       </div>
     </>
