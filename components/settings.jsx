@@ -1,4 +1,3 @@
-import Image from "next/image"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
@@ -7,30 +6,14 @@ import { API } from "@/lib/http/api"
 import { useData } from "@/lib/http/swr"
 import { handleRequest } from "@/lib/http/request"
 import { FormInput, FormSelect } from "@/components/form"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from "@/components/ui/form"
+import { CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Avatar } from "@/components/avatar"
-import { ImportRecord, ExportRecord, DeleteRecord } from "@/components/record"
-import { Gamepad2, CircleUser, Database, ArrowRight, FileDown } from "lucide-react"
+import { ImportRecord, ExportRecord, DeleteRecord, ImportNxRecordDrag } from "@/components/record"
+import { Gamepad2, CircleUser, Database, ArrowRight } from "lucide-react"
 
 export function Settings() {
   const router = useRouter()
@@ -180,7 +163,16 @@ function PSMonitor({ configData, configMutate }) {
 }
 
 function NSMonitor() {
-  return null
+  const { t } = useTranslation()
+  return (
+    <>
+      <div className="flex flex-col gap-1.5">
+        <Label>{t("settings.ns.import")}</Label>
+        <CardDescription className="mb-3">{t("settings.ns.import_desc")}</CardDescription>
+        <ImportNxRecord />
+      </div>
+    </>
+  )
 }
 
 function SteamMonitor() {
