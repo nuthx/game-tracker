@@ -27,8 +27,10 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Separator } from "@/components/ui/separator"
 import { Avatar } from "@/components/avatar"
-import { Gamepad2, CircleUser, Database, ArrowRight } from "lucide-react"
+import { ImportRecord, ExportRecord, DeleteRecord } from "@/components/record"
+import { Gamepad2, CircleUser, Database, ArrowRight, FileDown } from "lucide-react"
 
 export function Settings() {
   const router = useRouter()
@@ -57,9 +59,9 @@ export function Settings() {
       component: AccountManager
     },
     {
-      title: t("settings.menu.backup"),
+      title: t("settings.menu.record"),
       icon: Database,
-      component: Backup
+      component: RecordManager
     }
   ]
 
@@ -178,53 +180,11 @@ function PSMonitor({ configData, configMutate }) {
 }
 
 function NSMonitor() {
-  return (
-    <>
-      <Card>
-        <CardContent>
-          <CardTitle>监控用户设置</CardTitle>
-          <p>Card Content</p>
-        </CardContent>
-      </Card>
-    </>
-  )
+  return null
 }
 
-function SteamMonitor({ configData }) {
-  return (
-    <>
-      {configData.npsso && (
-        <div className="flex gap-4 items-center">
-          <Avatar src={configData.avatar} alt={configData.onlineId} title={configData.onlineId} subtitle={configData.accountId} />
-          <ArrowRight className="size-5 text-muted-foreground" />
-          <Avatar src={configData.monitorAvatar} alt={configData.monitorName} title={configData.monitorName} subtitle={configData.monitorId} />
-        </div>
-      )}
-      <div className="flex flex-col gap-5">
-        <div className="border-b pb-3 space-y-2">
-          <CardTitle>登录用户设置</CardTitle>
-        </div>
-        <div className="flex flex-col gap-1">
-          <Label>请输入NPSSO</Label>
-          <FormInput name="new_npsso" schema="npsso" placeholder={configData.npsso} />
-        </div>
-      </div>
-      <div className="flex flex-col gap-5">
-        <div className="border-b pb-3 space-y-2">
-          <CardTitle>监控用户设置</CardTitle>
-          <CardDescription>可填写并监控其他账号的游戏状态，请确保该用户的游戏状态对登录用户可见。</CardDescription>
-        </div>
-        <div className="flex flex-col gap-1">
-          <p className="text-sm font-medium">AccountID</p>
-          <FormInput name="new_monitorId" defaultValue={configData.monitorId} placeholder={configData.monitorId} />
-        </div>
-        <div className="flex flex-col gap-1">
-          <p className="text-sm font-medium">监控间隔</p>
-          <FormInput name="new_monitorInterval" defaultValue={configData.monitorInterval} placeholder={configData.monitorInterval} />
-        </div>
-      </div>
-    </>
-  )
+function SteamMonitor() {
+  return null
 }
 
 function AccountManager({ configData }) {
@@ -266,10 +226,32 @@ function AccountManager({ configData }) {
   )
 }
 
-function Backup() {
+function RecordManager() {
+  const { t } = useTranslation()
   return (
-    <div className="w-full h-full">
-      <p>Backup</p>
-    </div>
+    <>
+      <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-1.5">
+          <Label>{t("settings.record.export")}</Label>
+          <CardDescription>{t("settings.record.export_desc")}</CardDescription>
+        </div>
+        <ExportRecord />
+      </div>
+      <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-1.5">
+          <Label>{t("settings.record.import")}</Label>
+          <CardDescription>{t("settings.record.import_desc")}</CardDescription>
+        </div>
+        <ImportRecord />
+      </div>
+      <Separator />
+      <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-1.5">
+          <Label>{t("settings.record.delete")}</Label>
+          <CardDescription>{t("settings.record.delete_desc")}</CardDescription>
+        </div>
+        <DeleteRecord />
+      </div>
+    </>
   )
 }

@@ -5,7 +5,8 @@
     "delete": "Delete",
     "login": "Log In",
     "logout": "Log Out",
-    "import": "Import"
+    "import": "Import",
+    "export": "Export"
   },
   "theme": {
     "light": "Light",
@@ -60,7 +61,7 @@
       "steam": "Steam",
       "system": "System",
       "account": "Account",
-      "backup": "Backup"
+      "record": "Game Record"
     },
     "psn": {
       "npsso": "NPSSO",
@@ -79,11 +80,20 @@
       "expiry": "Login Expiry",
       "expiry_desc": "The default expiry is 30 days, if it exceeds this time, you need to log in again."
     },
+    "record": {
+      "export": "Export Game Record",
+      "export_desc": "Export all game records from the database, for backup or migration.",
+      "import": "Import Game Record",
+      "import_desc": "Import game records from local files, supports automatic deduplication, feel free to use it.",
+      "delete": "Delete All Records",
+      "delete_desc": "Dangerous operation: delete all game records from the database, consider it carefully.",
+      "delete_confirm": "Game records cannot be recovered after deletion. To continue, please enter DELETE in the input box."
+    },
     "user_info": "User Profile",
     "username": "Username",
     "password": "New Password",
     "password_placeholder": "Enter new password",
-    "record": {
+    "record1": {
       "title": "Record Management",
       "import": "Import Record",
       "import_gt": "Import Backup Record",

@@ -43,7 +43,7 @@ import {
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ImportGt, ImportNx } from "@/components/import"
+import { ImportRecord, ImportNx } from "@/components/record"
 import { Loader2, FileDown, Trash2 } from "lucide-react"
 
 export default function Page() {
@@ -287,7 +287,7 @@ export default function Page() {
             <div className="flex flex-col gap-3">
               <p className="text-sm font-medium">{t("settings.record.import")}</p>
               <div className="flex flex-row gap-3">
-                <ImportGt />
+                <ImportRecord />
                 <ImportNx />
               </div>
             </div>

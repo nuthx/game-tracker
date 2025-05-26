@@ -1,5 +1,3 @@
-"use client"
-
 import { toast } from "sonner"
 import { useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -25,9 +23,40 @@ import {
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { FileUp } from "lucide-react"
+import { FileUp, FileDown, Trash2 } from "lucide-react"
 
-export function ImportGt() {
+export function ExportRecord() {
+  const { t } = useTranslation()
+
+  const handleExport = async () => {
+    const result = await handleRequest("GET", API.EXPORT)
+    if (result.ok) {
+      const blob = new Blob([JSON.stringify(result.data, null, 2)], { type: "application/json" })
+      const url = URL.createObjectURL(blob)
+
+      const link = document.createElement("a")
+      link.href = url
+      link.download = "gt-export.json"
+      link.click()
+
+      URL.revokeObjectURL(url)
+      toast(t("toast.export_success", { count: result.data.count.total }))
+    } else {
+      toast.error(`[${result.code}] ${result.message}`)
+    }
+  }
+
+  return (
+    <>
+      <Button variant="outline" className="w-fit" onClick={handleExport}>
+        <FileDown />
+        {t("btn.export")}
+      </Button>
+    </>
+  )
+}
+
+export function ImportRecord() {
   const { t } = useTranslation()
   const fileInputRef = useRef(null)
 
@@ -57,7 +86,7 @@ export function ImportGt() {
       <Input type="file" accept=".json" className="hidden" ref={fileInputRef} onChange={handleImport} />
       <Button variant="outline" className="w-fit" onClick={() => fileInputRef.current?.click()}>
         <FileUp />
-        {t("settings.record.import_gt")}
+        {t("btn.import")}
       </Button>
     </>
   )
@@ -136,6 +165,52 @@ export function ImportNx() {
             <AlertDialogCancel>{t("btn.cancel")}</AlertDialogCancel>
             <AlertDialogAction onClick={handleImport} disabled={!selectedUserId}>
               {t("btn.import")}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
+  )
+}
+
+export function DeleteRecord() {
+  const { t } = useTranslation()
+  const [open, setOpen] = useState(false)
+  const [deleteConfirmText, setDeleteConfirmText] = useState("")
+
+  const handleDelete = async () => {
+    const result = await handleRequest("DELETE", API.DELETE_ALL)
+    if (result.ok) {
+      toast(t("toast.delete_success", { count: result.data.count }))
+    } else {
+      toast.error(`[${result.code}] ${result.message}`)
+    }
+  }
+
+  return (
+    <>
+      <Button variant="outline" className="hover:border-destructive/30 hover:bg-destructive/10 hover:text-destructive" onClick={() => setOpen(true)}>
+        <Trash2 />
+        {t("btn.delete")}
+      </Button>
+
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t("settings.record.delete")}</AlertDialogTitle>
+            <AlertDialogDescription>{t("settings.record.delete_confirm")}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <Input
+            type="text"
+            className="w-full mb-2"
+            placeholder="DELETE"
+            value={deleteConfirmText}
+            onChange={(e) => setDeleteConfirmText(e.target.value)}
+          />
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setDeleteConfirmText("")}>{t("btn.cancel")}</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete} disabled={deleteConfirmText !== "DELETE"}>
+              {t("btn.delete")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
