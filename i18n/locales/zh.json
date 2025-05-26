@@ -5,7 +5,8 @@
     "delete": "删除",
     "login": "登录",
     "logout": "登出系统",
-    "import": "导入"
+    "import": "导入",
+    "export": "导出"
   },
   "theme": {
     "light": "浅色",
@@ -52,25 +53,46 @@
     "last_gaming": "最后游戏时间"
   },
   "settings": {
-    "login_first": "请先登录 PSN 账号",
-    "psn_account": "PSN 账号",
-    "monitor_settings": "监控设置",
-    "monitor_interval": "刷新间隔",
-    "user_info": "用户资料",
-    "username": "用户名",
-    "password": "新密码",
-    "password_placeholder": "请输入新密码",
+    "title": "设置",
+    "menu": {
+      "monitor": "追踪设置",
+      "psn": "PlayStation",
+      "ns": "Nintendo Switch",
+      "steam": "Steam",
+      "system": "系统设置",
+      "account": "账号管理",
+      "record": "游戏记录"
+    },
+    "psn": {
+      "npsso": "NPSSO",
+      "npsso_desc": "使用 PlayStation Network 账号登录，用于追踪用户的游戏状态",
+      "monitor": "追踪用户",
+      "monitor_desc": "需要追踪的用户的 Account ID",
+      "interval": "刷新间隔",
+      "interval_desc": "追踪用户游戏状态时的自动更新间隔"
+    },
+    "ns": {
+      "import": "导入游戏记录",
+      "import_desc": "从 NX-Activity-Log 插件中导入 Switch 的游戏记录，支持自动去重",
+      "drag_hint": "点击或拖拽 JSON 文件到这里导入"
+    },
+    "account": {
+      "username": "用户名",
+      "username_desc": "只是登录时使用的用户名，除此之外并不会在哪个角落展示",
+      "password": "密码",
+      "password_desc": "系统的登录密码，请务必记牢，因为没有重置功能，想要恢复很是麻烦",
+      "password_new": "请输入新密码",
+      "expiry": "登录有效期",
+      "expiry_desc": "有效期默认为 30 天，超过这个时间就需要重新登陆一下"
+    },
     "record": {
-      "title": "记录管理",
-      "import": "导入记录",
-      "import_gt": "导入备份记录",
-      "import_nx": "导入 Switch 记录",
-      "import_nx_dialog": "发现了多个用户的游戏记录，请选择要导入的用户",
-      "export": "导出记录",
-      "export_json": "导出备份记录",
-      "delete": "删除记录",
-      "delete_all": "删除所有记录",
-      "delete_dialog": "游戏记录删除后不可恢复。若要继续，请在下方输入 DELETE"
+      "export": "导出游戏记录",
+      "export_desc": "导出数据库中的所有游戏记录，想要备份或者迁移都随便你",
+      "import": "导入游戏记录",
+      "import_desc": "从本地文件中导入游戏记录，支持自动去重",
+      "delete": "删除所有记录",
+      "delete_desc": "危险操作：删除数据库中的所有游戏记录，考虑清楚再下手",
+      "delete_confirm": "游戏记录删除后不可恢复。若要继续，请在下方输入 DELETE"
     }
   }
 }

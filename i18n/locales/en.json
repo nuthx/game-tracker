@@ -5,7 +5,8 @@
     "delete": "Delete",
     "login": "Log In",
     "logout": "Log Out",
-    "import": "Import"
+    "import": "Import",
+    "export": "Export"
   },
   "theme": {
     "light": "Light",
@@ -52,25 +53,46 @@
     "last_gaming": "Last gaming"
   },
   "settings": {
-    "login_first": "Please log in to your PSN account first",
-    "psn_account": "PSN Account",
-    "monitor_settings": "Monitoring Settings",
-    "monitor_interval": "Refresh Interval",
-    "user_info": "User Profile",
-    "username": "Username",
-    "password": "New Password",
-    "password_placeholder": "Enter new password",
+    "title": "Settings",
+    "menu": {
+      "monitor": "Tracking",
+      "psn": "PlayStation",
+      "ns": "Nintendo Switch",
+      "steam": "Steam",
+      "system": "System",
+      "account": "Account",
+      "record": "Game Record"
+    },
+    "psn": {
+      "npsso": "NPSSO",
+      "npsso_desc": "Login with PlayStation Network account to track user's game status.",
+      "monitor": "Tracking User",
+      "monitor_desc": "The Account ID of the user to be tracked.",
+      "interval": "Refresh Interval",
+      "interval_desc": "The automatic update interval when tracking the user's game status."
+    },
+    "ns": {
+      "import": "Import Game Record",
+      "import_desc": "Import game records from the NX-Activity-Log plugin, supports automatic deduplication.",
+      "drag_hint": "Click or drag a JSON file here to import"
+    },
+    "account": {
+      "username": "Username",
+      "username_desc": "Only used for login, not displayed anywhere else.",
+      "password": "Password",
+      "password_desc": "The system login password, please remember it well, as there is no reset function, and it is very difficult to restore.",
+      "password_new": "Enter new password",
+      "expiry": "Login Expiry",
+      "expiry_desc": "The default expiry is 30 days, if it exceeds this time, you need to log in again."
+    },
     "record": {
-      "title": "Record Management",
-      "import": "Import Record",
-      "import_gt": "Import Backup Record",
-      "import_nx": "Import Switch Record",
-      "import_nx_dialog": "Multiple user game records exist, please select one user to continue importing.",
-      "export": "Export Record",
-      "export_json": "Export Backup Record",
-      "delete": "Delete Record",
-      "delete_all": "Delete All Records",
-      "delete_dialog": "Game records cannot be recovered after deletion. To continue, please enter DELETE in the input box."
+      "export": "Export Game Record",
+      "export_desc": "Export all game records from the database, for backup or migration.",
+      "import": "Import Game Record",
+      "import_desc": "Import game records from local files, supports automatic deduplication.",
+      "delete": "Delete All Records",
+      "delete_desc": "Dangerous operation: delete all game records from the database, consider it carefully.",
+      "delete_confirm": "Game records cannot be recovered after deletion. To continue, please enter DELETE in the input box."
     }
   }
 }

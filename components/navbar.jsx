@@ -7,12 +7,19 @@ import { useTranslation } from "react-i18next"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogTitle
+} from "@/components/ui/dialog"
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import { Settings2, Languages, Sun, Moon } from "lucide-react"
+import { Languages, Sun, Moon, Settings2 } from "lucide-react"
+import { Settings } from "@/components/settings"
 
 export function NavBar() {
   const pathname = usePathname()
@@ -60,11 +67,17 @@ export function NavBar() {
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <Link href="/settings">
-          <Button variant="ghost" className="size-10">
-            <Settings2 className="size-5" />
-          </Button>
-        </Link>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="ghost" className="size-10">
+              <Settings2 className="size-5" />
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="flex gap-0 p-0 h-[90vh] max-h-[680px] w-[80vw] sm:max-w-[1080px] overflow-hidden">
+            <DialogTitle className="sr-only">{t("settings.title")}</DialogTitle>
+            <Settings />
+          </DialogContent>
+        </Dialog>
       </div>
     </nav>
   )
