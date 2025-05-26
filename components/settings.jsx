@@ -31,11 +31,11 @@ export function Settings() {
       icon: Gamepad2,
       component: NSMonitor
     },
-    {
-      title: t("settings.menu.steam"),
-      icon: Gamepad2,
-      component: SteamMonitor
-    },
+    // {
+    //   title: t("settings.menu.steam"),
+    //   icon: Gamepad2,
+    //   component: SteamMonitor
+    // },
     {
       title: t("settings.menu.account"),
       icon: CircleUser,
@@ -63,7 +63,7 @@ export function Settings() {
       <div className="flex flex-col gap-6 p-3 w-60 bg-accent/70 border-r shrink-0">
         <div className="flex flex-col gap-1">
           <p className="text-sm font-bold text-muted-foreground mx-[10px] my-1">{t("settings.menu.monitor")}</p>
-          {items.slice(0, 3).map((item) => (
+          {items.slice(0, 2).map((item) => (
             <Button
               key={item.title}
               variant="ghost"
@@ -80,7 +80,7 @@ export function Settings() {
         </div>
         <div className="flex flex-col gap-1">
           <p className="text-sm font-bold text-muted-foreground mx-[10px] my-1">{t("settings.menu.system")}</p>
-          {items.slice(3).map((item) => (
+          {items.slice(2).map((item) => (
             <Button
               key={item.title}
               variant="ghost"
