@@ -151,7 +151,7 @@ function PSMonitor({ configData, configMutate }) {
       <div className="flex flex-col gap-1.5">
         <Label>{t("settings.psn.npsso")}</Label>
         <CardDescription>{t("settings.psn.npsso_desc")}</CardDescription>
-        <FormInput name="new_npsso" schema="npsso" placeholder={configData.npsso} mutate={configMutate} />
+        <FormInput name="new_npsso" schema="npsso" placeholder={configData.npsso} mutate={configMutate} clean={true} />
       </div>
       <div className="flex flex-col gap-1.5">
         <Label>{t("settings.psn.monitor")}</Label>
@@ -171,7 +171,6 @@ function PSMonitor({ configData, configMutate }) {
             { value: "30", label: `30 ${t("time.seconds")}` },
             { value: "60", label: `60 ${t("time.seconds")}` }
           ]}
-          mutate={configMutate}
         />
       </div>
     </>
@@ -229,11 +228,41 @@ function SteamMonitor({ configData }) {
 }
 
 function AccountManager({ configData }) {
+  const { t } = useTranslation()
+
+  // 获取 cookie 的过期时间
+  const getCookieExpiry = () => {
+    const cookies = document.cookie.split(";")
+    const tktkCookie = cookies.find((cookie) => cookie.trim().startsWith("tktk="))
+    try {
+      const token = tktkCookie.split("=")[1]
+      const payload = JSON.parse(atob(token.split(".")[1]))
+      return new Date(payload.exp * 1000)
+    } catch {
+      return null
+    }
+  }
+
   return (
-    <div className="w-full h-full">
-      <p>AccountManager</p>
-      <FormInput name="new_username" schema="username" defaultValue={configData.username} placeholder={configData.username} />
-    </div>
+    <>
+      <div className="flex flex-col gap-1.5">
+        <Label>{t("settings.account.username")}</Label>
+        <CardDescription>{t("settings.account.username_desc")}</CardDescription>
+        <FormInput name="new_username" schema="username" defaultValue={configData.username} placeholder={configData.username} />
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <Label>{t("settings.account.password")}</Label>
+        <CardDescription>{t("settings.account.password_desc")}</CardDescription>
+        <FormInput name="new_password" schema="password" placeholder={t("settings.account.password_new")} clean={true} />
+      </div>
+      {getCookieExpiry() && (
+        <div className="flex flex-col gap-1.5">
+          <Label>{t("settings.account.expiry")}</Label>
+          <CardDescription>{t("settings.account.expiry_desc")}</CardDescription>
+          <Input value={getCookieExpiry().toLocaleString()} disabled />
+        </div>
+      )}
+    </>
   )
 }
 

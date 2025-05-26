@@ -22,7 +22,15 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Loader2 } from "lucide-react"
 
-export function FormInput({ name, schema = "required", defaultValue = "", placeholder, mutate }) {
+/**
+ * @param {string} name - 表单字段名称，需要与提交到后端的数据名称一致（value部分）
+ * @param {string} [schema] - 验证规则名称，可选，默认为"required"
+ * @param {string} [defaultValue] - 默认值，可选
+ * @param {string} [placeholder] - 输入框占位文本，可选
+ * @param {Function} [mutate] - 提交成功后的回调函数，可选
+ * @param {boolean} [clean] - 提交后是否清空输入，可选，默认不清空
+ */
+export function FormInput({ name, schema = "required", defaultValue, placeholder, mutate, clean = false }) {
   const { t } = useTranslation()
   const userForm = createForm({ [name]: { schema: schema } })()
   const currentValue = userForm.watch(name)
@@ -39,12 +47,15 @@ export function FormInput({ name, schema = "required", defaultValue = "", placeh
       const result = await handleRequest("PATCH", API.CONFIG, values)
       if (result.ok) {
         toast(t("toast.save_config"))
-        mutate()
+        mutate?.()
       } else {
         toast.error(`[${result.code}] ${result.message}`)
       }
     } finally {
       setIsSubmitting(false)
+      if (clean) {
+        userForm.setValue(name, "")
+      }
     }
   }
 
@@ -74,6 +85,12 @@ export function FormInput({ name, schema = "required", defaultValue = "", placeh
   )
 }
 
+/**
+ * @param {string} name - 表单字段名称，需要与提交到后端的数据名称一致（value部分）
+ * @param {string} [defaultValue] - 默认值，可选
+ * @param {Array} options - 选项列表
+ * @param {Function} [mutate] - 提交成功后的回调函数，可选
+ */
 export function FormSelect({ name, defaultValue, options, mutate }) {
   const { t } = useTranslation()
 
@@ -81,7 +98,7 @@ export function FormSelect({ name, defaultValue, options, mutate }) {
     const result = await handleRequest("PATCH", API.CONFIG, values)
     if (result.ok) {
       toast(t("toast.save_config"))
-      mutate()
+      mutate?.()
     } else {
       toast.error(`[${result.code}] ${result.message}`)
     }

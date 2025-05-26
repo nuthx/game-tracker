@@ -70,6 +70,15 @@
       "interval": "刷新间隔",
       "interval_desc": "追踪用户游戏状态时的自动更新间隔"
     },
+    "account": {
+      "username": "用户名",
+      "username_desc": "只是登录时使用的用户名，除此之外并不会在哪个角落展示",
+      "password": "密码",
+      "password_desc": "系统的登录密码，请务必记牢，因为没有重置功能，想要恢复很是麻烦",
+      "password_new": "请输入新密码",
+      "expiry": "登录有效期",
+      "expiry_desc": "有效期默认为 30 天，超过这个时间就需要重新登陆一下"
+    },
     "user_info": "用户资料",
     "username": "用户名",
     "password": "新密码",

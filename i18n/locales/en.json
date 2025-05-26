@@ -70,6 +70,15 @@
       "interval": "Refresh Interval",
       "interval_desc": "The automatic update interval when tracking the user's game status."
     },
+    "account": {
+      "username": "Username",
+      "username_desc": "Only used for login, not displayed anywhere else.",
+      "password": "Password",
+      "password_desc": "The system login password, please remember it well, as there is no reset function, and it is very difficult to restore.",
+      "password_new": "Enter new password",
+      "expiry": "Login Expiry",
+      "expiry_desc": "The default expiry is 30 days, if it exceeds this time, you need to log in again."
+    },
     "user_info": "User Profile",
     "username": "Username",
     "password": "New Password",
