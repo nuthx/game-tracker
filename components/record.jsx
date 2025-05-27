@@ -108,7 +108,7 @@ export function DeleteRecord() {
 
   return (
     <>
-      <Button variant="outline" className="hover:border-destructive/30 hover:bg-destructive/10 hover:text-destructive" onClick={() => setOpen(true)}>
+      <Button variant="outline" className="w-fit hover:border-destructive/30 hover:bg-destructive/10 hover:text-destructive" onClick={() => setOpen(true)}>
         <Trash2 />
         {t("btn.delete")}
       </Button>

@@ -59,8 +59,8 @@ export function Settings() {
   }
 
   return (
-    <>
-      <div className="flex flex-col gap-6 p-3 w-60 bg-accent/70 border-r shrink-0">
+    <div className="flex flex-1 flex-col md:flex-row w-full">
+      <div className="flex flex-col gap-4 md:gap-6 p-3 w-full md:w-60 bg-accent/70 border-none md:border-r shrink-0">
         <div className="flex flex-col gap-1">
           <p className="text-sm font-bold text-muted-foreground mx-[10px] my-1">{t("settings.menu.monitor")}</p>
           {items.slice(0, 2).map((item) => (
@@ -97,10 +97,10 @@ export function Settings() {
         </div>
         <Button size="sm" variant="destructive" className="mt-auto" onClick={handleLogout}>{t("btn.logout")}</Button>
       </div>
-      <div className="flex flex-col gap-8 w-full h-full px-12 py-10 overflow-y-auto">
+      <div className="flex flex-col gap-6 md:gap-8 w-full h-full px-4 py-6 md:px-12 md:py-10 overflow-y-auto">
         <CurrentComponent items={items} activeComponent={activeComponent} />
       </div>
-    </>
+    </div>
   )
 }
 
@@ -127,7 +127,7 @@ function PSMonitor({ configData, configMutate }) {
   return (
     <>
       {configData.npsso && (
-        <div className="flex gap-4 items-center">
+        <div className="flex flex-col md:flex-row gap-4 items-center">
           <Avatar src={configData.avatar} alt={configData.onlineId} title={configData.onlineId} subtitle={configData.accountId} />
           <ArrowRight className="size-5 text-muted-foreground" />
           <Avatar src={configData.monitorAvatar} alt={configData.monitorName} title={configData.monitorName} subtitle={configData.monitorId} />
@@ -222,14 +222,14 @@ function RecordManager() {
   const { t } = useTranslation()
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div className="flex flex-col gap-1.5">
           <Label>{t("settings.record.export")}</Label>
           <CardDescription>{t("settings.record.export_desc")}</CardDescription>
         </div>
         <ExportRecord />
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div className="flex flex-col gap-1.5">
           <Label>{t("settings.record.import")}</Label>
           <CardDescription>{t("settings.record.import_desc")}</CardDescription>
@@ -237,7 +237,7 @@ function RecordManager() {
         <ImportRecord />
       </div>
       <Separator />
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div className="flex flex-col gap-1.5">
           <Label>{t("settings.record.delete")}</Label>
           <CardDescription>{t("settings.record.delete_desc")}</CardDescription>

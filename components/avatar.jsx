@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export function Avatar({ src, alt, title, subtitle }) {
   return (
-    <div className="flex gap-4 items-center border rounded-lg shadow-xs p-4 flex-1">
+    <div className="flex gap-4 items-center border rounded-lg shadow-xs p-4 flex-1 w-full">
       <Image
         src={src}
         alt={alt}
