@@ -4,8 +4,22 @@ import { tf } from "@/lib/utils"
 
 export async function GET(request) {
   try {
-    const psnRecords = await prisma.psnRecord.findMany({ orderBy: { endAt: "desc" } })
-    const nxRecords = await prisma.nxRecord.findMany({ orderBy: { endAt: "desc" } })
+    // 获取 URL 参数
+    const { searchParams } = new URL(request.url)
+    const limit = parseInt(searchParams.get("limit")) || 25
+    const page = parseInt(searchParams.get("page")) || 1
+    const type = searchParams.get("type")?.toLowerCase() || "all"
+
+    let psnRecords = []
+    let nxRecords = []
+
+    if (type === "all" || type === "psn") {
+      psnRecords = await prisma.psnRecord.findMany({ orderBy: { endAt: "desc" } })
+    }
+
+    if (type === "all" || type === "nx") {
+      nxRecords = await prisma.nxRecord.findMany({ orderBy: { endAt: "desc" } })
+    }
 
     // 合并并格式化两种记录
     const combinedRecords = [
@@ -31,8 +45,20 @@ export async function GET(request) {
       }))
     ].sort((a, b) => new Date(b.endAt) - new Date(a.endAt))
 
+    // 处理分页
+    const skip = (page - 1) * limit
+    const paginatedRecords = combinedRecords.slice(skip, skip + limit)
+
     return sendResponse(request, {
-      data: combinedRecords
+      data: {
+        records: paginatedRecords,
+        pagination: {
+          total: combinedRecords.length,
+          page,
+          limit,
+          totalPages: Math.ceil(combinedRecords.length / limit)
+        }
+      }
     })
   } catch (error) {
     return sendResponse(request, {

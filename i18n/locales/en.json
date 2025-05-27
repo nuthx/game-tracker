@@ -8,6 +8,11 @@
     "import": "Import",
     "export": "Export"
   },
+  "filter": {
+    "all_platforms": "All Platforms",
+    "psn": "PlayStation",
+    "nx": "Nintendo Switch"
+  },
   "theme": {
     "light": "Light",
     "dark": "Dark",

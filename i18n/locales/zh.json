@@ -8,6 +8,11 @@
     "import": "导入",
     "export": "导出"
   },
+  "filter": {
+    "all_platforms": "所有平台",
+    "psn": "PlayStation",
+    "nx": "Nintendo Switch"
+  },
   "theme": {
     "light": "浅色",
     "dark": "深色",
