@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useState } from "react"
+import { useSearchParams, useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
 import { API } from "@/lib/http/api"
 import { useData } from "@/lib/http/swr"
@@ -19,15 +19,24 @@ import { Pagination } from "@/components/pagination"
 
 export default function Page() {
   const { t } = useTranslation()
-  const [page, setPage] = useState(1)
-  const [type, setType] = useState("all")
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const currentPage = Number(searchParams.get("page")) || 1
+  const currentType = searchParams.get("type") || "all"
 
-  const handleTypeChange = (newType) => {
-    setType(newType)
-    setPage(1)
+  const updateUrlParams = (newPage, newType) => {
+    const params = new URLSearchParams()
+    if (newPage > 1) {
+      params.set("page", newPage.toString())
+    }
+    if (newType !== "all") {
+      params.set("type", newType)
+    }
+    const queryString = params.toString()
+    router.push(queryString ? `?${queryString}` : "/")
   }
 
-  const { data: recordData, error: recordError, isLoading: recordLoading } = useData(`${API.RECORD}?page=${page}&type=${type}`)
+  const { data: recordData, error: recordError, isLoading: recordLoading } = useData(`${API.RECORD}?page=${currentPage}&type=${currentType}`)
 
   if (recordLoading) {
     return <div className="flex justify-center text-sm text-muted-foreground">{t("toast.loading")}</div>
@@ -42,7 +51,7 @@ export default function Page() {
       <UserCard />
 
       <div className="flex items-center">
-        <Select value={type} onValueChange={handleTypeChange}>
+        <Select value={currentType} onValueChange={(newType) => updateUrlParams(1, newType)}>
           <SelectTrigger className="w-full">
             <SelectValue />
           </SelectTrigger>
@@ -65,7 +74,7 @@ export default function Page() {
         </CardContent>
       </Card>
 
-      <Pagination page={page} totalPages={recordData.pagination.totalPages} onChange={setPage} />
+      <Pagination page={currentPage} totalPages={recordData.pagination.totalPages} onChange={(newPage) => updateUrlParams(newPage, currentType)} />
     </div>
   )
 }
