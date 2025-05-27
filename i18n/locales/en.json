@@ -46,7 +46,8 @@
       "login_first": "Please add your account in the settings first"
     },
     "offline": "Offline",
-    "online": "Waiting to play...",
+    "online": "Online",
+    "waiting": "Waiting to play...",
     "online_time": "online for",
     "gaming_time": "played for",
     "last_online": "Last online",

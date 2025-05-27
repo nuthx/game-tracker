@@ -79,7 +79,7 @@ export function UserCard() {
             draggable="false"
           />
           <div className="flex flex-col gap-2 w-full">
-            <p className="font-bold">{t("home.online")}</p>
+            <p className="font-bold">{t("home.waiting")}</p>
             <p className="text-sm text-muted-foreground">{presenceData.monitorUser.name} {t("home.online_time")} {presenceData.playTime.minutes > 0 ? `${presenceData.playTime.minutes} ${t("time.minutes")} ` : ""}{presenceData.playTime.seconds} {t("time.seconds")}</p>
           </div>
         </CardContent>

@@ -46,7 +46,8 @@
       "login_first": "请先在设置中添加账号"
     },
     "offline": "离线",
-    "online": "等待游玩中...",
+    "online": "在线",
+    "waiting": "等待游玩中...",
     "online_time": "已在线",
     "gaming_time": "已游玩",
     "last_online": "最后在线时间",
