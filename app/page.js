@@ -1,69 +1,71 @@
 "use client"
 
 import Image from "next/image"
+import { useSearchParams, useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
 import { API } from "@/lib/http/api"
 import { useData } from "@/lib/http/swr"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select"
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { UserCard } from "@/components/user"
+import { Pagination } from "@/components/pagination"
 
 export default function Page() {
   const { t } = useTranslation()
-  const { data: presenceData, error: presenceError, isLoading: presenceLoading } = useData(API.PRESENCE)
-  const { data: recordData, error: recordError, isLoading: recordLoading } = useData(API.RECORD)
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const currentPage = Number(searchParams.get("page")) || 1
+  const currentType = searchParams.get("type") || "all"
 
-  if (presenceLoading || recordLoading) {
+  const updateUrlParams = (newPage, newType) => {
+    const params = new URLSearchParams()
+    if (newPage > 1) {
+      params.set("page", newPage.toString())
+    }
+    if (newType !== "all") {
+      params.set("type", newType)
+    }
+    const queryString = params.toString()
+    router.push(queryString ? `?${queryString}` : "/")
+  }
+
+  const { data: recordData, error: recordError, isLoading: recordLoading } = useData(`${API.RECORD}?page=${currentPage}&type=${currentType}`)
+
+  if (recordLoading) {
     return <div className="flex justify-center text-sm text-muted-foreground">{t("toast.loading")}</div>
   }
 
-  if (presenceError || recordError) {
-    if (presenceError.code === 400) {
-      return <div className="flex justify-center text-sm text-muted-foreground">{t("toast.no_npsso")}</div>
-    } else {
-      return <div className="flex justify-center text-sm text-muted-foreground">{t("toast.error_user")}</div>
-    }
+  if (recordError) {
+    return <div className="flex justify-center text-sm text-muted-foreground">{t("toast.error_user")}</div>
   }
 
   return (
     <div className="flex flex-col gap-4 md:gap-6">
-      <Card className="w-full">
-        <CardContent className="flex flex-row items-center gap-5">
-          <Image
-            src={presenceData.gameTitleInfoList?.[0]?.conceptIconUrl || presenceData.gameTitleInfoList?.[0]?.npTitleIconUrl || "/images/playstation.jpg"}
-            alt={presenceData.gameTitleInfoList?.[0]?.titleName || "PlayStation"}
-            className={`rounded-sm object-cover size-20 ${presenceData.availability === "unavailable" ? "grayscale opacity-50" : ""}`}
-            width={80}
-            height={80}
-            priority
-            draggable="false"
-          />
-          {presenceData.availability === "unavailable"
-            ? (
-                <div className="flex flex-col gap-2">
-                  <p className="font-bold">{t("home.user_offline")}</p>
-                  <p className="text-sm text-muted-foreground">{t("home.last_online")}: {new Date(presenceData.primaryPlatformInfo.lastOnlineDate).toLocaleString()}</p>
-                </div>
-              )
-            : presenceData.gameTitleInfoList && presenceData.gameTitleInfoList.length > 0
-              ? (
-                  <div className="flex flex-col gap-1.5">
-                    <p className="text-sm text-muted-foreground">{t("home.playing_platform", { platform: presenceData.primaryPlatformInfo.platform.toUpperCase() })}</p>
-                    <p className="font-bold">{presenceData.gameTitleInfoList[0].titleName}</p>
-                    <p className="text-sm text-muted-foreground">{t("home.playing_time")} {presenceData.playTime.minutes > 0 ? `${presenceData.playTime.minutes} ${t("time.minutes")} ` : ""}{presenceData.playTime.seconds} {t("time.seconds")}</p>
-                  </div>
-                )
-              : (
-                  <div className="flex flex-col gap-2">
-                    <p className="font-bold">{t("home.user_online", { platform: presenceData.primaryPlatformInfo.platform.toUpperCase() })}</p>
-                    <p className="text-sm text-muted-foreground">{t("home.not_playing")}</p>
-                  </div>
-                )}
-        </CardContent>
-      </Card>
+      <UserCard />
+
+      <div className="flex items-center">
+        <Select value={currentType} onValueChange={(newType) => updateUrlParams(1, newType)}>
+          <SelectTrigger className="w-full">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">{t("filter.all_platforms")}</SelectItem>
+            <SelectItem value="psn">PlayStation</SelectItem>
+            <SelectItem value="nx">Nintendo Switch</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
 
       <Card>
         <CardContent className="flex flex-col gap-4">
-          {recordData?.map((record, index) => (
+          {recordData?.records?.map((record, index) => (
             <div key={index}>
               { index > 0 && <Separator className="mb-4" /> }
               { record.state === "gaming" ? <GamingRecord record={record} /> : <OnlineRecord record={record} /> }
@@ -71,6 +73,8 @@ export default function Page() {
           ))}
         </CardContent>
       </Card>
+
+      <Pagination page={currentPage} totalPages={recordData.pagination.totalPages} onChange={(newPage) => updateUrlParams(newPage, currentType)} />
     </div>
   )
 }

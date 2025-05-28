@@ -48,7 +48,7 @@ export async function PATCH(request) {
       })
     }
 
-    if (data.new_monitorId && data.new_monitorInterval) {
+    if (data.new_monitorId) {
       const authorization = await getAuthorization()
       const profile = await getProfileFromAccountId(authorization, data.new_monitorId)
       await prisma.user.update({
@@ -56,9 +56,15 @@ export async function PATCH(request) {
         data: {
           monitorId: data.new_monitorId,
           monitorName: profile.onlineId,
-          monitorAvatar: profile.avatars[2].url,
-          monitorInterval: data.new_monitorInterval
+          monitorAvatar: profile.avatars[2].url
         }
+      })
+    }
+
+    if (data.new_monitorInterval) {
+      await prisma.user.update({
+        where: { id: 1 },
+        data: { monitorInterval: data.new_monitorInterval }
       })
       await startTask()
     }
