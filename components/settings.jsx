@@ -175,9 +175,9 @@ function NSMonitor() {
   )
 }
 
-function SteamMonitor() {
-  return null
-}
+// function SteamMonitor() {
+//   return null
+// }
 
 function AccountManager({ configData }) {
   const { t } = useTranslation()
