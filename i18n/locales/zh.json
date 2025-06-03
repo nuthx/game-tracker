@@ -61,7 +61,8 @@
     "online_time": "已在线",
     "gaming_time": "已游玩",
     "last_online": "最后在线时间",
-    "last_gaming": "最后游戏时间"
+    "last_gaming": "最后游戏时间",
+    "view_all": "查看所有记录"
   },
   "settings": {
     "title": "设置",
