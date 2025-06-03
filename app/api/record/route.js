@@ -14,11 +14,17 @@ export async function GET(request) {
     let nxRecords = []
 
     if (type === "all" || type === "psn") {
-      psnRecords = await prisma.psnRecord.findMany({ orderBy: { endAt: "desc" } })
+      psnRecords = await prisma.psnRecord.findMany({
+        where: { state: "gaming" },
+        orderBy: { endAt: "desc" }
+      })
     }
 
     if (type === "all" || type === "nx") {
-      nxRecords = await prisma.nxRecord.findMany({ orderBy: { endAt: "desc" } })
+      nxRecords = await prisma.nxRecord.findMany({
+        where: { state: "gaming" },
+        orderBy: { endAt: "desc" }
+      })
     }
 
     // 合并并格式化两种记录
