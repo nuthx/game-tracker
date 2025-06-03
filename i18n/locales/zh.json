@@ -71,7 +71,13 @@
     },
     "psn": {
       "npsso": "NPSSO",
-      "npsso_desc": "使用 PlayStation Network 账号登录，用于追踪用户的游戏状态",
+      "npsso_desc": "使用 PlayStation Network 账号登录，用于追踪用户的游戏状态。<0>获取教程</0>",
+      "tutorial": {
+        "title": "获取 NPSSO",
+        "desc": "打开官网并登录账号，成功后点击第二个按钮即可获取到 NPSSO",
+        "btn1": "PlayStation 官网",
+        "btn2": "获取 NPSSO"
+      },
       "monitor": "追踪用户",
       "monitor_desc": "需要追踪的用户的 Account ID",
       "interval": "刷新间隔",
