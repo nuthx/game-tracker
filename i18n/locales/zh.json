@@ -44,6 +44,11 @@
     "username": "用户名",
     "password": "密码"
   },
+  "navbar": {
+    "overview": "总览",
+    "record": "游戏记录",
+    "report": "数据报告"
+  },
   "home": {
     "error": {
       "load_error": "加载失败",

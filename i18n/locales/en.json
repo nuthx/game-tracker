@@ -44,6 +44,11 @@
     "username": "Username",
     "password": "Password"
   },
+  "navbar": {
+    "overview": "Overview",
+    "record": "Record",
+    "report": "Report"
+  },
   "home": {
     "error": {
       "load_error": "Load Failed",
