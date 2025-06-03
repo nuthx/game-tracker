@@ -20,7 +20,7 @@ export default function Page() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="max-w-screen-lg mx-auto flex flex-col gap-4">
       <UserCard />
       <RecordCard records={recordData} />
     </div>
