@@ -3,7 +3,7 @@
 import { useTranslation } from "react-i18next"
 import { API } from "@/lib/http/api"
 import { useData } from "@/lib/http/swr"
-import { UserCard } from "@/components/user"
+import { UserCard } from "@/components/user-card"
 import { RecordCard } from "@/components/record-card"
 
 export default function Page() {

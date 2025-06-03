@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Avatar } from "@/components/avatar"
-import { ImportRecord, ExportRecord, DeleteRecord, ImportNxRecord } from "@/components/record"
+import { ImportRecord, ExportRecord, DeleteRecord, ImportNxRecord } from "@/components/record-backup"
 import { Gamepad2, CircleUser, Database, ArrowRight } from "lucide-react"
 
 export function Settings() {
