@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button"
 import { ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from "lucide-react"
 
 export function Pagination({ page, totalPages, onChange }) {
+  if (totalPages <= 1) return null
+
   return (
     <div className="flex items-center justify-center gap-2">
       <Button variant="outline" size="icon" disabled={page === 1} onClick={() => onChange(1)}>
