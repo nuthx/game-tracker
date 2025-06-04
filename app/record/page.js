@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Trash2 } from "lucide-react"
+import { RefreshCcw, Trash2 } from "lucide-react"
 import { Pagination } from "@/components/pagination"
 
 export default function Page() {
@@ -65,10 +65,10 @@ export default function Page() {
   }
 
   return (
-    <div className="max-w-screen-2xl mx-auto flex flex-col gap-4">
-      <div className="flex gap-4 items-center justify-end">
+    <div className="max-w-screen-2xl mx-auto flex flex-col gap-2 md:gap-4">
+      <div className="flex gap-2 md:gap-3 items-center justify-end">
         <Select value={currentPlatform} onValueChange={(newPlatform) => updateUrlParams(1, newPlatform, currentTitle, currentUser)}>
-          <SelectTrigger className="w-full">
+          <SelectTrigger className="w-full bg-background">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -79,7 +79,7 @@ export default function Page() {
         </Select>
 
         <Select value={currentUser} onValueChange={(newUser) => updateUrlParams(1, currentPlatform, currentTitle, newUser)}>
-          <SelectTrigger className="w-full">
+          <SelectTrigger className="w-full bg-background">
             <SelectValue placeholder={t("filter.search_user")} />
           </SelectTrigger>
           <SelectContent>
@@ -93,7 +93,7 @@ export default function Page() {
         </Select>
 
         <Select value={currentTitle} onValueChange={(newTitle) => updateUrlParams(1, currentPlatform, newTitle, currentUser)}>
-          <SelectTrigger className="w-full">
+          <SelectTrigger className="w-full bg-background">
             <SelectValue placeholder={t("filter.search_title")} />
           </SelectTrigger>
           <SelectContent>
@@ -105,6 +105,10 @@ export default function Page() {
             ))}
           </SelectContent>
         </Select>
+
+        <Button variant="outline" size="icon" onClick={() => updateUrlParams(1, "all", "all", "all")}>
+          <RefreshCcw />
+        </Button>
       </div>
 
       <div className="border rounded-lg border shadow-xs bg-background">
