@@ -36,9 +36,13 @@ export function NavBar() {
 
   return (
     <nav className="flex justify-between items-center h-16 px-4 md:px-12 sticky top-0 z-50 border-b bg-background/90 dark:bg-background backdrop-blur-sm">
-      <Link href="/" className="cursor-pointer dark:invert fill-red-500 text-red-500">
-        <Image src="/logo.svg" alt="ゲーム時計" width={110} height={25} draggable="false" />
-      </Link>
+      <Image src="/logo.svg" alt="ゲーム時計" width={110} height={25} draggable="false" className="hidden md:block" />
+
+      <div className="flex gap-8 ml-2 md:ml-0">
+        <Link href="/" className="text-sm cursor-pointer">{t("navbar.overview")}</Link>
+        <Link href="/record" className="text-sm cursor-pointer">{t("navbar.record")}</Link>
+        {/* <Link href="/report" className="text-sm cursor-pointer">{t("navbar.report")}</Link> */}
+      </div>
 
       <div className="flex items-center gap-2">
         <DropdownMenu>

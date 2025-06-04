@@ -11,7 +11,10 @@
   "filter": {
     "all_platforms": "All Platforms",
     "psn": "PlayStation",
-    "nx": "Nintendo Switch"
+    "nx": "Nintendo Switch",
+    "all_users": "All Users",
+    "unknown_user": "Unknown",
+    "all_titles": "All Titles"
   },
   "theme": {
     "light": "Light",
@@ -44,6 +47,11 @@
     "username": "Username",
     "password": "Password"
   },
+  "navbar": {
+    "overview": "Overview",
+    "record": "Record",
+    "report": "Report"
+  },
   "home": {
     "error": {
       "load_error": "Load Failed",
@@ -55,8 +63,18 @@
     "waiting": "Waiting to play...",
     "online_time": "online for",
     "gaming_time": "played for",
-    "last_online": "Last online",
-    "last_gaming": "Last gaming"
+    "last_online": "Last Online",
+    "last_gaming": "Last Played",
+    "view_all": "View All Records"
+  },
+  "record": {
+    "cover": "Cover",
+    "title": "Title",
+    "platform": "Platform",
+    "user": "User",
+    "start_at": "Start At",
+    "end_at": "End At",
+    "play_time": "Play Time"
   },
   "settings": {
     "title": "Settings",
@@ -71,7 +89,13 @@
     },
     "psn": {
       "npsso": "NPSSO",
-      "npsso_desc": "Login with PlayStation Network account to track user's game status.",
+      "npsso_desc": "Login with PlayStation Network account to track user's game status. <0>Tutorial</0>",
+      "tutorial": {
+        "title": "Obtain NPSSO",
+        "desc": "Open the official website and log in to your account, then click the second button to get the NPSSO.",
+        "btn1": "Official Website",
+        "btn2": "Get NPSSO"
+      },
       "monitor": "Tracking User",
       "monitor_desc": "The Account ID of the user to be tracked.",
       "interval": "Refresh Interval",

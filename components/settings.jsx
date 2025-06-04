@@ -1,18 +1,25 @@
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { useTranslation } from "react-i18next"
+import { useTranslation, Trans } from "react-i18next"
 import { API } from "@/lib/http/api"
 import { useData } from "@/lib/http/swr"
 import { handleRequest } from "@/lib/http/request"
 import { FormInput, FormSelect } from "@/components/form"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle
+} from "@/components/ui/dialog"
 import { CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Avatar } from "@/components/avatar"
-import { ImportRecord, ExportRecord, DeleteRecord, ImportNxRecord } from "@/components/record"
+import { ImportRecord, ExportRecord, DeleteRecord, ImportNxRecord } from "@/components/record-backup"
 import { Gamepad2, CircleUser, Database, ArrowRight } from "lucide-react"
 
 export function Settings() {
@@ -124,6 +131,8 @@ function CurrentComponent({ items, activeComponent }) {
 
 function PSMonitor({ configData, configMutate }) {
   const { t } = useTranslation()
+  const [tutorialOpen, setTutorialOpen] = useState(false)
+
   return (
     <>
       {configData.npsso && (
@@ -135,7 +144,23 @@ function PSMonitor({ configData, configMutate }) {
       )}
       <div className="flex flex-col gap-1.5">
         <Label>{t("settings.psn.npsso")}</Label>
-        <CardDescription>{t("settings.psn.npsso_desc")}</CardDescription>
+        <CardDescription>
+          <Trans i18nKey="settings.psn.npsso_desc">
+            <a className="underline cursor-pointer" onClick={() => setTutorialOpen(true)} />
+          </Trans>
+          <Dialog open={tutorialOpen} onOpenChange={setTutorialOpen}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>{t("settings.psn.tutorial.title")}</DialogTitle>
+                <DialogDescription>{t("settings.psn.tutorial.desc")}</DialogDescription>
+              </DialogHeader>
+              <div className="flex gap-3">
+                <Button className="flex-1">{t("settings.psn.tutorial.btn1")}</Button>
+                <Button className="flex-1">{t("settings.psn.tutorial.btn2")}</Button>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </CardDescription>
         <FormInput name="new_npsso" schema="npsso" placeholder={configData.npsso} mutate={configMutate} clean={true} />
       </div>
       <div className="flex flex-col gap-1.5">

@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
         <NextThemesProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <I18nWrapper>
             <NavBar />
-            <div className="container mx-auto max-w-screen-lg flex flex-col gap-4 p-4 md:p-8">
+            <div className="p-4 md:p-8">
               {children}
             </div>
             <Toaster position="top-center" />

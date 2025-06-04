@@ -8,17 +8,33 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url)
     const limit = parseInt(searchParams.get("limit")) || 25
     const page = parseInt(searchParams.get("page")) || 1
-    const type = searchParams.get("type")?.toLowerCase() || "all"
+    const platform = searchParams.get("platform") || "all"
+    const user = searchParams.get("user") || "all"
+    const title = searchParams.get("title") || "all"
 
     let psnRecords = []
     let nxRecords = []
 
-    if (type === "all" || type === "psn") {
-      psnRecords = await prisma.psnRecord.findMany({ orderBy: { endAt: "desc" } })
+    if (platform === "all" || platform === "psn") {
+      psnRecords = await prisma.psnRecord.findMany({
+        where: {
+          state: "gaming",
+          ...(user !== "all" && { userName: user === "unknown" ? "" : user }),
+          ...(title !== "all" && { titleName: { contains: title } })
+        },
+        orderBy: { endAt: "desc" }
+      })
     }
 
-    if (type === "all" || type === "nx") {
-      nxRecords = await prisma.nxRecord.findMany({ orderBy: { endAt: "desc" } })
+    if (platform === "all" || platform === "nx") {
+      nxRecords = await prisma.nxRecord.findMany({
+        where: {
+          state: "gaming",
+          ...(user !== "all" && { userName: user === "unknown" ? "" : user }),
+          ...(title !== "all" && { gameName: { contains: title } })
+        },
+        orderBy: { endAt: "desc" }
+      })
     }
 
     // 合并并格式化两种记录
@@ -26,8 +42,10 @@ export async function GET(request) {
       ...psnRecords.map((record) => ({
         state: record.state,
         name: record.titleName,
+        titleId: record.npTitleId,
         platform: record.launchPlatform,
         cover: record.conceptIconUrl,
+        user: record.userName || "unknown",
         startAt: record.startAt,
         endAt: record.endAt,
         playSeconds: record.playSeconds,
@@ -36,14 +54,24 @@ export async function GET(request) {
       ...nxRecords.map((record) => ({
         state: record.state,
         name: record.gameName,
+        titleId: record.gameId,
         platform: record.gamePlatform,
         cover: record.gameCoverUrl,
+        user: record.userName || "unknown",
         startAt: record.startAt,
         endAt: record.endAt,
         playSeconds: record.playSeconds,
         playTime: tf(record.playSeconds)
       }))
     ].sort((a, b) => new Date(b.endAt) - new Date(a.endAt))
+
+    // 获取所有用户和标题
+    const allPsnRecords = await prisma.psnRecord.findMany({ where: { state: "gaming" } })
+    const allNxRecords = await prisma.nxRecord.findMany({ where: { state: "gaming" } })
+
+    // 获取所有唯一用户和标题
+    const uniqueUsers = [...new Set([...allPsnRecords.map((r) => r.userName || "unknown"), ...allNxRecords.map((r) => r.userName || "unknown")])].sort()
+    const uniqueTitles = [...new Set([...allPsnRecords.map((r) => r.titleName), ...allNxRecords.map((r) => r.gameName)])].sort()
 
     // 处理分页
     const skip = (page - 1) * limit
@@ -52,6 +80,8 @@ export async function GET(request) {
     return sendResponse(request, {
       data: {
         records: paginatedRecords,
+        users: uniqueUsers,
+        titles: uniqueTitles,
         pagination: {
           total: combinedRecords.length,
           page,
