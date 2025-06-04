@@ -11,7 +11,10 @@
   "filter": {
     "all_platforms": "All Platforms",
     "psn": "PlayStation",
-    "nx": "Nintendo Switch"
+    "nx": "Nintendo Switch",
+    "all_users": "All Users",
+    "unknown_user": "Unknown",
+    "all_titles": "All Titles"
   },
   "theme": {
     "light": "Light",
@@ -63,6 +66,15 @@
     "last_online": "Last Online",
     "last_gaming": "Last Played",
     "view_all": "View All Records"
+  },
+  "record": {
+    "cover": "Cover",
+    "title": "Title",
+    "platform": "Platform",
+    "user": "User",
+    "start_at": "Start At",
+    "end_at": "End At",
+    "play_time": "Play Time"
   },
   "settings": {
     "title": "Settings",
