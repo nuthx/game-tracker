@@ -60,8 +60,8 @@
     "waiting": "Waiting to play...",
     "online_time": "online for",
     "gaming_time": "played for",
-    "last_online": "Last online",
-    "last_gaming": "Last gaming",
+    "last_online": "Last Online",
+    "last_gaming": "Last Played",
     "view_all": "View All Records"
   },
   "settings": {
