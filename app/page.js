@@ -25,11 +25,11 @@ export default function Page() {
     <div className="max-w-screen-lg mx-auto flex flex-col gap-4">
       <UserCard />
       <RecordCard records={recordData} />
-      <Button variant="ghost">
-        <Link href="/record">
+      <Link href="/record" className="w-full">
+        <Button variant="ghost" className="w-full">
           {t("home.view_all")}
-        </Link>
-      </Button>
+        </Button>
+      </Link>
     </div>
   )
 }

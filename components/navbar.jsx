@@ -41,7 +41,7 @@ export function NavBar() {
       <div className="flex gap-8 ml-2 md:ml-0">
         <Link href="/" className="text-sm cursor-pointer">{t("navbar.overview")}</Link>
         <Link href="/record" className="text-sm cursor-pointer">{t("navbar.record")}</Link>
-        <Link href="/report" className="text-sm cursor-pointer">{t("navbar.report")}</Link>
+        {/* <Link href="/report" className="text-sm cursor-pointer">{t("navbar.report")}</Link> */}
       </div>
 
       <div className="flex items-center gap-2">
