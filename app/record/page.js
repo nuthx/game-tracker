@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { RefreshCcw, Trash2 } from "lucide-react"
+import { RefreshCcw } from "lucide-react"
 import { Pagination } from "@/components/pagination"
 
 export default function Page() {

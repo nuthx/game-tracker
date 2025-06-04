@@ -10,6 +10,7 @@
     "format": "eslint --fix .",
     "ncu:check": "ncu",
     "ncu:update": "ncu -u",
+    "deltag": "git tag -d 1.1.111111 && git push origin :refs/tags/1.1.111111",
     "db:push": "prisma generate && prisma db push --force-reset && prisma studio",
     "db:migrate": "prisma migrate dev",
     "docker:build": "docker build -t game-tracker:$(npm pkg get version | tr -d '\"') -t game-tracker:latest .",
