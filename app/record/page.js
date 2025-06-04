@@ -118,7 +118,7 @@ export default function Page() {
               <TableHead>{t("record.start_at")}</TableHead>
               <TableHead>{t("record.end_at")}</TableHead>
               <TableHead>{t("record.play_time")}</TableHead>
-              <TableHead></TableHead>
+              {/* <TableHead></TableHead> */}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -143,15 +143,17 @@ export default function Page() {
                     ? <Badge className="bg-red-500 text-white">Switch</Badge>
                     : <Badge className="bg-blue-500 text-white">{record.platform}</Badge>}
                 </TableCell>
-                <TableCell>{record.user === "unknown" ? t("filter.unknown_user") : record.user}</TableCell>
+                <TableCell>
+                  <Badge variant="outline">{record.user === "unknown" ? t("filter.unknown_user") : record.user}</Badge>
+                </TableCell>
                 <TableCell>{new Date(record.startAt).toLocaleString()}</TableCell>
                 <TableCell>{new Date(record.endAt).toLocaleString()}</TableCell>
                 <TableCell>{`${record.playTime.minutes}分${record.playTime.seconds}秒`}</TableCell>
-                <TableCell className="pr-4 md:pr-5 w-8">
+                {/* <TableCell className="pr-4 md:pr-5 w-8">
                   <Button variant="ghost" size="icon">
                     <Trash2 />
                   </Button>
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             ))}
           </TableBody>
