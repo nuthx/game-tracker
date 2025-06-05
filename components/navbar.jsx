@@ -2,16 +2,11 @@
 
 import Link from "next/link"
 import Image from "next/image"
+import { useState } from "react"
 import { useTheme } from "next-themes"
 import { useTranslation } from "react-i18next"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-  DialogTitle
-} from "@/components/ui/dialog"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,6 +20,7 @@ export function NavBar() {
   const pathname = usePathname()
   const { setTheme } = useTheme()
   const { t, i18n } = useTranslation()
+  const [openSettings, setOpenSettings] = useState(false)
 
   const handleLanguageChange = (value) => {
     i18n.changeLanguage(value)
@@ -71,17 +67,11 @@ export function NavBar() {
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="ghost" className="size-10">
-              <Settings2 className="size-5" />
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="flex gap-0 p-0 h-[90vh] md:max-h-[680px] w-[90vw] md:w-[80vw] sm:max-w-[1080px] overflow-hidden">
-            <DialogTitle className="sr-only">{t("settings.title")}</DialogTitle>
-            <Settings />
-          </DialogContent>
-        </Dialog>
+        <Button variant="ghost" className="size-10" onClick={() => setOpenSettings(true)}>
+          <Settings2 className="size-5" />
+        </Button>
+
+        <Settings openSettings={openSettings} setOpenSettings={setOpenSettings} />
       </div>
     </nav>
   )

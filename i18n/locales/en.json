@@ -74,7 +74,8 @@
     "user": "User",
     "start_at": "Start At",
     "end_at": "End At",
-    "play_time": "Play Time"
+    "play_time": "Play Time",
+    "no_records": "No records"
   },
   "settings": {
     "title": "Settings",

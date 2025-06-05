@@ -5,15 +5,13 @@ import { API } from "@/lib/http/api"
 import { handleRequest } from "@/lib/http/request"
 import { readFileAsJson } from "@/lib/file"
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle
-} from "@/components/ui/alert-dialog"
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
+} from "@/components/ui/dialog"
 import {
   Select,
   SelectContent,
@@ -113,12 +111,12 @@ export function DeleteRecord() {
         {t("btn.delete")}
       </Button>
 
-      <AlertDialog open={open} onOpenChange={setOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>{t("settings.record.delete")}</AlertDialogTitle>
-            <AlertDialogDescription>{t("settings.record.delete_confirm")}</AlertDialogDescription>
-          </AlertDialogHeader>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t("settings.record.delete")}</DialogTitle>
+            <DialogDescription>{t("settings.record.delete_confirm")}</DialogDescription>
+          </DialogHeader>
           <Input
             type="text"
             className="w-full mb-2"
@@ -126,14 +124,21 @@ export function DeleteRecord() {
             value={deleteConfirmText}
             onChange={(e) => setDeleteConfirmText(e.target.value)}
           />
-          <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setDeleteConfirmText("")}>{t("btn.cancel")}</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete} disabled={deleteConfirmText !== "DELETE"}>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setDeleteConfirmText("")
+                setOpen(false)
+              }}
+            >{t("btn.cancel")}
+            </Button>
+            <Button variant="destructive" onClick={handleDelete} disabled={deleteConfirmText !== "DELETE"}>
               {t("btn.delete")}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   )
 }

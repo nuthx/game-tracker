@@ -16,8 +16,9 @@ export async function POST(request) {
       const gameCoverUrl = `https://tinfoil.media/ti/${gameId}/800/800`
       const userName = targetUser.name
 
+      // 提取单个游戏记录
+      let tempRecords = []
       let focusStartTime = null
-
       for (let i = 0; i < title.events.length; i++) {
         const event = title.events[i]
 
@@ -33,7 +34,7 @@ export async function POST(request) {
 
           // 只添加30秒以上的记录
           if (playSeconds >= 30) {
-            records.push({
+            tempRecords.push({
               gameId,
               gameName,
               gameCoverUrl,
@@ -48,6 +49,29 @@ export async function POST(request) {
           focusStartTime = null
         }
       }
+
+      // 合并时间小于2分钟的连续游戏记录
+      const mergedRecords = []
+      let currentRecord = tempRecords[0]
+      for (let i = 1; i < tempRecords.length; i++) {
+        const nextRecord = tempRecords[i]
+        const timeDiff = (nextRecord.startAt - currentRecord.endAt) / 1000 / 60
+
+        if (timeDiff <= 2) {
+          currentRecord.endAt = nextRecord.endAt
+          currentRecord.playSeconds += nextRecord.playSeconds
+        } else {
+          mergedRecords.push(currentRecord)
+          currentRecord = nextRecord
+        }
+      }
+
+      // 添加最后一个记录
+      if (currentRecord) {
+        mergedRecords.push(currentRecord)
+      }
+
+      records.push(...mergedRecords)
     }
 
     // 保存到数据库

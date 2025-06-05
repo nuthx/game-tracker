@@ -2,6 +2,7 @@ import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useTranslation, Trans } from "react-i18next"
+import { useMediaQuery } from "@uidotdev/usehooks"
 import { API } from "@/lib/http/api"
 import { useData } from "@/lib/http/swr"
 import { handleRequest } from "@/lib/http/request"
@@ -13,6 +14,20 @@ import {
   DialogHeader,
   DialogTitle
 } from "@/components/ui/dialog"
+import {
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle
+} from "@/components/ui/drawer"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select"
 import { CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -22,12 +37,16 @@ import { Avatar } from "@/components/avatar"
 import { ImportRecord, ExportRecord, DeleteRecord, ImportNxRecord } from "@/components/record-backup"
 import { Gamepad2, CircleUser, Database, ArrowRight } from "lucide-react"
 
-export function Settings() {
+export function Settings({ openSettings, setOpenSettings }) {
   const router = useRouter()
   const { t } = useTranslation()
   const [activeComponent, setActiveComponent] = useState(t("settings.menu.psn"))
+  const isMobile = useMediaQuery("(max-width: 767px)")
 
   const items = [
+    {
+      title: t("settings.menu.monitor")
+    },
     {
       title: t("settings.menu.psn"),
       icon: Gamepad2,
@@ -38,11 +57,12 @@ export function Settings() {
       icon: Gamepad2,
       component: NSMonitor
     },
-    // {
-    //   title: t("settings.menu.steam"),
-    //   icon: Gamepad2,
-    //   component: SteamMonitor
-    // },
+    {
+      title: ""
+    },
+    {
+      title: t("settings.menu.system")
+    },
     {
       title: t("settings.menu.account"),
       icon: CircleUser,
@@ -65,49 +85,68 @@ export function Settings() {
     }
   }
 
+  if (isMobile) {
+    return (
+      <Drawer open={openSettings} onOpenChange={setOpenSettings}>
+        <DrawerContent className="h-[90vh]">
+          <DrawerHeader className="border-b">
+            <DrawerTitle className="sr-only">{t("settings.title")}</DrawerTitle>
+            <Select value={activeComponent} onValueChange={setActiveComponent}>
+              <SelectTrigger className="w-full">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {items.map((item) => (
+                  item.component && (
+                    <SelectItem key={item.title} value={item.title}>
+                      <item.icon className="size-4 mr-1" />
+                      {item.title}
+                    </SelectItem>
+                  )
+                ))}
+              </SelectContent>
+            </Select>
+          </DrawerHeader>
+          <DrawerFooter className="flex flex-col gap-8 m-0 overflow-y-auto">
+            <CurrentComponent items={items} activeComponent={activeComponent} />
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    )
+  }
+
   return (
-    <div className="flex flex-1 flex-col md:flex-row w-full">
-      <div className="flex flex-col gap-4 md:gap-6 p-3 w-full md:w-60 bg-accent/70 border-none md:border-r shrink-0">
-        <div className="flex flex-col gap-1">
-          <p className="text-sm font-bold text-muted-foreground mx-[10px] my-1">{t("settings.menu.monitor")}</p>
-          {items.slice(0, 2).map((item) => (
-            <Button
-              key={item.title}
-              variant="ghost"
-              size="sm"
-              className={`w-full justify-start font-normal hover:bg-neutral-200/70 ${
-                activeComponent === item.title ? "bg-neutral-200/70" : ""}
-              `}
-              onClick={() => setActiveComponent(item.title)}
-            >
-              <item.icon className="size-4 mr-1" />
-              {item.title}
-            </Button>
+    <Dialog open={openSettings} onOpenChange={setOpenSettings}>
+      <DialogContent className="flex gap-0 p-0 h-[90vh] max-h-[680px] w-[90vw] sm:max-w-[1080px] overflow-hidden">
+        <DialogTitle className="sr-only">{t("settings.title")}</DialogTitle>
+        <div className="flex flex-col gap-1 p-3 w-60 bg-accent/70 border-r shrink-0">
+          {items.map((item) => (
+            item.component
+              ? (
+                  <Button
+                    key={item.title}
+                    variant="ghost"
+                    size="sm"
+                    className={`w-full justify-start font-normal hover:bg-neutral-200/70 ${activeComponent === item.title ? "bg-neutral-200/70" : ""}`}
+                    onClick={() => setActiveComponent(item.title)}
+                  >
+                    <item.icon className="size-4 mr-1" />
+                    {item.title}
+                  </Button>
+                )
+              : (
+                  <p key={item.title} className="text-sm font-bold text-muted-foreground mx-3 my-1">
+                    {item.title}
+                  </p>
+                )
           ))}
+          <Button size="sm" variant="destructive" className="mt-auto" onClick={handleLogout}>{t("btn.logout")}</Button>
         </div>
-        <div className="flex flex-col gap-1">
-          <p className="text-sm font-bold text-muted-foreground mx-[10px] my-1">{t("settings.menu.system")}</p>
-          {items.slice(2).map((item) => (
-            <Button
-              key={item.title}
-              variant="ghost"
-              size="sm"
-              className={`w-full justify-start font-normal hover:bg-neutral-200/70 ${
-                activeComponent === item.title ? "bg-neutral-200/70" : ""}
-              `}
-              onClick={() => setActiveComponent(item.title)}
-            >
-              <item.icon className="size-4 mr-1" />
-              {item.title}
-            </Button>
-          ))}
+        <div className="flex flex-col gap-8 w-full p-10 overflow-y-auto">
+          <CurrentComponent items={items} activeComponent={activeComponent} />
         </div>
-        <Button size="sm" variant="destructive" className="mt-auto" onClick={handleLogout}>{t("btn.logout")}</Button>
-      </div>
-      <div className="flex flex-col gap-6 md:gap-8 w-full h-full px-4 py-6 md:px-12 md:py-10 overflow-y-auto">
-        <CurrentComponent items={items} activeComponent={activeComponent} />
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   )
 }
 
@@ -136,9 +175,9 @@ function PSMonitor({ configData, configMutate }) {
   return (
     <>
       {configData.npsso && (
-        <div className="flex flex-col md:flex-row gap-4 items-center">
+        <div className="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
           <Avatar src={configData.avatar} alt={configData.onlineId} title={configData.onlineId} subtitle={configData.accountId} />
-          <ArrowRight className="size-5 text-muted-foreground" />
+          <ArrowRight className="size-5 text-muted-foreground shrink-0 rotate-90 md:rotate-0" />
           <Avatar src={configData.monitorAvatar} alt={configData.monitorName} title={configData.monitorName} subtitle={configData.monitorId} />
         </div>
       )}
@@ -155,8 +194,8 @@ function PSMonitor({ configData, configMutate }) {
                 <DialogDescription>{t("settings.psn.tutorial.desc")}</DialogDescription>
               </DialogHeader>
               <div className="flex gap-3">
-                <Button className="flex-1">{t("settings.psn.tutorial.btn1")}</Button>
-                <Button className="flex-1">{t("settings.psn.tutorial.btn2")}</Button>
+                <Button className="flex-1" onClick={() => window.open("https://www.playstation.com", "_blank")}>{t("settings.psn.tutorial.btn1")}</Button>
+                <Button className="flex-1" onClick={() => window.open("https://ca.account.sony.com/api/v1/ssocookie", "_blank")}>{t("settings.psn.tutorial.btn2")}</Button>
               </div>
             </DialogContent>
           </Dialog>
@@ -199,10 +238,6 @@ function NSMonitor() {
     </>
   )
 }
-
-// function SteamMonitor() {
-//   return null
-// }
 
 function AccountManager({ configData }) {
   const { t } = useTranslation()
