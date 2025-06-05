@@ -24,6 +24,7 @@
   "toast": {
     "loading": "加载中...",
     "error_user": "用户信息获取失败",
+    "error_heatmap": "热力图获取失败",
     "no_npsso": "请先登录 PSN 账号",
     "error_config": "配置信息获取失败",
     "save_config": "配置已保存",

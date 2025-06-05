@@ -24,6 +24,7 @@
   "toast": {
     "loading": "Loading...",
     "error_user": "Failed to retrieve user information",
+    "error_heatmap": "Failed to retrieve heatmap data",
     "no_npsso": "Please log in to your PSN account first",
     "error_config": "Failed to load configuration",
     "save_config": "Settings saved",

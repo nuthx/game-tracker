@@ -6,6 +6,7 @@ import { API } from "@/lib/http/api"
 import { useData } from "@/lib/http/swr"
 import { Button } from "@/components/ui/button"
 import { UserCard } from "@/components/user-card"
+import { Heatmap } from "@/components/heatmap"
 import { RecordCard } from "@/components/record-card"
 
 export default function Page() {
@@ -24,6 +25,7 @@ export default function Page() {
   return (
     <div className="max-w-screen-lg mx-auto flex flex-col gap-4">
       <UserCard />
+      <Heatmap />
       {recordData.records.length > 0 && (
         <>
           <RecordCard records={recordData} />
