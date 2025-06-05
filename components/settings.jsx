@@ -194,8 +194,8 @@ function PSMonitor({ configData, configMutate }) {
                 <DialogDescription>{t("settings.psn.tutorial.desc")}</DialogDescription>
               </DialogHeader>
               <div className="flex gap-3">
-                <Button className="flex-1">{t("settings.psn.tutorial.btn1")}</Button>
-                <Button className="flex-1">{t("settings.psn.tutorial.btn2")}</Button>
+                <Button className="flex-1" onClick={() => window.open("https://www.playstation.com", "_blank")}>{t("settings.psn.tutorial.btn1")}</Button>
+                <Button className="flex-1" onClick={() => window.open("https://ca.account.sony.com/api/v1/ssocookie", "_blank")}>{t("settings.psn.tutorial.btn2")}</Button>
               </div>
             </DialogContent>
           </Dialog>
