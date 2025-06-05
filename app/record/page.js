@@ -112,56 +112,62 @@ export default function Page() {
       </div>
 
       <div className="border rounded-lg border shadow-xs bg-background">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="pl-4 md:pl-6 py-4">{t("record.cover")}</TableHead>
-              <TableHead>{t("record.title")}</TableHead>
-              <TableHead>{t("record.platform")}</TableHead>
-              <TableHead>{t("record.user")}</TableHead>
-              <TableHead>{t("record.start_at")}</TableHead>
-              <TableHead>{t("record.end_at")}</TableHead>
-              <TableHead>{t("record.play_time")}</TableHead>
-              {/* <TableHead></TableHead> */}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {recordData?.records.map((record, index) => (
-              <TableRow key={index}>
-                <TableCell className="pl-4 md:pl-6 py-3 w-22">
-                  {record.cover && (
-                    <Image
-                      src={record.cover}
-                      alt={record.name}
-                      className="rounded-sm object-cover size-12"
-                      width={64}
-                      height={64}
-                      priority
-                      draggable="false"
-                    />
-                  )}
-                </TableCell>
-                <TableCell>{record.name}</TableCell>
-                <TableCell>
-                  {record.platform === "NS"
-                    ? <Badge className="bg-red-500 text-white">Switch</Badge>
-                    : <Badge className="bg-blue-500 text-white">{record.platform}</Badge>}
-                </TableCell>
-                <TableCell>
-                  <Badge variant="outline">{record.user === "unknown" ? t("filter.unknown_user") : record.user}</Badge>
-                </TableCell>
-                <TableCell>{new Date(record.startAt).toLocaleString()}</TableCell>
-                <TableCell>{new Date(record.endAt).toLocaleString()}</TableCell>
-                <TableCell>{`${record.playTime.minutes}分${record.playTime.seconds}秒`}</TableCell>
-                {/* <TableCell className="pr-4 md:pr-5 w-8">
-                  <Button variant="ghost" size="icon">
-                    <Trash2 />
-                  </Button>
-                </TableCell> */}
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        {recordData.records.length > 0
+          ? (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="pl-4 md:pl-6 py-4">{t("record.cover")}</TableHead>
+                    <TableHead>{t("record.title")}</TableHead>
+                    <TableHead>{t("record.platform")}</TableHead>
+                    <TableHead>{t("record.user")}</TableHead>
+                    <TableHead>{t("record.start_at")}</TableHead>
+                    <TableHead>{t("record.end_at")}</TableHead>
+                    <TableHead>{t("record.play_time")}</TableHead>
+                    {/* <TableHead></TableHead> */}
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {recordData?.records.map((record, index) => (
+                    <TableRow key={index}>
+                      <TableCell className="pl-4 md:pl-6 py-3 w-22">
+                        {record.cover && (
+                          <Image
+                            src={record.cover}
+                            alt={record.name}
+                            className="rounded-sm object-cover size-12"
+                            width={64}
+                            height={64}
+                            priority
+                            draggable="false"
+                          />
+                        )}
+                      </TableCell>
+                      <TableCell>{record.name}</TableCell>
+                      <TableCell>
+                        {record.platform === "NS"
+                          ? <Badge className="bg-red-500 text-white">Switch</Badge>
+                          : <Badge className="bg-blue-500 text-white">{record.platform}</Badge>}
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="outline">{record.user === "unknown" ? t("filter.unknown_user") : record.user}</Badge>
+                      </TableCell>
+                      <TableCell>{new Date(record.startAt).toLocaleString()}</TableCell>
+                      <TableCell>{new Date(record.endAt).toLocaleString()}</TableCell>
+                      <TableCell>{`${record.playTime.minutes}分${record.playTime.seconds}秒`}</TableCell>
+                      {/* <TableCell className="pr-4 md:pr-5 w-8">
+                        <Button variant="ghost" size="icon">
+                          <Trash2 />
+                        </Button>
+                      </TableCell> */}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )
+          : (
+              <p className="p-10 text-sm text-muted-foreground text-center">{t("record.no_records")}</p>
+            )}
       </div>
 
       <Pagination page={currentPage} totalPages={recordData.pagination.totalPages} onChange={(newPage) => updateUrlParams(newPage, currentPlatform, currentTitle, currentUser)} />

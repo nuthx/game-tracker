@@ -24,12 +24,16 @@ export default function Page() {
   return (
     <div className="max-w-screen-lg mx-auto flex flex-col gap-4">
       <UserCard />
-      <RecordCard records={recordData} />
-      <Link href="/record" className="w-full">
-        <Button variant="ghost" className="w-full">
-          {t("home.view_all")}
-        </Button>
-      </Link>
+      {recordData.records.length > 0 && (
+        <>
+          <RecordCard records={recordData} />
+          <Link href="/record" className="w-full">
+            <Button variant="ghost" className="w-full">
+              {t("home.view_all")}
+            </Button>
+          </Link>
+        </>
+      )}
     </div>
   )
 }
