@@ -143,7 +143,12 @@ export default function Page() {
                           />
                         )}
                       </TableCell>
-                      <TableCell>{record.name}</TableCell>
+                      <TableCell>
+                        <div className="flex flex-col gap-1">
+                          {record.name}
+                          <span className="text-xs text-muted-foreground/70">{record.titleId}</span>
+                        </div>
+                      </TableCell>
                       <TableCell>
                         {record.platform === "NS"
                           ? <Badge className="bg-red-500 text-white">Switch</Badge>
