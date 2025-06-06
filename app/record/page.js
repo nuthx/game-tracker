@@ -131,17 +131,21 @@ export default function Page() {
                   {recordData?.records.map((record, index) => (
                     <TableRow key={index}>
                       <TableCell className="pl-4 md:pl-6 py-3 w-22">
-                        {record.cover && (
-                          <Image
-                            src={record.cover}
-                            alt={record.name}
-                            className="rounded-sm object-cover size-12"
-                            width={64}
-                            height={64}
-                            priority
-                            draggable="false"
-                          />
-                        )}
+                        <div className="rounded-sm size-12 overflow-hidden bg-muted">
+                          {record.cover && (
+                            <Image
+                              src={record.cover}
+                              alt={record.name}
+                              width={64}
+                              height={64}
+                              priority
+                              draggable="false"
+                              onError={(e) => {
+                                e.target.style.opacity = 0
+                              }}
+                            />
+                          )}
+                        </div>
                       </TableCell>
                       <TableCell>
                         <div className="flex flex-col gap-1">
