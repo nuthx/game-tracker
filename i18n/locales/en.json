@@ -80,6 +80,7 @@
   },
   "settings": {
     "title": "Settings",
+    "version": "Version",
     "menu": {
       "monitor": "Tracking",
       "psn": "PlayStation",

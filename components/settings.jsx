@@ -1,3 +1,4 @@
+import pkg from "@/package.json"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
@@ -119,28 +120,33 @@ export function Settings({ openSettings, setOpenSettings }) {
     <Dialog open={openSettings} onOpenChange={setOpenSettings}>
       <DialogContent className="flex gap-0 p-0 h-[90vh] max-h-[680px] w-[90vw] sm:max-w-[1080px] overflow-hidden">
         <DialogTitle className="sr-only">{t("settings.title")}</DialogTitle>
-        <div className="flex flex-col gap-1 p-3 w-60 bg-accent/70 border-r shrink-0">
-          {items.map((item) => (
-            item.component
-              ? (
-                  <Button
-                    key={item.title}
-                    variant="ghost"
-                    size="sm"
-                    className={`w-full justify-start font-normal hover:bg-neutral-200/70 ${activeComponent === item.title ? "bg-neutral-200/70" : ""}`}
-                    onClick={() => setActiveComponent(item.title)}
-                  >
-                    <item.icon className="size-4 mr-1" />
-                    {item.title}
-                  </Button>
-                )
-              : (
-                  <p key={item.title} className="text-sm font-bold text-muted-foreground mx-3 my-1">
-                    {item.title}
-                  </p>
-                )
-          ))}
-          <Button size="sm" variant="destructive" className="mt-auto" onClick={handleLogout}>{t("btn.logout")}</Button>
+        <div className="flex flex-col justify-between p-3 w-60 bg-accent/70 border-r shrink-0">
+          <div className="flex flex-col gap-1">
+            {items.map((item) => (
+              item.component
+                ? (
+                    <Button
+                      key={item.title}
+                      variant="ghost"
+                      size="sm"
+                      className={`w-full justify-start font-normal hover:bg-neutral-200/70 ${activeComponent === item.title ? "bg-neutral-200/70" : ""}`}
+                      onClick={() => setActiveComponent(item.title)}
+                    >
+                      <item.icon className="size-4 mr-1" />
+                      {item.title}
+                    </Button>
+                  )
+                : (
+                    <p key={item.title} className="text-sm font-bold text-muted-foreground mx-3 my-1">
+                      {item.title}
+                    </p>
+                  )
+            ))}
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-sm text-muted-foreground">{t("settings.version")}: {pkg.version}</p>
+            <Button size="sm" variant="destructive" className="w-full" onClick={handleLogout}>{t("btn.logout")}</Button>
+          </div>
         </div>
         <div className="flex flex-col gap-8 w-full p-10 overflow-y-auto">
           <CurrentComponent items={items} activeComponent={activeComponent} />
