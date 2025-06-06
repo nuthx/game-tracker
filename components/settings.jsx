@@ -36,7 +36,7 @@ import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Avatar } from "@/components/avatar"
 import { ImportRecord, ExportRecord, DeleteRecord, ImportNxRecord } from "@/components/record-backup"
-import { Gamepad2, CircleUser, Database, ArrowRight } from "lucide-react"
+import { Gamepad2, CircleUser, Database, ArrowRight, LogOut } from "lucide-react"
 
 export function Settings({ openSettings, setOpenSettings }) {
   const router = useRouter()
@@ -90,7 +90,7 @@ export function Settings({ openSettings, setOpenSettings }) {
     return (
       <Drawer open={openSettings} onOpenChange={setOpenSettings}>
         <DrawerContent className="h-[90vh]">
-          <DrawerHeader className="border-b">
+          <DrawerHeader className="flex-row gap-2 border-b">
             <DrawerTitle className="sr-only">{t("settings.title")}</DrawerTitle>
             <Select value={activeComponent} onValueChange={setActiveComponent}>
               <SelectTrigger className="w-full">
@@ -107,6 +107,9 @@ export function Settings({ openSettings, setOpenSettings }) {
                 ))}
               </SelectContent>
             </Select>
+            <Button variant="outline" size="icon" onClick={handleLogout}>
+              <LogOut />
+            </Button>
           </DrawerHeader>
           <DrawerFooter className="flex flex-col gap-8 m-0 overflow-y-auto">
             <CurrentComponent items={items} activeComponent={activeComponent} />
@@ -145,7 +148,10 @@ export function Settings({ openSettings, setOpenSettings }) {
           </div>
           <div className="flex flex-col items-center gap-2">
             <p className="text-sm text-muted-foreground">{t("settings.version")}: {pkg.version}</p>
-            <Button size="sm" variant="destructive" className="w-full" onClick={handleLogout}>{t("btn.logout")}</Button>
+            <Button size="sm" variant="destructive" className="w-full" onClick={handleLogout}>
+              <LogOut />
+              {t("btn.logout")}
+            </Button>
           </div>
         </div>
         <div className="flex flex-col gap-8 w-full p-10 overflow-y-auto">
