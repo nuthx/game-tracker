@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next"
 import { Skeleton } from "@/components/ui/skeleton"
 import { API } from "@/lib/http/api"
 import { useData } from "@/lib/http/swr"
+import { TimeDisplay } from "@/components/time"
 
 export function UserCard() {
   const { t } = useTranslation()
@@ -72,7 +73,13 @@ export function UserCard() {
         />
         <div className="flex flex-col gap-2 w-full">
           <p className="font-bold">{t("home.waiting")}</p>
-          <p className="text-sm text-muted-foreground">{presenceData.monitorUser.name} {t("home.online_time")} {presenceData.playTime.minutes > 0 ? `${presenceData.playTime.minutes} ${t("time.minutes")} ` : ""}{presenceData.playTime.seconds} {t("time.seconds")}</p>
+          <p className="text-sm text-muted-foreground">
+            {presenceData.monitorUser.name}
+            {" "}
+            {t("home.online_time")}
+            {" "}
+            <TimeDisplay seconds={presenceData.playSeconds} />
+          </p>
         </div>
       </div>
     )
@@ -103,7 +110,13 @@ export function UserCard() {
       </div>
       <div className="flex flex-col gap-2 w-full">
         <p className="font-bold">{presenceData.gameTitleInfoList[0].titleName}</p>
-        <p className="text-sm text-muted-foreground">{presenceData.monitorUser.name} {t("home.gaming_time")} {presenceData.playTime.minutes > 0 ? `${presenceData.playTime.minutes} ${t("time.minutes")} ` : ""}{presenceData.playTime.seconds} {t("time.seconds")}</p>
+        <p className="text-sm text-muted-foreground">
+          {presenceData.monitorUser.name}
+          {" "}
+          {t("home.gaming_time")}
+          {" "}
+          <TimeDisplay seconds={presenceData.playSeconds} />
+        </p>
       </div>
     </div>
   )

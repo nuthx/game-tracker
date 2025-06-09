@@ -2,7 +2,6 @@ import { getBasicPresence } from "psn-api"
 import { prisma } from "@/lib/prisma"
 import { getAuthorization } from "@/lib/auth"
 import { sendResponse } from "@/lib/http/response"
-import { tf } from "@/lib/utils"
 
 export async function GET(request) {
   try {
@@ -26,7 +25,6 @@ export async function GET(request) {
       data: {
         ...presence.basicPresence,
         playSeconds,
-        playTime: tf(playSeconds),
         monitorUser: {
           name: user.monitorName,
           avatar: user.monitorAvatar

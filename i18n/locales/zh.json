@@ -41,7 +41,11 @@
     "password_24": "密码不能超过 24 个字符"
   },
   "time": {
+    "hour": "小时",
+    "hours": "小时",
+    "minute": "分钟",
     "minutes": "分钟",
+    "second": "秒",
     "seconds": "秒"
   },
   "login": {

@@ -24,6 +24,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { RefreshCcw } from "lucide-react"
 import { Pagination } from "@/components/pagination"
+import { TimeDisplay } from "@/components/time"
 
 export default function Page() {
   const { t } = useTranslation()
@@ -163,7 +164,9 @@ export default function Page() {
                       </TableCell>
                       <TableCell>{new Date(record.startAt).toLocaleString()}</TableCell>
                       <TableCell>{new Date(record.endAt).toLocaleString()}</TableCell>
-                      <TableCell>{`${record.playTime.minutes}分${record.playTime.seconds}秒`}</TableCell>
+                      <TableCell>
+                        <TimeDisplay seconds={record.playSeconds} />
+                      </TableCell>
                       {/* <TableCell className="pr-4 md:pr-5 w-8">
                         <Button variant="ghost" size="icon">
                           <Trash2 />
