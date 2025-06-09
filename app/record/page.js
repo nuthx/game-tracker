@@ -24,6 +24,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { RefreshCcw } from "lucide-react"
 import { Pagination } from "@/components/pagination"
+import { TimeDisplay } from "@/components/time"
 
 export default function Page() {
   const { t } = useTranslation()
@@ -131,19 +132,28 @@ export default function Page() {
                   {recordData?.records.map((record, index) => (
                     <TableRow key={index}>
                       <TableCell className="pl-4 md:pl-6 py-3 w-22">
-                        {record.cover && (
-                          <Image
-                            src={record.cover}
-                            alt={record.name}
-                            className="rounded-sm object-cover size-12"
-                            width={64}
-                            height={64}
-                            priority
-                            draggable="false"
-                          />
-                        )}
+                        <div className="rounded-sm size-12 overflow-hidden bg-muted">
+                          {record.cover && (
+                            <Image
+                              src={record.cover}
+                              alt={record.name}
+                              width={64}
+                              height={64}
+                              priority
+                              draggable="false"
+                              onError={(e) => {
+                                e.target.style.opacity = 0
+                              }}
+                            />
+                          )}
+                        </div>
                       </TableCell>
-                      <TableCell>{record.name}</TableCell>
+                      <TableCell>
+                        <div className="flex flex-col gap-1">
+                          {record.name}
+                          <span className="text-xs text-muted-foreground/70">{record.titleId}</span>
+                        </div>
+                      </TableCell>
                       <TableCell>
                         {record.platform === "NS"
                           ? <Badge className="bg-red-500 text-white">Switch</Badge>
@@ -154,7 +164,9 @@ export default function Page() {
                       </TableCell>
                       <TableCell>{new Date(record.startAt).toLocaleString()}</TableCell>
                       <TableCell>{new Date(record.endAt).toLocaleString()}</TableCell>
-                      <TableCell>{`${record.playTime.minutes}分${record.playTime.seconds}秒`}</TableCell>
+                      <TableCell>
+                        <TimeDisplay seconds={record.playSeconds} />
+                      </TableCell>
                       {/* <TableCell className="pr-4 md:pr-5 w-8">
                         <Button variant="ghost" size="icon">
                           <Trash2 />

@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/prisma"
 import { sendResponse } from "@/lib/http/response"
-import { tf } from "@/lib/utils"
 
 export async function GET(request) {
   try {
@@ -48,8 +47,7 @@ export async function GET(request) {
         user: record.userName || "unknown",
         startAt: record.startAt,
         endAt: record.endAt,
-        playSeconds: record.playSeconds,
-        playTime: tf(record.playSeconds)
+        playSeconds: record.playSeconds
       })),
       ...nxRecords.map((record) => ({
         state: record.state,
@@ -60,8 +58,7 @@ export async function GET(request) {
         user: record.userName || "unknown",
         startAt: record.startAt,
         endAt: record.endAt,
-        playSeconds: record.playSeconds,
-        playTime: tf(record.playSeconds)
+        playSeconds: record.playSeconds
       }))
     ].sort((a, b) => new Date(b.endAt) - new Date(a.endAt))
 

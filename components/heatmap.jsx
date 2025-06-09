@@ -10,7 +10,7 @@ import {
   TooltipTrigger
 } from "@/components/ui/tooltip"
 import { Separator } from "@/components/ui/separator"
-import { tf } from "@/lib/utils"
+import { TimeDisplay } from "@/components/time"
 
 export function Heatmap() {
   const { t } = useTranslation()
@@ -81,11 +81,16 @@ function HeatmapHover({ day }) {
           <Separator className="bg-muted/30" />
           <div className="flex gap-4 justify-between">
             <p>{t("filter.psn")}</p>
-            <p>{tf(day.psn.value).minutes}{t("time.minutes")}{tf(day.psn.value).seconds}{t("time.seconds")}</p>
+            <TimeDisplay seconds={day.psn.value} />
           </div>
           <div className="flex gap-4 justify-between">
             <p>{t("filter.nx")}</p>
-            <p>{tf(day.nx.value).minutes}{t("time.minutes")}{tf(day.nx.value).seconds}{t("time.seconds")}</p>
+            <TimeDisplay seconds={day.nx.value} />
+          </div>
+          <Separator className="bg-muted/30" />
+          <div className="flex gap-4 justify-between">
+            <p>{t("filter.total")}</p>
+            <TimeDisplay seconds={day.total.value} />
           </div>
         </TooltipContent>
       </Tooltip>

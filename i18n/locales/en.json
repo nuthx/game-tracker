@@ -14,7 +14,8 @@
     "nx": "Nintendo Switch",
     "all_users": "All Users",
     "unknown_user": "Unknown",
-    "all_titles": "All Titles"
+    "all_titles": "All Titles",
+    "total": "Total"
   },
   "theme": {
     "light": "Light",
@@ -41,7 +42,11 @@
     "password_24": "Password must be no more than 24 characters"
   },
   "time": {
+    "hour": "hour",
+    "hours": "hours",
+    "minute": "minute",
     "minutes": "minutes",
+    "second": "second",
     "seconds": "seconds"
   },
   "login": {
@@ -80,6 +85,7 @@
   },
   "settings": {
     "title": "Settings",
+    "version": "Version",
     "menu": {
       "monitor": "Tracking",
       "psn": "PlayStation",
