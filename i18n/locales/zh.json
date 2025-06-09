@@ -14,7 +14,8 @@
     "nx": "Nintendo Switch",
     "all_users": "所有用户",
     "unknown_user": "未知用户",
-    "all_titles": "所有游戏"
+    "all_titles": "所有游戏",
+    "total": "总计"
   },
   "theme": {
     "light": "浅色",

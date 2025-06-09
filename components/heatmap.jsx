@@ -87,6 +87,11 @@ function HeatmapHover({ day }) {
             <p>{t("filter.nx")}</p>
             <TimeDisplay seconds={day.nx.value} />
           </div>
+          <Separator className="bg-muted/30" />
+          <div className="flex gap-4 justify-between">
+            <p>{t("filter.total")}</p>
+            <TimeDisplay seconds={day.total.value} />
+          </div>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

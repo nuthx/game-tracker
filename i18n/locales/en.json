@@ -14,7 +14,8 @@
     "nx": "Nintendo Switch",
     "all_users": "All Users",
     "unknown_user": "Unknown",
-    "all_titles": "All Titles"
+    "all_titles": "All Titles",
+    "total": "Total"
   },
   "theme": {
     "light": "Light",
