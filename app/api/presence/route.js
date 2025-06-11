@@ -5,19 +5,19 @@ import { sendResponse } from "@/lib/http/response"
 
 export async function GET(request) {
   try {
-    const user = await prisma.config.findUnique({ where: { id: 1 } })
+    const config = await prisma.config.findUnique({ where: { id: 1 } })
 
-    if (!user.psnNpsso) {
+    if (!config.psnNpsso) {
       throw { code: 400, message: "请先登录PSN账号" }
     }
 
     const authorization = await getAuthorization()
-    const presence = await getBasicPresence(authorization, user.psnMonitorFromId)
+    const presence = await getBasicPresence(authorization, config.psnMonitorFromId)
 
     // 计算游戏时长
     let playSeconds = 0
     if (presence.basicPresence.gameTitleInfoList?.length) {
-      const lastRecord = await prisma.record.findFirst({ orderBy: { userEndAt: "desc" } })
+      const lastRecord = await prisma.record.findFirst({ orderBy: { endAt: "desc" } })
       playSeconds = lastRecord.playSeconds
     }
 
@@ -25,8 +25,8 @@ export async function GET(request) {
       data: {
         ...presence.basicPresence,
         player: {
-          name: user.psnMonitorFromName,
-          avatar: user.psnMonitorFromAvatar,
+          name: config.psnMonitorFromName,
+          avatar: config.psnMonitorFromAvatar,
           playSeconds
         }
       }

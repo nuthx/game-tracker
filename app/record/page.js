@@ -32,10 +32,10 @@ export default function Page() {
   const searchParams = useSearchParams()
   const currentPage = Number(searchParams.get("page")) || 1
   const currentPlatform = searchParams.get("platform") || "all"
-  const currentTitle = searchParams.get("title") || "all"
-  const currentUser = searchParams.get("user") || "all"
+  const currentGame = searchParams.get("game") || "all"
+  const currentPlayer = searchParams.get("player") || "all"
 
-  const updateUrlParams = (newPage, newPlatform, newTitle, newUser) => {
+  const updateUrlParams = (newPage, newPlatform, newGame, newPlayer) => {
     const params = new URLSearchParams()
     if (newPage > 1) {
       params.set("page", newPage.toString())
@@ -43,18 +43,18 @@ export default function Page() {
     if (newPlatform !== "all") {
       params.set("platform", newPlatform)
     }
-    if (newTitle !== "all") {
-      params.set("title", newTitle)
+    if (newGame !== "all") {
+      params.set("game", newGame)
     }
-    if (newUser !== "all") {
-      params.set("user", newUser)
+    if (newPlayer !== "all") {
+      params.set("player", newPlayer)
     }
     const queryString = params.toString()
     router.push(queryString ? `?${queryString}` : "/record")
   }
 
   const { data: recordData, error: recordError, isLoading: recordLoading } = useData(
-    `${API.RECORD}?limit=50&page=${currentPage}&platform=${currentPlatform}&user=${currentUser}&title=${currentTitle}`
+    `${API.RECORD}?page=${currentPage}&limit=50&platform=${currentPlatform}&game=${currentGame}&player=${currentPlayer}`
   )
 
   if (recordLoading) {
@@ -68,7 +68,7 @@ export default function Page() {
   return (
     <div className="max-w-screen-2xl mx-auto flex flex-col gap-2 md:gap-4">
       <div className="flex gap-2 md:gap-3 items-center justify-end">
-        <Select value={currentPlatform} onValueChange={(newPlatform) => updateUrlParams(1, newPlatform, currentTitle, currentUser)}>
+        <Select value={currentPlatform} onValueChange={(newPlatform) => updateUrlParams(1, newPlatform, currentGame, currentPlayer)}>
           <SelectTrigger className="w-full bg-background">
             <SelectValue />
           </SelectTrigger>
@@ -79,29 +79,29 @@ export default function Page() {
           </SelectContent>
         </Select>
 
-        <Select value={currentUser} onValueChange={(newUser) => updateUrlParams(1, currentPlatform, currentTitle, newUser)}>
+        <Select value={currentPlayer} onValueChange={(newPlayer) => updateUrlParams(1, currentPlatform, currentGame, newPlayer)}>
           <SelectTrigger className="w-full bg-background">
-            <SelectValue placeholder={t("filter.search_user")} />
+            <SelectValue placeholder={t("filter.search_player")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{t("filter.all_users")}</SelectItem>
-            {recordData?.users.map((user) => (
-              <SelectItem key={user} value={user}>
-                {user === "unknown" ? t("filter.unknown_user") : user}
+            <SelectItem value="all">{t("filter.all_players")}</SelectItem>
+            {recordData?.players.map((player) => (
+              <SelectItem key={player} value={player}>
+                {player}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
 
-        <Select value={currentTitle} onValueChange={(newTitle) => updateUrlParams(1, currentPlatform, newTitle, currentUser)}>
+        <Select value={currentGame} onValueChange={(newGame) => updateUrlParams(1, currentPlatform, newGame, currentPlayer)}>
           <SelectTrigger className="w-full bg-background">
-            <SelectValue placeholder={t("filter.search_title")} />
+            <SelectValue placeholder={t("filter.search_game")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{t("filter.all_titles")}</SelectItem>
-            {recordData?.titles.map((title) => (
-              <SelectItem key={title} value={title}>
-                {title}
+            <SelectItem value="all">{t("filter.all_games")}</SelectItem>
+            {recordData?.games.map((game) => (
+              <SelectItem key={game} value={game}>
+                {game}
               </SelectItem>
             ))}
           </SelectContent>
@@ -119,9 +119,9 @@ export default function Page() {
                 <TableHeader>
                   <TableRow>
                     <TableHead className="pl-4 md:pl-6 py-4">{t("record.cover")}</TableHead>
-                    <TableHead>{t("record.title")}</TableHead>
+                    <TableHead>{t("record.name")}</TableHead>
                     <TableHead>{t("record.platform")}</TableHead>
-                    <TableHead>{t("record.user")}</TableHead>
+                    <TableHead>{t("record.player")}</TableHead>
                     <TableHead>{t("record.start_at")}</TableHead>
                     <TableHead>{t("record.end_at")}</TableHead>
                     <TableHead>{t("record.play_time")}</TableHead>
@@ -160,7 +160,7 @@ export default function Page() {
                           : <Badge className="bg-blue-500 text-white">{record.platform}</Badge>}
                       </TableCell>
                       <TableCell>
-                        <Badge variant="outline">{record.user === "unknown" ? t("filter.unknown_user") : record.user}</Badge>
+                        <Badge variant="outline">{record.player}</Badge>
                       </TableCell>
                       <TableCell>{new Date(record.startAt).toLocaleString()}</TableCell>
                       <TableCell>{new Date(record.endAt).toLocaleString()}</TableCell>
@@ -182,7 +182,7 @@ export default function Page() {
             )}
       </div>
 
-      <Pagination page={currentPage} totalPages={recordData.pagination.totalPages} onChange={(newPage) => updateUrlParams(newPage, currentPlatform, currentTitle, currentUser)} />
+      <Pagination page={currentPage} totalPages={recordData.pagination.totalPages} onChange={(newPage) => updateUrlParams(newPage, currentPlatform, currentGame, currentPlayer)} />
     </div>
   )
 }

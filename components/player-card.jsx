@@ -7,7 +7,7 @@ import { API } from "@/lib/http/api"
 import { useData } from "@/lib/http/swr"
 import { TimeDisplay } from "@/components/time"
 
-export function UserCard() {
+export function PlayerCard() {
   const { t } = useTranslation()
   const { data: presenceData, error: presenceError, isLoading: presenceLoading } = useData(API.PRESENCE)
 
