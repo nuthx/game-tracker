@@ -13,9 +13,13 @@ model Config {
   username              String       @unique
   password              String
   psnNpsso              String       @default("")
-  psnMonitorFrom        String       @default("")
-  psnMonitorTo          String       @default("")
-  psnMonitorInterval    String       @default("30")
+  psnMonitorFromId      String       @default("")
+  psnMonitorFromName    String       @default("")
+  psnMonitorFromAvatar  String       @default("")
+  psnMonitorToId        String       @default("")
+  psnMonitorToName      String       @default("")
+  psnMonitorToAvatar    String       @default("")
+  psnMonitorInterval    Int          @default(30)
   createdAt             DateTime     @default(now())
   updatedAt             DateTime     @updatedAt
 }
@@ -26,21 +30,7 @@ model Platform {
   fullName          String     @default("")  // PlayStation 4
   shortName         String     @default("")  // PS4
   type              String     @default("")  // psn
-  players           Player[]
   games             Game[]
-  playStates        PlayState[]
-  records           Record[]
-}
-
-// 玩家（基于平台）
-model Player {
-  id                Int        @id @default(autoincrement())
-  playerId          String     @default("")
-  name              String     @default("")
-  avatar            String     @default("")
-  token             String     @default("")
-  platformId        Int
-  platform          Platform   @relation(fields: [platformId], references: [id])
   records           Record[]
 }
 
@@ -53,7 +43,8 @@ model Game {
   titleTc           String     @default("")
   titleEn           String     @default("")
   titleJa           String     @default("")
-  platform          Platform[]
+  platformId        Int
+  platform          Platform   @relation(fields: [platformId], references: [id])
   description       String     @default("")
   imageGrid         String     @default("")
   imageHero         String     @default("")
@@ -65,33 +56,22 @@ model Game {
   userRate          Int        @default(0)
   userStatus        Int        @default(0)  // 1: 想玩, 2: 在玩, 3: 玩过, 4: 抛弃
   userReview        String     @default("")
+  userStartAt       DateTime   @default(now())
+  userEndAt         DateTime   @default(now())
+  userPlaySeconds   Int        @default(0)
   records           Record[]
-  playStates        PlayState[]
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
 }
 
-// 游戏在不同平台的总游玩数据
-model PlayState {
-  id                Int        @id @default(autoincrement())
-  platformId        Int
-  platform          Platform   @relation(fields: [platformId], references: [id])
-  gameId            Int
-  game              Game       @relation(fields: [gameId], references: [id])
-  startAt           DateTime   @default(now())
-  endAt             DateTime   @default(now())
-  playSeconds       Int        @default(0)
-}
-
-// 详细的游戏记录
+// 游戏记录
 model Record {
   id                Int        @id @default(autoincrement())
   platformId        Int
   platform          Platform   @relation(fields: [platformId], references: [id])
-  playerId          Int
-  player            Player     @relation(fields: [playerId], references: [id])
   gameId            Int
   game              Game       @relation(fields: [gameId], references: [id])
+  player            String     @default("")
   startAt           DateTime   @default(now())
   endAt             DateTime   @default(now())
   playSeconds       Int        @default(0)
