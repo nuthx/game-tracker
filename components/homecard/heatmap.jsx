@@ -1,3 +1,5 @@
+"use client"
+
 import { API } from "@/lib/http/api"
 import { useData } from "@/lib/http/swr"
 import { useState, useEffect } from "react"
@@ -18,7 +20,7 @@ export function Heatmap() {
   const [numWeeks, setNumWeeks] = useState(0)
   const isMobile = useMediaQuery("(max-width: 767px)")
 
-  const { data: weeklyData, error: heatmapError } = useData(API.HEATMAP)
+  const { data: weeklyData, error: heatmapError, isLoading: heatmapLoading } = useData(API.HEATMAP)
 
   // 计算可显示的最大周数
   useEffect(() => {
@@ -28,6 +30,14 @@ export function Heatmap() {
       setNumWeeks(Math.floor((width - 48) / 15))
     }
   }, [width, isMobile])
+
+  if (heatmapLoading) {
+    return (
+      <div className="p-10 bg-background border rounded-xl shadow-xs">
+        <p className="text-sm text-muted-foreground text-center">{t("toast.loading")}</p>
+      </div>
+    )
+  }
 
   if (heatmapError) {
     return (

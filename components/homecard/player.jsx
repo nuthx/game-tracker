@@ -14,7 +14,7 @@ export function PlayerCard() {
   // 加载中
   if (presenceLoading) {
     return (
-      <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
+      <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-xl border shadow-xs bg-background">
         <Skeleton className="rounded-full size-18 shrink-0" />
         <div className="flex flex-col gap-2 w-full">
           <Skeleton className="h-6 w-1/3 rounded" />
@@ -27,7 +27,7 @@ export function PlayerCard() {
   // 错误
   if (presenceError) {
     return (
-      <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
+      <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-xl border shadow-xs bg-background">
         <div className="rounded-full size-18 shrink-0 bg-muted"></div>
         <div className="flex flex-col gap-2 w-full">
           <p className="font-bold">{presenceError.code === 400 ? t("home.error.no_login") : t("home.error.load_error")}</p>
@@ -40,7 +40,7 @@ export function PlayerCard() {
   // 离线
   if (presenceData.availability === "unavailable") {
     return (
-      <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
+      <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-xl border shadow-xs bg-background">
         <Image
           src={presenceData.player.avatar}
           alt={presenceData.player.name}
@@ -61,7 +61,7 @@ export function PlayerCard() {
   // 在线
   if (!presenceData.gameTitleInfoList) {
     return (
-      <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
+      <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-xl border shadow-xs bg-background">
         <Image
           src={presenceData.player.avatar}
           alt={presenceData.player.name}
@@ -87,7 +87,7 @@ export function PlayerCard() {
 
   // 游戏中
   return (
-    <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
+    <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-xl border shadow-xs bg-background">
       <div className="relative shrink-0">
         <Image
           src={presenceData.player.avatar}
