@@ -34,9 +34,17 @@ export function NavBar() {
     <nav className="flex justify-between items-center h-16 px-4 md:px-12 sticky top-0 z-50 border-b bg-background/90 dark:bg-background backdrop-blur-sm">
       <Image src="/logo.svg" alt="ゲーム時計" width={110} height={25} draggable="false" className="hidden md:block" />
 
-      <div className="flex gap-8 ml-2 md:ml-0">
-        <Link href="/" className="text-sm cursor-pointer">{t("navbar.overview")}</Link>
-        <Link href="/record" className="text-sm cursor-pointer">{t("navbar.record")}</Link>
+      <div className="flex gap-2 ml-2 md:ml-0">
+        <Link href="/" className="text-sm cursor-pointer">
+          <Button variant="ghost" className={pathname === "/" ? "" : "font-normal text-muted-foreground/70"}>
+            {t("navbar.overview")}
+          </Button>
+        </Link>
+        <Link href="/record" className="text-sm cursor-pointer">
+          <Button variant="ghost" className={pathname === "/record" ? "" : "font-normal text-muted-foreground/70"}>
+            {t("navbar.record")}
+          </Button>
+        </Link>
         {/* <Link href="/report" className="text-sm cursor-pointer">{t("navbar.report")}</Link> */}
       </div>
 

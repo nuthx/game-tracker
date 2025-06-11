@@ -212,7 +212,7 @@ function PSMonitor({ configData, configMutate }) {
             </DialogContent>
           </Dialog>
         </CardDescription>
-        <FormInput name="new_npsso" schema="npsso" placeholder={configData.npsso} mutate={configMutate} clean={true} />
+        <FormInput name="new_npsso" placeholder={configData.npsso} mutate={configMutate} clean={true} />
       </div>
       <div className="flex flex-col gap-1.5">
         <Label>{t("settings.psn.monitor")}</Label>
