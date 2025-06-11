@@ -6,17 +6,17 @@ import { sendResponse } from "@/lib/http/response"
 export async function POST(request) {
   try {
     const data = await request.json()
-    let user = await prisma.user.findUnique({ where: { id: 1 } })
+    let config = await prisma.config.findUnique({ where: { id: 1 } })
 
-    if (data.username !== user.username || data.password !== user.password) {
+    if (data.username !== config.username || data.password !== config.password) {
       throw { code: 401, message: "用户名或密码错误" }
     }
 
     // 创建JWT
     const token = jwt.sign(
       {
-        userId: user.id,
-        username: user.username
+        userId: config.id,
+        username: config.username
       },
       process.env.JWT_SECRET,
       { expiresIn: "30d" }
