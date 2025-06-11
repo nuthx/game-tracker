@@ -27,9 +27,8 @@ model Config {
 // 平台
 model Platform {
   id                Int        @id @default(autoincrement())
-  fullName          String     @default("")  // PlayStation 4
-  shortName         String     @default("")  // PS4
-  type              String     @default("")  // psn
+  name              String     @default("") @unique  // PlayStation 4
+  slug              String     @default("") @unique  // PS4
   games             Game[]
   records           Record[]
 }
@@ -56,6 +55,7 @@ model Game {
   userRate          Int        @default(0)
   userStatus        Int        @default(0)  // 1: 想玩, 2: 在玩, 3: 玩过, 4: 抛弃
   userReview        String     @default("")
+  userNote          String     @default("")
   userStartAt       DateTime   @default(now())
   userEndAt         DateTime   @default(now())
   userPlaySeconds   Int        @default(0)
