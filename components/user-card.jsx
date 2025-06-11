@@ -42,8 +42,8 @@ export function UserCard() {
     return (
       <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
         <Image
-          src={presenceData.monitorUser.avatar}
-          alt={presenceData.monitorUser.name}
+          src={presenceData.player.avatar}
+          alt={presenceData.player.name}
           className="rounded-full size-18 object-cover shrink-0 grayscale opacity-80"
           width={72}
           height={72}
@@ -52,7 +52,7 @@ export function UserCard() {
         />
         <div className="flex flex-col gap-2 w-full">
           <p className="font-bold">{t("home.offline")}</p>
-          <p className="text-sm text-muted-foreground">{presenceData.monitorUser.name} {t("home.last_online")}: {new Date(presenceData.primaryPlatformInfo.lastOnlineDate).toLocaleString()}</p>
+          <p className="text-sm text-muted-foreground">{presenceData.player.name} {t("home.last_online")}: {new Date(presenceData.primaryPlatformInfo.lastOnlineDate).toLocaleString()}</p>
         </div>
       </div>
     )
@@ -63,8 +63,8 @@ export function UserCard() {
     return (
       <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
         <Image
-          src={presenceData.monitorUser.avatar}
-          alt={presenceData.monitorUser.name}
+          src={presenceData.player.avatar}
+          alt={presenceData.player.name}
           className="rounded-full size-18 object-cover shrink-0"
           width={72}
           height={72}
@@ -74,11 +74,11 @@ export function UserCard() {
         <div className="flex flex-col gap-2 w-full">
           <p className="font-bold">{t("home.waiting")}</p>
           <p className="text-sm text-muted-foreground">
-            {presenceData.monitorUser.name}
+            {presenceData.player.name}
             {" "}
             {t("home.online_time")}
             {" "}
-            <TimeDisplay seconds={presenceData.playSeconds} />
+            <TimeDisplay seconds={presenceData.player.playSeconds} />
           </p>
         </div>
       </div>
@@ -90,8 +90,8 @@ export function UserCard() {
     <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
       <div className="relative shrink-0">
         <Image
-          src={presenceData.monitorUser.avatar}
-          alt={presenceData.monitorUser.name}
+          src={presenceData.player.avatar}
+          alt={presenceData.player.name}
           className="rounded-full size-18 object-cover"
           width={72}
           height={72}
@@ -111,11 +111,11 @@ export function UserCard() {
       <div className="flex flex-col gap-2 w-full">
         <p className="font-bold">{presenceData.gameTitleInfoList[0].titleName}</p>
         <p className="text-sm text-muted-foreground">
-          {presenceData.monitorUser.name}
+          {presenceData.player.name}
           {" "}
           {t("home.gaming_time")}
           {" "}
-          <TimeDisplay seconds={presenceData.playSeconds} />
+          <TimeDisplay seconds={presenceData.player.playSeconds} />
         </p>
       </div>
     </div>
