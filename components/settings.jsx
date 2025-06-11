@@ -186,11 +186,11 @@ function PSMonitor({ configData, configMutate }) {
 
   return (
     <>
-      {configData.npsso && (
+      {configData.psnNpsso && (
         <div className="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
-          <Avatar src={configData.avatar} alt={configData.onlineId} title={configData.onlineId} subtitle={configData.accountId} />
+          <Avatar src={configData.psnMonitorFromAvatar} alt={configData.psnMonitorFromName} title={configData.psnMonitorFromName} subtitle={configData.psnMonitorFromId} />
           <ArrowRight className="size-5 text-muted-foreground shrink-0 rotate-90 md:rotate-0" />
-          <Avatar src={configData.monitorAvatar} alt={configData.monitorName} title={configData.monitorName} subtitle={configData.monitorId} />
+          <Avatar src={configData.psnMonitorToAvatar} alt={configData.psnMonitorToName} title={configData.psnMonitorToName} subtitle={configData.psnMonitorToId} />
         </div>
       )}
       <div className="flex flex-col gap-1.5">
@@ -212,19 +212,19 @@ function PSMonitor({ configData, configMutate }) {
             </DialogContent>
           </Dialog>
         </CardDescription>
-        <FormInput name="new_npsso" placeholder={configData.npsso} mutate={configMutate} clean={true} />
+        <FormInput name="psnNpsso" placeholder={configData.psnNpsso} mutate={configMutate} clean={true} />
       </div>
       <div className="flex flex-col gap-1.5">
         <Label>{t("settings.psn.monitor")}</Label>
         <CardDescription>{t("settings.psn.monitor_desc")}</CardDescription>
-        <FormInput name="new_monitorId" defaultValue={configData.monitorId} placeholder={configData.monitorId} mutate={configMutate} />
+        <FormInput name="psnMonitorToId" defaultValue={configData.psnMonitorToId} placeholder={configData.psnMonitorToId} mutate={configMutate} />
       </div>
       <div className="flex flex-col gap-1.5">
         <Label>{t("settings.psn.interval")}</Label>
         <CardDescription>{t("settings.psn.interval_desc")}</CardDescription>
         <FormSelect
-          name="new_monitorInterval"
-          defaultValue={configData.monitorInterval}
+          name="psnMonitorInterval"
+          defaultValue={configData.psnMonitorInterval}
           options={[
             { value: "5", label: `5 ${t("time.seconds")}` },
             { value: "10", label: `10 ${t("time.seconds")}` },
@@ -272,12 +272,12 @@ function AccountManager({ configData }) {
       <div className="flex flex-col gap-1.5">
         <Label>{t("settings.account.username")}</Label>
         <CardDescription>{t("settings.account.username_desc")}</CardDescription>
-        <FormInput name="new_username" schema="username" defaultValue={configData.username} placeholder={configData.username} />
+        <FormInput name="username" schema="username" defaultValue={configData.username} placeholder={configData.username} />
       </div>
       <div className="flex flex-col gap-1.5">
         <Label>{t("settings.account.password")}</Label>
         <CardDescription>{t("settings.account.password_desc")}</CardDescription>
-        <FormInput name="new_password" schema="password" placeholder={t("settings.account.password_new")} clean={true} />
+        <FormInput name="password" schema="password" placeholder={t("settings.account.password_new")} clean={true} />
       </div>
       {getCookieExpiry() && (
         <div className="flex flex-col gap-1.5">

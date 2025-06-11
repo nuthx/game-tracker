@@ -6,18 +6,18 @@ import { getProfileFromUserName, getProfileFromAccountId } from "psn-api"
 
 export async function GET(request) {
   try {
-    const user = await prisma.user.findUnique({ where: { id: 1 } })
+    const config = await prisma.config.findUnique({ where: { id: 1 } })
     return sendResponse(request, {
       data: {
-        username: user.username,
-        npsso: `${user.npsso.slice(0, 4)}****${user.npsso.slice(-4)}`,
-        onlineId: user.onlineId,
-        accountId: user.accountId,
-        avatar: user.avatar,
-        monitorId: user.monitorId,
-        monitorName: user.monitorName,
-        monitorAvatar: user.monitorAvatar,
-        monitorInterval: user.monitorInterval
+        username: config.username,
+        psnNpsso: config.psnNpsso ? `${config.psnNpsso.slice(0, 4)}****${config.psnNpsso.slice(-4)}` : "",
+        psnMonitorFromId: config.psnMonitorFromId,
+        psnMonitorFromName: config.psnMonitorFromName,
+        psnMonitorFromAvatar: config.psnMonitorFromAvatar,
+        psnMonitorToId: config.psnMonitorToId,
+        psnMonitorToName: config.psnMonitorToName,
+        psnMonitorToAvatar: config.psnMonitorToAvatar,
+        psnMonitorInterval: config.psnMonitorInterval
       }
     })
   } catch (error) {
@@ -32,54 +32,55 @@ export async function PATCH(request) {
   try {
     const data = await request.json()
 
-    if (data.new_npsso) {
-      const authorization = await getAuthorization(data.new_npsso)
+    if (data.psnNpsso) {
+      const authorization = await getAuthorization(data.psnNpsso)
       const profile = await getProfileFromUserName(authorization, "me")
-      await prisma.user.update({
+      await prisma.config.update({
         where: { id: 1 },
         data: {
-          npsso: data.new_npsso,
-          onlineId: profile.profile.onlineId,
-          accountId: profile.profile.accountId,
-          avatar: profile.profile.avatarUrls[0].avatarUrl,
-          monitorName: profile.profile.onlineId,
-          monitorAvatar: profile.profile.avatarUrls[0].avatarUrl
+          psnNpsso: data.psnNpsso,
+          psnMonitorFromId: profile.profile.accountId,
+          psnMonitorFromName: profile.profile.onlineId,
+          psnMonitorFromAvatar: profile.profile.avatarUrls[0].avatarUrl,
+          psnMonitorToId: profile.profile.accountId,
+          psnMonitorToName: profile.profile.onlineId,
+          psnMonitorToAvatar: profile.profile.avatarUrls[0].avatarUrl
         }
       })
     }
 
-    if (data.new_monitorId) {
+    if (data.psnMonitorToId) {
       const authorization = await getAuthorization()
-      const profile = await getProfileFromAccountId(authorization, data.new_monitorId)
-      await prisma.user.update({
+      const profile = await getProfileFromAccountId(authorization, data.psnMonitorToId)
+      await prisma.config.update({
         where: { id: 1 },
         data: {
-          monitorId: data.new_monitorId,
-          monitorName: profile.onlineId,
-          monitorAvatar: profile.avatars[2].url
+          psnMonitorToId: profile.profile.accountId,
+          psnMonitorToName: profile.profile.onlineId,
+          psnMonitorToAvatar: profile.profile.avatarUrls[0].avatarUrl
         }
       })
     }
 
-    if (data.new_monitorInterval) {
-      await prisma.user.update({
+    if (data.psnMonitorInterval) {
+      await prisma.config.update({
         where: { id: 1 },
-        data: { monitorInterval: data.new_monitorInterval }
+        data: { psnMonitorInterval: data.psnMonitorInterval }
       })
       await startTask()
     }
 
-    if (data.new_username) {
-      await prisma.user.update({
+    if (data.username) {
+      await prisma.config.update({
         where: { id: 1 },
-        data: { username: data.new_username }
+        data: { username: data.username }
       })
     }
 
-    if (data.new_password) {
-      await prisma.user.update({
+    if (data.password) {
+      await prisma.config.update({
         where: { id: 1 },
-        data: { password: data.new_password }
+        data: { password: data.password }
       })
     }
 
