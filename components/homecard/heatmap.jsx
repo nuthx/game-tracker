@@ -88,20 +88,22 @@ function HeatmapHover({ day }) {
         </TooltipTrigger>
         <TooltipContent className="flex flex-col gap-2 text-xs">
           <p className="font-medium">{new Date(day.date).toLocaleDateString()}</p>
-          <Separator className="bg-muted/30" />
-          <div className="flex gap-4 justify-between">
-            <p>{t("filter.psn")}</p>
-            <TimeDisplay seconds={day.psn.value} />
-          </div>
-          <div className="flex gap-4 justify-between">
-            <p>{t("filter.nx")}</p>
-            <TimeDisplay seconds={day.nx.value} />
-          </div>
-          <Separator className="bg-muted/30" />
-          <div className="flex gap-4 justify-between">
-            <p>{t("filter.total")}</p>
-            <TimeDisplay seconds={day.total.value} />
-          </div>
+          {day.playtime.length > 0 && (
+            <>
+              <Separator className="bg-muted/30" />
+              {day.playtime.map((item, index) => (
+                <div key={index} className="flex gap-4 justify-between">
+                  <p>{item.platform}</p>
+                  <TimeDisplay seconds={item.value} />
+                </div>
+              ))}
+              <Separator className="bg-muted/30" />
+              <div className="flex gap-4 justify-between">
+                <p>{t("filter.total")}</p>
+                <TimeDisplay seconds={day.total.value} />
+              </div>
+            </>
+          )}
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

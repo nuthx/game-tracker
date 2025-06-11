@@ -6,34 +6,47 @@ const MAX_RECORDS = MAX_WEEKS * 7
 
 export async function GET(request) {
   try {
-    const psnRecords = await prisma.psnRecord.findMany({})
-    const nxRecords = await prisma.nxRecord.findMany({})
+    const records = await prisma.record.findMany({
+      include: {
+        platform: true
+      }
+    })
 
     // 创建Map存储每日总计
     const dailyMap = new Map()
 
-    // 添加PSN记录到Map
-    psnRecords.forEach((record) => {
+    // 添加记录到Map
+    records.forEach((record) => {
       const date = record.startAt.toISOString().split("T")[0]
       if (!dailyMap.has(date)) {
-        dailyMap.set(date, { psn: 0, nx: 0 })
+        dailyMap.set(date, new Map())
       }
-      dailyMap.get(date).psn += record.playSeconds
+      const platformMap = dailyMap.get(date)
+      const platform = record.platform.slug
+      platformMap.set(platform, (platformMap.get(platform) || 0) + record.playSeconds)
     })
 
-    // 添加NX记录到Map
-    nxRecords.forEach((record) => {
-      const date = record.startAt.toISOString().split("T")[0]
-      if (!dailyMap.has(date)) {
-        dailyMap.set(date, { psn: 0, nx: 0 })
+    // 将Map转换为新的数组结构
+    let formattedData = Array.from(dailyMap.entries()).map(([date, platformMap]) => {
+      const playtime = Array.from(platformMap.entries())
+        .map(([platform, value]) => ({
+          platform,
+          value
+        }))
+        .filter((item) => item.value > 0) // 只包含有游戏时间的平台
+
+      const totalValue = playtime.reduce((sum, item) => sum + item.value, 0)
+
+      return {
+        date,
+        playtime,
+        total: {
+          value: totalValue
+        }
       }
-      dailyMap.get(date).nx += record.playSeconds
     })
 
-    // 将Map转换为数组
-    let formattedData = Array.from(dailyMap.entries()).map(([date, data]) => ({ date, psn: data.psn, nx: data.nx }))
-
-    // 从今天开始往前填充共MAX_RECORDS条数据
+    // 填充空白日期
     const today = new Date()
     let fillDate = new Date(today)
     let daysToFill = MAX_RECORDS
@@ -41,7 +54,11 @@ export async function GET(request) {
     while (daysToFill > 0) {
       const dateStr = fillDate.toISOString().split("T")[0]
       if (!formattedData.find((d) => d.date === dateStr)) {
-        formattedData.push({ date: dateStr, psn: 0, nx: 0 })
+        formattedData.push({
+          date: dateStr,
+          playtime: [],
+          total: { value: 0 }
+        })
       }
       fillDate.setDate(fillDate.getDate() - 1)
       daysToFill--
@@ -50,41 +67,24 @@ export async function GET(request) {
     // 按日期升序排序，并限制为MAX_RECORDS条记录
     formattedData = formattedData.sort((a, b) => new Date(a.date) - new Date(b.date)).slice(-MAX_RECORDS)
 
-    // 计算所有记录的最小/最大值
-    const metrics = formattedData.reduce((acc, d) => {
-      const total = d.psn + d.nx
-      return {
-        psn: { min: Math.min(acc.psn.min, d.psn), max: Math.max(acc.psn.max, d.psn) },
-        nx: { min: Math.min(acc.nx.min, d.nx), max: Math.max(acc.nx.max, d.nx) },
-        total: { min: Math.min(acc.total.min, total), max: Math.max(acc.total.max, total) }
-      }
-    }, {
-      psn: { min: Infinity, max: -Infinity },
-      nx: { min: Infinity, max: -Infinity },
-      total: { min: Infinity, max: -Infinity }
-    })
+    // 计算最大值和最小值
+    const totalMetrics = formattedData.reduce(
+      (acc, d) => ({
+        min: Math.min(acc.min, d.total.value),
+        max: Math.max(acc.max, d.total.value)
+      }),
+      { min: Infinity, max: -Infinity }
+    )
 
-    // 配置计算百分比的函数用于下一步计算
+    // 在每日中计算并添加百分比
     const getPercent = (value, min, max) => min === max ? 0 : Math.round(((value - min) / (max - min)) * 100)
-
-    // 在游戏记录数据中添加百分比
-    const transformedData = formattedData.map((item) => {
-      return {
-        date: item.date,
-        psn: {
-          value: item.psn,
-          percent: getPercent(item.psn, metrics.psn.min, metrics.psn.max)
-        },
-        nx: {
-          value: item.nx,
-          percent: getPercent(item.nx, metrics.nx.min, metrics.nx.max)
-        },
-        total: {
-          value: item.psn + item.nx,
-          percent: getPercent(item.psn + item.nx, metrics.total.min, metrics.total.max)
-        }
+    const transformedData = formattedData.map((item) => ({
+      ...item,
+      total: {
+        ...item.total,
+        percent: getPercent(item.total.value, totalMetrics.min, totalMetrics.max)
       }
-    })
+    }))
 
     // 找到第一个星期日作为起点
     const startDate = new Date(transformedData[0].date)
