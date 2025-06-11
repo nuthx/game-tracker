@@ -28,7 +28,7 @@ export default function Page() {
       <Heatmap />
       {recordData.records.length > 0 && (
         <>
-          <RecordCard records={recordData} />
+          <RecordCard records={recordData.records} />
           <Link href="/record" className="w-full">
             <Button variant="ghost" className="w-full">
               {t("home.view_all")}

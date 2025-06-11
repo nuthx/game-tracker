@@ -74,8 +74,11 @@ export default function Page() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">{t("filter.all_platforms")}</SelectItem>
-            <SelectItem value="psn">PlayStation</SelectItem>
-            <SelectItem value="nx">Nintendo Switch</SelectItem>
+            {recordData?.platforms.map((platform) => (
+              <SelectItem key={platform} value={platform}>
+                {platform}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
 
@@ -133,10 +136,10 @@ export default function Page() {
                     <TableRow key={index}>
                       <TableCell className="pl-4 md:pl-6 py-3 w-22">
                         <div className="rounded-sm size-12 overflow-hidden bg-muted">
-                          {record.cover && (
+                          {record.game?.imageIcon && (
                             <Image
-                              src={record.cover}
-                              alt={record.name}
+                              src={record.game.imageIcon}
+                              alt={record.game.title}
                               width={64}
                               height={64}
                               priority
@@ -150,14 +153,12 @@ export default function Page() {
                       </TableCell>
                       <TableCell>
                         <div className="flex flex-col gap-1">
-                          {record.name}
-                          <span className="text-xs text-muted-foreground/70">{record.titleId}</span>
+                          {record.game?.title}
+                          <span className="text-xs text-muted-foreground/70">{record.game?.gameId}</span>
                         </div>
                       </TableCell>
                       <TableCell>
-                        {record.platform === "NS"
-                          ? <Badge className="bg-red-500 text-white">Switch</Badge>
-                          : <Badge className="bg-blue-500 text-white">{record.platform}</Badge>}
+                        <Badge className="text-white" style={{ backgroundColor: record.platform?.color }}>{record.platform?.slug}</Badge>
                       </TableCell>
                       <TableCell>
                         <Badge variant="outline">{record.player}</Badge>

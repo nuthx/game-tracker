@@ -7,15 +7,15 @@ export function RecordCard({ records }) {
   const { t } = useTranslation()
   return (
     <div className="p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
-      {records?.records?.map((record, index) => (
-        <div key={index}>
+      {records.map((record, index) => (
+        <div key={record.id}>
           {index > 0 && <Separator className="my-4" />}
           <div className="flex flex-row gap-4 items-center">
             <div className="rounded-sm size-14 overflow-hidden bg-muted">
-              {record.cover && (
+              {record.game.imageIcon && (
                 <Image
-                  src={record.cover}
-                  alt={record.name}
+                  src={record.game.imageIcon}
+                  alt={record.game.title}
                   width={64}
                   height={64}
                   priority
@@ -27,7 +27,7 @@ export function RecordCard({ records }) {
               )}
             </div>
             <div className="flex flex-col gap-1.5">
-              <p className="text-sm font-bold">[{record.platform}] {record.name}</p>
+              <p className="text-sm font-bold">[{record.platform.slug}] {record.game.title}</p>
               <p className="text-sm text-muted-foreground">
                 {t("home.last_gaming")}
                 :
