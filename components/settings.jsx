@@ -226,11 +226,11 @@ function PSMonitor({ configData, configMutate }) {
           name="psnMonitorInterval"
           defaultValue={configData.psnMonitorInterval}
           options={[
-            { value: "5", label: `5 ${t("time.seconds")}` },
-            { value: "10", label: `10 ${t("time.seconds")}` },
-            { value: "20", label: `20 ${t("time.seconds")}` },
-            { value: "30", label: `30 ${t("time.seconds")}` },
-            { value: "60", label: `60 ${t("time.seconds")}` }
+            { value: 5, label: `5 ${t("time.seconds")}` },
+            { value: 10, label: `10 ${t("time.seconds")}` },
+            { value: 20, label: `20 ${t("time.seconds")}` },
+            { value: 30, label: `30 ${t("time.seconds")}` },
+            { value: 60, label: `60 ${t("time.seconds")}` }
           ]}
         />
       </div>
