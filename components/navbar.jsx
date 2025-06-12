@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 import { Languages, Sun, Moon, Settings2 } from "lucide-react"
-import { Settings } from "@/components/settings"
+import { Settings } from "@/components/settings/layout"
 
 export function NavBar() {
   const pathname = usePathname()
