@@ -27,7 +27,7 @@ export function ExportRecord() {
   const { t } = useTranslation()
 
   const handleExport = async () => {
-    const result = await handleRequest("GET", API.EXPORT)
+    const result = await handleRequest("GET", API.BACKUP)
     if (result.ok) {
       const blob = new Blob([JSON.stringify(result.data, null, 2)], { type: "application/json" })
       const url = URL.createObjectURL(blob)
@@ -71,7 +71,7 @@ export function ImportRecord() {
       return
     }
 
-    const result = await handleRequest("POST", API.IMPORT_GT, jsonData.data)
+    const result = await handleRequest("POST", API.RESTORE, jsonData.data)
     if (result.ok) {
       toast(t("toast.import_success", { success: result.data.success, skipped: result.data.skipped, failed: result.data.failed }))
     } else {
@@ -96,7 +96,7 @@ export function DeleteRecord() {
   const [deleteConfirmText, setDeleteConfirmText] = useState("")
 
   const handleDelete = async () => {
-    const result = await handleRequest("DELETE", API.DELETE_ALL)
+    const result = await handleRequest("DELETE", API.REMOVE)
     if (result.ok) {
       toast(t("toast.delete_success", { count: result.data.count }))
     } else {
@@ -199,7 +199,7 @@ export function ImportNxRecord() {
   }
 
   const handleImport = async () => {
-    const result = await handleRequest("POST", `${API.IMPORT_NX}?userId=${selectedUserId}`, jsonData.data)
+    const result = await handleRequest("POST", `${API.IMPORT_NS}?userId=${selectedUserId}`, jsonData.data)
     if (result.ok) {
       toast(t("toast.import_success", { success: result.data.success, skipped: result.data.skipped, failed: result.data.failed }))
       setIsFileSelected(false)
