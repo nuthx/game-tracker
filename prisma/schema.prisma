@@ -38,14 +38,9 @@ model Platform {
 // 游戏
 model Game {
   id                Int        @id @default(autoincrement())
-  gameId            String     @default("")
-  title             String     @default("")
-  titleSc           String     @default("")
-  titleTc           String     @default("")
-  titleEn           String     @default("")
-  titleJa           String     @default("")
-  platformId        Int
-  platform          Platform   @relation(fields: [platformId], references: [id])
+  title             String     @default("") @unique
+  titleAlias        String     @default("") @unique
+  platform          Platform[]
   description       String     @default("")
   imageGrid         String     @default("")
   imageHero         String     @default("")

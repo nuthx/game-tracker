@@ -3,9 +3,31 @@ import { sendResponse } from "@/lib/http/response"
 
 export async function GET(request) {
   try {
-    const games = await prisma.game.findMany()
     const platforms = await prisma.platform.findMany()
-    const records = await prisma.record.findMany()
+    const games = await prisma.game.findMany({
+      include: {
+        platform: true
+      }
+    })
+    const records = await prisma.record.findMany({
+      include: {
+        platform: true,
+        game: true
+      }
+    })
+
+    const processedGames = games.map((game) => ({
+      ...game,
+      platform: game.platform.map((p) => p.slug)
+    }))
+
+    const processedRecords = records.map((record) => ({
+      ...record,
+      platformId: undefined,
+      platform: record.platform.slug,
+      gameId: undefined,
+      game: record.game.title
+    }))
 
     return sendResponse(request, {
       data: {
@@ -13,13 +35,13 @@ export async function GET(request) {
         date: new Date().toISOString(),
         count: {
           total: games.length + platforms.length + records.length,
-          game: games.length,
           platform: platforms.length,
+          game: games.length,
           record: records.length
         },
-        games,
         platforms,
-        records
+        games: processedGames,
+        records: processedRecords
       }
     })
   } catch (error) {
