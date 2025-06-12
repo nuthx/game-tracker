@@ -20,6 +20,7 @@ model Config {
   psnMonitorToName      String       @default("")
   psnMonitorToAvatar    String       @default("")
   psnMonitorInterval    Int          @default(30)
+  firstRun              Int          @default(1)
   createdAt             DateTime     @default(now())
   updatedAt             DateTime     @updatedAt
 }
@@ -76,4 +77,5 @@ model Record {
   startAt           DateTime   @default(now())
   endAt             DateTime   @default(now())
   playSeconds       Int        @default(0)
+  hide              Int        @default(0)
 }
