@@ -6,7 +6,9 @@ export async function POST(request) {
   try {
     const jsonData = await request.json()
 
-    let result = {}
+    // 暂时不支持success与skipped
+    let result = { success: 0, skipped: 0, failed: 0 }
+
     if (jsonData.version === "v1") {
       result = await importV1(jsonData)
     } else if (jsonData.version === "v2") {

@@ -99,7 +99,7 @@ function Import() {
 
     const result = await handleRequest("POST", API.IMPORT, jsonData.data)
     if (result.ok) {
-      toast(t("toast.import_success", { success: result.data.success, skipped: result.data.skipped, failed: result.data.failed }))
+      toast(t("toast.import_success", { failed: result.data.failed }))
     } else {
       toast.error(`[${result.code}] ${result.message}`)
     }
