@@ -45,13 +45,10 @@ model Game {
   imageHero         String     @default("")
   imageLogo         String     @default("")
   imageIcon         String     @default("")
-  gameDeveloper     String     @default("")
-  gamePublisher     String     @default("")
   releaseDate       DateTime   @default(now())
   userRate          Int        @default(0)
   userStatus        Int        @default(0)  // 1: 想玩, 2: 在玩, 3: 玩过, 4: 抛弃
   userReview        String     @default("")
-  userNote          String     @default("")
   userStartAt       DateTime   @default(now())
   userEndAt         DateTime   @default(now())
   userPlaySeconds   Int        @default(0)
