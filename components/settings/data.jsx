@@ -132,6 +132,8 @@ function Delete() {
   const handleDelete = async () => {
     const result = await handleRequest("DELETE", API.DELETE)
     if (result.ok) {
+      setDeleteConfirmText("")
+      setOpen(false)
       toast(t("toast.delete_success", { count: result.data.count }))
     } else {
       toast.error(`[${result.code}] ${result.message}`)
