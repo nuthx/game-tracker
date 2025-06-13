@@ -6,19 +6,20 @@ export async function POST(request) {
   try {
     const jsonData = await request.json()
 
-    // 暂时不支持success与skipped
-    let result = { success: 0, skipped: 0, failed: 0 }
-
+    let result = { failedPlatform: 0, failedGame: 0, failedRecord: 0 }
     if (jsonData.version === "v1") {
-      result = await importV1(jsonData)
+      await importV1(jsonData, result)
     } else if (jsonData.version === "v2") {
-      result = await importV2(jsonData)
+      await importV2(jsonData, result)
     } else {
       throw { code: 400, message: "JSON记录文件的版本错误" }
     }
 
     return sendResponse(request, {
-      data: result
+      data: {
+        failed: result.failedPlatform + result.failedGame + result.failedRecord,
+        failedResult: result
+      }
     })
   } catch (error) {
     return sendResponse(request, {

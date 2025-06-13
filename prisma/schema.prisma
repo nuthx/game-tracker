@@ -27,7 +27,8 @@ model Config {
 // 平台
 model Platform {
   id                Int        @id @default(autoincrement())
-  title             String     @default("") @unique
+  uname             String     @default("") @unique
+  name              String     @default("") @unique
   color             String     @default("")
   games             Game[]
   records           Record[]
@@ -46,12 +47,12 @@ model Game {
   imageHero         String     @default("")
   imageLogo         String     @default("")
   imageIcon         String     @default("")
-  releaseDate       DateTime   @default(now())
+  releaseDate       DateTime?
   userRate          Int        @default(0)
   userStatus        Int        @default(0)  // 1: 想玩, 2: 在玩, 3: 玩过, 4: 抛弃
   userReview        String     @default("")
-  userStartAt       DateTime   @default(now())
-  userEndAt         DateTime   @default(now())
+  userStartAt       DateTime?
+  userEndAt         DateTime?
   userPlaySeconds   Int        @default(0)
   records           Record[]
   createdAt         DateTime   @default(now())
@@ -70,4 +71,6 @@ model Record {
   endAt             DateTime   @default(now())
   playSeconds       Int        @default(0)
   hide              Int        @default(0)
+
+  @@unique([startAt, endAt])
 }

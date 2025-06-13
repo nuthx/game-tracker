@@ -29,7 +29,8 @@
     "no_npsso": "Please log in to your PSN account first",
     "error_config": "Failed to load configuration",
     "save_config": "Settings saved",
-    "import_success": "Import completed with {{failed}} failed records",
+    "import_success": "All data imported successfully",
+    "import_failed": "Data imported completed, but {{platform}} platforms, {{game}} games and {{record}} records are failed",
     "export_success": "Exported {{count}} records",
     "delete_success": "Deleted {{count}} records",
     "read_error": "Invalid JSON file"
