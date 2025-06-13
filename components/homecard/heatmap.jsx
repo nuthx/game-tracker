@@ -33,7 +33,7 @@ export function Heatmap() {
 
   if (heatmapLoading) {
     return (
-      <div className="p-10 bg-background border rounded-xl shadow-xs">
+      <div className="p-10 bg-background border rounded-lg shadow-xs">
         <p className="text-sm text-muted-foreground text-center">{t("toast.loading")}</p>
       </div>
     )
@@ -41,14 +41,14 @@ export function Heatmap() {
 
   if (heatmapError) {
     return (
-      <div className="p-10 bg-background border rounded-xl shadow-xs">
+      <div className="p-10 bg-background border rounded-lg shadow-xs">
         <p className="text-sm text-muted-foreground text-center">{t("toast.error_heatmap")}</p>
       </div>
     )
   }
 
   return (
-    <div className="p-3 md:p-6 bg-background border rounded-xl shadow-xs" ref={containerRef}>
+    <div className="p-3 md:p-6 bg-background border rounded-lg shadow-xs" ref={containerRef}>
       <div className="flex gap-[3px]">
         {weeklyData?.slice(-numWeeks)?.map((week, weekIndex) => (
           <div key={weekIndex} className="flex flex-col gap-[3px]">

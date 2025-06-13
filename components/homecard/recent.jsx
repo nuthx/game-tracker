@@ -16,7 +16,7 @@ export function RecentCard() {
 
   if (recordLoading) {
     return (
-      <div className="p-10 bg-background border rounded-xl shadow-xs">
+      <div className="p-10 bg-background border rounded-lg shadow-xs">
         <p className="text-sm text-muted-foreground text-center">{t("toast.loading")}</p>
       </div>
     )
@@ -24,7 +24,7 @@ export function RecentCard() {
 
   if (recordError) {
     return (
-      <div className="p-10 bg-background border rounded-xl shadow-xs">
+      <div className="p-10 bg-background border rounded-lg shadow-xs">
         <p className="text-sm text-muted-foreground text-center">{t("toast.error_user")}</p>
       </div>
     )
@@ -36,7 +36,7 @@ export function RecentCard() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="p-3 md:p-6 border rounded-xl border shadow-xs bg-background">
+      <div className="p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
         {recordData.records.map((record, index) => (
           <div key={record.id}>
             {index > 0 && <Separator className="my-4" />}
