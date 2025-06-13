@@ -28,8 +28,7 @@ model Config {
 // 平台
 model Platform {
   id                Int        @id @default(autoincrement())
-  name              String     @default("") @unique  // PlayStation 4
-  slug              String     @default("") @unique  // PS4
+  title             String     @default("") @unique
   color             String     @default("")
   games             Game[]
   records           Record[]

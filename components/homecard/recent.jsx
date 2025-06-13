@@ -57,7 +57,7 @@ export function RecentCard() {
                 )}
               </div>
               <div className="flex flex-col gap-1.5">
-                <p className="text-sm font-bold">[{record.platform.slug}] {record.game.title}</p>
+                <p className="text-sm font-bold">[{record.platform.name}] {record.game.title}</p>
                 <p className="text-sm text-muted-foreground">
                   {t("home.last_gaming")}
                   :

@@ -158,7 +158,7 @@ export default function Page() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <Badge className="text-white" style={{ backgroundColor: record.platform?.color }}>{record.platform?.slug}</Badge>
+                        <Badge className="text-white" style={{ backgroundColor: record.platform?.color }}>{record.platform?.name}</Badge>
                       </TableCell>
                       <TableCell>
                         <Badge variant="outline">{record.player}</Badge>

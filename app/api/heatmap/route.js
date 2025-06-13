@@ -22,7 +22,7 @@ export async function GET(request) {
         dailyMap.set(date, new Map())
       }
       const platformMap = dailyMap.get(date)
-      const platform = record.platform.slug
+      const platform = record.platform.name
       platformMap.set(platform, (platformMap.get(platform) || 0) + record.playSeconds)
     })
 

@@ -18,13 +18,13 @@ export async function GET(request) {
 
     const processedGames = games.map((game) => ({
       ...game,
-      platform: game.platform.map((p) => p.slug)
+      platform: game.platform.map((p) => p.name)
     }))
 
     const processedRecords = records.map((record) => ({
       ...record,
       platformId: undefined,
-      platform: record.platform.slug,
+      platform: record.platform.name,
       gameId: undefined,
       game: record.game.title
     }))
