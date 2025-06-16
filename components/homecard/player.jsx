@@ -75,14 +75,8 @@ export function PlayerCard() {
           draggable="false"
         />
         <div className="flex flex-col gap-2 w-full">
-          <p className="font-bold">{t("home.waiting")}</p>
-          <p className="text-sm text-muted-foreground">
-            {presenceData.player.name}
-            {" "}
-            {t("home.online_time")}
-            {" "}
-            <TimeDisplay seconds={presenceData.player.playSeconds} />
-          </p>
+          <p className="font-bold">{t("home.online")}</p>
+          <p className="text-sm text-muted-foreground">{t("home.waiting")}</p>
         </div>
       </div>
     )

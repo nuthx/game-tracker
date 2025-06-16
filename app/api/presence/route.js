@@ -14,7 +14,7 @@ export async function GET(request) {
     const authorization = await getAuthorization()
     const presence = await getBasicPresence(authorization, config.psnMonitorFromId)
 
-    // 计算游戏时长
+    // 如果在游戏中，则计算当前游戏时长
     let playSeconds = 0
     if (presence.basicPresence.gameTitleInfoList?.length) {
       const lastRecord = await prisma.record.findFirst({ orderBy: { endAt: "desc" } })
