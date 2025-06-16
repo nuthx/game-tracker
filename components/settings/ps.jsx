@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { ArrowRight } from "lucide-react"
 
-export function PlayStationSettings({ configData, configMutate }) {
+export function PsSettings({ configData, configMutate }) {
   const { t } = useTranslation()
   const [tutorialOpen, setTutorialOpen] = useState(false)
 
