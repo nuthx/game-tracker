@@ -1,19 +1,21 @@
 import { useTranslation } from "react-i18next"
-import { tf } from "@/lib/utils"
 
 export function TimeDisplay({ seconds }) {
   const { t } = useTranslation()
-  const time = tf(seconds)
 
   if (seconds === 0) {
     return <span>0 {t("time.second")}</span>
   }
 
+  const tHours = Math.floor(seconds / 3600)
+  const tMinutes = Math.floor((seconds % 3600) / 60)
+  const tSeconds = seconds % 60
+
   return (
     <span>
-      {time.hours > 0 && `${time.hours} ${t(time.hours === 1 ? "time.hour" : "time.hours")} `}
-      {time.minutes > 0 && `${time.minutes} ${t(time.minutes === 1 ? "time.minute" : "time.minutes")} `}
-      {time.seconds > 0 && `${time.seconds} ${t(time.seconds === 1 ? "time.second" : "time.seconds")}`}
+      {tHours > 0 && `${tHours} ${t(tHours === 1 ? "time.hour" : "time.hours")} `}
+      {tMinutes > 0 && `${tMinutes} ${t(tMinutes === 1 ? "time.minute" : "time.minutes")} `}
+      {tSeconds > 0 && `${tSeconds} ${t(tSeconds === 1 ? "time.second" : "time.seconds")}`}
     </span>
   )
 }
