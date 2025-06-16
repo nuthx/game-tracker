@@ -1,5 +1,6 @@
 "use client"
 
+import dayjs from "dayjs"
 import Image from "next/image"
 import { useTranslation } from "react-i18next"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -52,7 +53,9 @@ export function PlayerCard() {
         />
         <div className="flex flex-col gap-2 w-full">
           <p className="font-bold">{t("home.offline")}</p>
-          <p className="text-sm text-muted-foreground">{presenceData.player.name} {t("home.last_online")}: {new Date(presenceData.primaryPlatformInfo.lastOnlineDate).toLocaleString()}</p>
+          <p className="text-sm text-muted-foreground">
+            {presenceData.player.name} {t("home.last_online")}: {dayjs(presenceData.primaryPlatformInfo.lastOnlineDate).format("YYYY-MM-DD HH:mm:ss")}
+          </p>
         </div>
       </div>
     )

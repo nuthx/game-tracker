@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
+import dayjs from "dayjs"
 import { useTranslation } from "react-i18next"
 import { API } from "@/lib/http/api"
 import { useData } from "@/lib/http/swr"
@@ -61,7 +62,8 @@ export function RecentCard() {
                 <p className="text-sm text-muted-foreground">
                   {t("home.last_gaming")}
                   :
-                  {new Date(record.endAt).toLocaleString()}
+                  {" "}
+                  {dayjs(record.endAt).format("YYYY-MM-DD HH:mm:ss")}
                   {" "}
                   [
                   <TimeDisplay seconds={record.playSeconds} />

@@ -1,3 +1,4 @@
+import dayjs from "dayjs"
 import { useTranslation } from "react-i18next"
 import { FormInput } from "@/components/form"
 import { CardDescription } from "@/components/ui/card"
@@ -14,7 +15,7 @@ export function AccountSettings({ configData }) {
     try {
       const token = tktkCookie.split("=")[1]
       const payload = JSON.parse(atob(token.split(".")[1]))
-      return new Date(payload.exp * 1000)
+      return dayjs(payload.exp * 1000).format("YYYY-MM-DD HH:mm:ss")
     } catch {
       return null
     }
@@ -36,7 +37,7 @@ export function AccountSettings({ configData }) {
         <div className="flex flex-col gap-1.5">
           <Label>{t("settings.account.expiry")}</Label>
           <CardDescription>{t("settings.account.expiry_desc")}</CardDescription>
-          <Input value={getCookieExpiry().toLocaleString()} disabled />
+          <Input value={getCookieExpiry()} disabled />
         </div>
       )}
     </>

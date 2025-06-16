@@ -1,5 +1,6 @@
 "use client"
 
+import dayjs from "dayjs"
 import { API } from "@/lib/http/api"
 import { useData } from "@/lib/http/swr"
 import { useState, useEffect } from "react"
@@ -87,7 +88,9 @@ function HeatmapHover({ day }) {
           <div className={`size-3 rounded-xs transition-all hover:ring-2 hover:ring-offset-1 hover:ring-primary/50 cursor-pointer ${getColor(day.total.percent)}`} />
         </TooltipTrigger>
         <TooltipContent className="flex flex-col gap-2 text-xs">
-          <p className="font-medium">{new Date(day.date).toLocaleDateString()}</p>
+          <p className="font-medium">
+            {dayjs(day.date).format("YYYY-MM-DD")}
+          </p>
           {day.playtime.length > 0 && (
             <>
               <Separator className="bg-muted/30" />

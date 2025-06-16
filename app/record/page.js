@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import dayjs from "dayjs"
 import { useSearchParams, useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
 import { API } from "@/lib/http/api"
@@ -163,8 +164,12 @@ export default function Page() {
                       <TableCell>
                         <Badge variant="outline">{record.player}</Badge>
                       </TableCell>
-                      <TableCell>{new Date(record.startAt).toLocaleString()}</TableCell>
-                      <TableCell>{new Date(record.endAt).toLocaleString()}</TableCell>
+                      <TableCell>
+                        {dayjs(record.startAt).format("YYYY-MM-DD HH:mm:ss")}
+                      </TableCell>
+                      <TableCell>
+                        {dayjs(record.endAt).format("YYYY-MM-DD HH:mm:ss")}
+                      </TableCell>
                       <TableCell>
                         <TimeDisplay seconds={record.playSeconds} />
                       </TableCell>
