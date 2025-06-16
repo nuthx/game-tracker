@@ -29,7 +29,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Gamepad2, CircleUser, Database, LogOut } from "lucide-react"
 import { PlayStationSettings } from "@/components/settings/ps"
-import { SwitchSettings } from "@/components/settings/ns"
+import { NsSettings } from "@/components/settings/ns"
 import { AccountSettings } from "@/components/settings/account"
 import { DataSettings } from "@/components/settings/data"
 
@@ -51,7 +51,7 @@ export function Settings({ openSettings, setOpenSettings }) {
     {
       title: t("settings.menu.ns"),
       icon: Gamepad2,
-      component: SwitchSettings
+      component: NsSettings
     },
     {
       title: ""
