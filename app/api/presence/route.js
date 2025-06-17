@@ -5,7 +5,7 @@ import { getPsnPresence } from "@/lib/monitor/presence"
 export async function GET(request) {
   try {
     const config = await prisma.config.findUnique({ where: { id: 1 } })
-    const presence = await getPsnPresence(config.psnMonitorFromId)
+    const presence = await getPsnPresence(config)
 
     // 如果在游戏中，则计算当前游戏时长
     let playSeconds = 0

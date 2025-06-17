@@ -1,8 +1,7 @@
 import { prisma } from "@/lib/prisma"
 import { startTask } from "@/lib/schedule"
 import { sendResponse } from "@/lib/http/response"
-import { getAuthorization } from "@/lib/auth"
-import { getProfileFromUserName, getProfileFromAccountId } from "psn-api"
+import { exchangeNpssoForAccessCode, exchangeAccessCodeForAuthTokens, getProfileFromUserName, getProfileFromAccountId } from "psn-api"
 
 export async function GET(request) {
   try {
@@ -33,7 +32,8 @@ export async function PATCH(request) {
     const data = await request.json()
 
     if (data.psnNpsso) {
-      const authorization = await getAuthorization(data.psnNpsso)
+      const accessCode = await exchangeNpssoForAccessCode(data.psnNpsso)
+      const authorization = await exchangeAccessCodeForAuthTokens(accessCode)
       const profile = await getProfileFromUserName(authorization, "me")
       await prisma.config.update({
         where: { id: 1 },
@@ -50,7 +50,9 @@ export async function PATCH(request) {
     }
 
     if (data.psnMonitorToId) {
-      const authorization = await getAuthorization()
+      const config = await prisma.config.findUnique({ where: { id: 1 } })
+      const accessCode = await exchangeNpssoForAccessCode(config.psnNpsso)
+      const authorization = await exchangeAccessCodeForAuthTokens(accessCode)
       const profile = await getProfileFromAccountId(authorization, data.psnMonitorToId)
       await prisma.config.update({
         where: { id: 1 },
