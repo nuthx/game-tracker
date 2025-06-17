@@ -10,7 +10,14 @@ export async function GET(request) {
     // 如果在游戏中，则计算当前游戏时长
     let playSeconds = 0
     if (presence.status === 2) {
-      const lastRecord = await prisma.record.findFirst({ orderBy: { endAt: "desc" } })
+      const lastRecord = await prisma.record.findFirst({
+        where: {
+          game: {
+            utitle: presence.gameTitle
+          }
+        },
+        orderBy: { endAt: "desc" }
+      })
       playSeconds = lastRecord.playSeconds
     }
 
