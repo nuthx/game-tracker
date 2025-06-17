@@ -24,8 +24,8 @@ export async function GET(request) {
     return sendResponse(request, {
       data: {
         ...presence,
-        playerName: config.psnMonitorFromName,
-        playerAvatar: config.psnMonitorFromAvatar,
+        playerName: config.psnMonitorToName,
+        playerAvatar: config.psnMonitorToAvatar,
         playSeconds
       }
     })
