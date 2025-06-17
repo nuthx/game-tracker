@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import { sendResponse } from "@/lib/http/response"
-import { getPsnPresence } from "@/lib/monitor/presence"
+import { getPsnPresence } from "@/lib/psn/presence"
 
 export async function GET(request) {
   try {
