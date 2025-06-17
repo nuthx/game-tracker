@@ -43,6 +43,7 @@ model Platform {
 // 游戏
 model Game {
   id                Int        @id @default(autoincrement())
+  utitle            String     @default("") @unique
   title             String     @default("") @unique
   titleAlias        String     @default("") @unique @map("title_alias")
   platform          Platform[]
