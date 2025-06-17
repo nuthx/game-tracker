@@ -57,9 +57,9 @@ export async function PATCH(request) {
       await prisma.config.update({
         where: { id: 1 },
         data: {
-          psnMonitorToId: profile.profile.accountId,
-          psnMonitorToName: profile.profile.onlineId,
-          psnMonitorToAvatar: profile.profile.avatarUrls[0].avatarUrl
+          psnMonitorToId: data.psnMonitorToId,
+          psnMonitorToName: profile.onlineId,
+          psnMonitorToAvatar: profile.avatars[2].url
         }
       })
     }
@@ -88,6 +88,7 @@ export async function PATCH(request) {
 
     return sendResponse(request, {})
   } catch (error) {
+    console.log(error)
     return sendResponse(request, {
       code: error.code || 500,
       message: error.message
