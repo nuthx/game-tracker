@@ -1,12 +1,12 @@
 "use client"
 
 import dayjs from "dayjs"
-import Image from "next/image"
 import { useTranslation } from "react-i18next"
 import { Skeleton } from "@/components/ui/skeleton"
 import { API } from "@/lib/http/api"
 import { useData } from "@/lib/http/swr"
 import { TimeDisplay } from "@/components/time"
+import { Image } from "@/components/image"
 
 export function PlayerCard() {
   const { t } = useTranslation()
@@ -42,15 +42,7 @@ export function PlayerCard() {
   if (presenceData.availability === "unavailable") {
     return (
       <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
-        <Image
-          src={presenceData.player.avatar}
-          alt={presenceData.player.name}
-          className="rounded-full size-18 object-cover shrink-0 grayscale opacity-80"
-          width={72}
-          height={72}
-          priority
-          draggable="false"
-        />
+        <Image src={presenceData.player.avatar} alt={presenceData.player.name} className="rounded-full size-18 grayscale opacity-80" />
         <div className="flex flex-col gap-2 w-full">
           <p className="font-bold">{t("home.offline")}</p>
           <p className="text-sm text-muted-foreground">
@@ -65,15 +57,7 @@ export function PlayerCard() {
   if (!presenceData.gameTitleInfoList) {
     return (
       <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
-        <Image
-          src={presenceData.player.avatar}
-          alt={presenceData.player.name}
-          className="rounded-full size-18 object-cover shrink-0"
-          width={72}
-          height={72}
-          priority
-          draggable="false"
-        />
+        <Image src={presenceData.player.avatar} alt={presenceData.player.name} className="rounded-full size-18" />
         <div className="flex flex-col gap-2 w-full">
           <p className="font-bold">{t("home.online")}</p>
           <p className="text-sm text-muted-foreground">{t("home.waiting")}</p>
@@ -86,23 +70,11 @@ export function PlayerCard() {
   return (
     <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
       <div className="relative shrink-0">
-        <Image
-          src={presenceData.player.avatar}
-          alt={presenceData.player.name}
-          className="rounded-full size-18 object-cover"
-          width={72}
-          height={72}
-          priority
-          draggable="false"
-        />
+        <Image src={presenceData.player.avatar} alt={presenceData.player.name} className="rounded-full size-18" />
         <Image
           src={presenceData.gameTitleInfoList[0]?.conceptIconUrl || presenceData.gameTitleInfoList[0]?.npTitleIconUrl}
           alt={presenceData.gameTitleInfoList[0].titleName}
-          className="rounded-sm size-10 object-cover border-3 border-white absolute -bottom-[3px] -right-2"
-          width={40}
-          height={40}
-          priority
-          draggable="false"
+          className="rounded-sm size-10 border-3 border-white absolute -bottom-[3px] -right-2"
         />
       </div>
       <div className="flex flex-col gap-2 w-full">

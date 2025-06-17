@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image"
 import dayjs from "dayjs"
 import { useSearchParams, useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
@@ -26,6 +25,7 @@ import { Button } from "@/components/ui/button"
 import { RefreshCcw } from "lucide-react"
 import { Pagination } from "@/components/pagination"
 import { TimeDisplay } from "@/components/time"
+import { Image } from "@/components/image"
 
 export default function Page() {
   const { t } = useTranslation()
@@ -136,21 +136,7 @@ export default function Page() {
                   {recordData?.records.map((record, index) => (
                     <TableRow key={index}>
                       <TableCell className="pl-4 md:pl-6 py-3 w-22">
-                        <div className="rounded-sm size-12 overflow-hidden bg-muted">
-                          {record.game?.imageIcon && (
-                            <Image
-                              src={record.game.imageIcon}
-                              alt={record.game.title}
-                              width={64}
-                              height={64}
-                              priority
-                              draggable="false"
-                              onError={(e) => {
-                                e.target.style.opacity = 0
-                              }}
-                            />
-                          )}
-                        </div>
+                        <Image src={record.game.imageIcon} alt={record.game.title} className="rounded-sm size-12" />
                       </TableCell>
                       <TableCell>
                         <div className="flex flex-col gap-1">

@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import dayjs from "dayjs"
 import { useTranslation } from "react-i18next"
 import { API } from "@/lib/http/api"
@@ -9,6 +8,7 @@ import { useData } from "@/lib/http/swr"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { TimeDisplay } from "@/components/time"
+import { Image } from "@/components/image"
 
 export function RecentCard() {
   const { t } = useTranslation()
@@ -42,21 +42,7 @@ export function RecentCard() {
           <div key={record.id}>
             {index > 0 && <Separator className="my-4" />}
             <div className="flex flex-row gap-4 items-center">
-              <div className="rounded-sm size-14 overflow-hidden bg-muted">
-                {record.game.imageIcon && (
-                  <Image
-                    src={record.game.imageIcon}
-                    alt={record.game.title}
-                    width={64}
-                    height={64}
-                    priority
-                    draggable="false"
-                    onError={(e) => {
-                      e.target.style.opacity = 0
-                    }}
-                  />
-                )}
-              </div>
+              <Image src={record.game.imageIcon} alt={record.game.title} className="rounded-sm size-14" />
               <div className="flex flex-col gap-1.5">
                 <p className="text-sm font-bold">[{record.platform.name}] {record.game.title}</p>
                 <p className="text-sm text-muted-foreground">
