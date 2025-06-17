@@ -39,14 +39,14 @@ export function PlayerCard() {
   }
 
   // 离线
-  if (presenceData.availability === "unavailable") {
+  if (presenceData.status === 0) {
     return (
       <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
-        <Image src={presenceData.player.avatar} alt={presenceData.player.name} className="rounded-full size-18 grayscale opacity-80" />
+        <Image src={presenceData.playerAvatar} alt={presenceData.playerName} className="rounded-full size-18 grayscale opacity-80" />
         <div className="flex flex-col gap-2 w-full">
           <p className="font-bold">{t("home.offline")}</p>
           <p className="text-sm text-muted-foreground">
-            {t("home.last_online")}: {dayjs(presenceData.primaryPlatformInfo.lastOnlineDate).format("YYYY-MM-DD HH:mm:ss")}
+            {t("home.last_online")}: {dayjs(presenceData.lastOnline).format("YYYY-MM-DD HH:mm:ss")}
           </p>
         </div>
       </div>
@@ -54,10 +54,10 @@ export function PlayerCard() {
   }
 
   // 在线
-  if (!presenceData.gameTitleInfoList) {
+  if (presenceData.status === 1) {
     return (
       <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
-        <Image src={presenceData.player.avatar} alt={presenceData.player.name} className="rounded-full size-18" />
+        <Image src={presenceData.playerAvatar} alt={presenceData.playerName} className="rounded-full size-18" />
         <div className="flex flex-col gap-2 w-full">
           <p className="font-bold">{t("home.online")}</p>
           <p className="text-sm text-muted-foreground">{t("home.waiting")}</p>
@@ -70,19 +70,15 @@ export function PlayerCard() {
   return (
     <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
       <div className="relative shrink-0">
-        <Image src={presenceData.player.avatar} alt={presenceData.player.name} className="rounded-full size-18" />
-        <Image
-          src={presenceData.gameTitleInfoList[0]?.conceptIconUrl || presenceData.gameTitleInfoList[0]?.npTitleIconUrl}
-          alt={presenceData.gameTitleInfoList[0].titleName}
-          className="rounded-sm size-10 border-3 border-white absolute -bottom-[3px] -right-2"
-        />
+        <Image src={presenceData.playerAvatar} alt={presenceData.playerName} className="rounded-full size-18" />
+        <Image src={presenceData.gameIcon} alt={presenceData.gameTitle} className="rounded-sm size-10 border-3 border-white absolute -bottom-[3px] -right-2" />
       </div>
       <div className="flex flex-col gap-2 w-full">
-        <p className="font-bold">{presenceData.gameTitleInfoList[0].titleName}</p>
+        <p className="font-bold">{presenceData.gameTitle}</p>
         <p className="text-sm text-muted-foreground">
           {t("home.gaming_time")}
           {" "}
-          <TimeDisplay seconds={presenceData.player.playSeconds} />
+          <TimeDisplay seconds={presenceData.playSeconds} />
         </p>
       </div>
     </div>
