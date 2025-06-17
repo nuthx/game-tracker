@@ -46,7 +46,7 @@ export function PlayerCard() {
         <div className="flex flex-col gap-2 w-full">
           <p className="font-bold">{t("home.offline")}</p>
           <p className="text-sm text-muted-foreground">
-            {presenceData.player.name} {t("home.last_online")}: {dayjs(presenceData.primaryPlatformInfo.lastOnlineDate).format("YYYY-MM-DD HH:mm:ss")}
+            {t("home.last_online")}: {dayjs(presenceData.primaryPlatformInfo.lastOnlineDate).format("YYYY-MM-DD HH:mm:ss")}
           </p>
         </div>
       </div>
@@ -80,8 +80,6 @@ export function PlayerCard() {
       <div className="flex flex-col gap-2 w-full">
         <p className="font-bold">{presenceData.gameTitleInfoList[0].titleName}</p>
         <p className="text-sm text-muted-foreground">
-          {presenceData.player.name}
-          {" "}
           {t("home.gaming_time")}
           {" "}
           <TimeDisplay seconds={presenceData.player.playSeconds} />
