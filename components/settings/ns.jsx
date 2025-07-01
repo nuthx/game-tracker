@@ -70,7 +70,7 @@ export function AddNs() {
   const processFile = async (file) => {
     const fileData = await readFileAsJson(file)
     if (!fileData.ok) {
-      toast.error(t("toast.read_error"))
+      toast.error(t("toast.invalid_json"))
       return
     }
 
@@ -80,7 +80,7 @@ export function AddNs() {
       setSelectedUserId(fileData.data.users[0].id)
       setIsFileSelected(true)
     } else {
-      toast.error(t("toast.read_error"))
+      toast.error(t("toast.invalid_json"))
     }
   }
 

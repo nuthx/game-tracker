@@ -8,32 +8,27 @@
     "import": "导入",
     "export": "导出"
   },
-  "filter": {
-    "all_platforms": "所有平台",
-    "psn": "PlayStation",
-    "nx": "Nintendo Switch",
-    "all_users": "所有用户",
-    "unknown_user": "未知用户",
-    "all_titles": "所有游戏",
-    "total": "总计"
-  },
   "theme": {
     "light": "浅色",
     "dark": "深色",
     "system": "跟随系统"
   },
   "toast": {
+    "no_login": "未登录",
+    "no_records": "暂无游戏记录",
+    "login_first": "请先在设置中添加账号",
     "loading": "加载中...",
+    "error_load": "加载失败",
     "error_user": "用户信息获取失败",
     "error_heatmap": "热力图获取失败",
-    "no_npsso": "请先登录 PSN 账号",
     "error_config": "配置信息获取失败",
     "save_config": "配置已保存",
     "import_success": "所有数据导入成功",
     "import_failed": "数据导入完成，{{platform}} 条平台、{{game}} 条游戏及 {{record}} 导入失败",
     "export_success": "已导出 {{count}} 条记录",
     "delete_success": "已删除 {{count}} 条记录",
-    "read_error": "无效的 JSON 文件"
+    "invalid_file": "无效的文件类型",
+    "invalid_json": "无效的 JSON 文件"
   },
   "validate": {
     "required": "请输入内容",
@@ -60,29 +55,30 @@
     "report": "数据报告"
   },
   "home": {
-    "error": {
-      "load_error": "加载失败",
-      "no_login": "未登录",
-      "login_first": "请先在设置中添加账号"
-    },
-    "offline": "离线",
+    "total": "总计",
     "online": "在线",
+    "offline": "离线",
     "waiting": "等待游玩中...",
-    "online_time": "已在线",
     "gaming_time": "已游玩",
     "last_online": "最后登录",
     "last_gaming": "最后游玩",
     "view_all": "查看所有记录"
   },
   "record": {
-    "cover": "封面",
-    "title": "游戏",
-    "platform": "平台",
-    "user": "用户",
-    "start_at": "开始时间",
-    "end_at": "结束时间",
-    "play_time": "游玩时间",
-    "no_records": "暂无游戏记录"
+    "filter": {
+      "all_platforms": "所有平台",
+      "all_players": "所有玩家",
+      "all_games": "所有游戏"
+    },
+    "table": {
+      "cover": "封面",
+      "name": "游戏",
+      "platform": "平台",
+      "player": "玩家",
+      "start_at": "开始时间",
+      "end_at": "结束时间",
+      "play_time": "游玩时长"
+    }
   },
   "settings": {
     "title": "设置",
@@ -91,7 +87,6 @@
       "monitor": "追踪设置",
       "psn": "PlayStation",
       "ns": "Nintendo Switch",
-      "steam": "Steam",
       "system": "系统设置",
       "account": "账号管理",
       "record": "游戏记录"

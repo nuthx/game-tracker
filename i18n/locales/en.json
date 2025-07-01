@@ -8,32 +8,27 @@
     "import": "Import",
     "export": "Export"
   },
-  "filter": {
-    "all_platforms": "All Platforms",
-    "psn": "PlayStation",
-    "nx": "Nintendo Switch",
-    "all_users": "All Users",
-    "unknown_user": "Unknown",
-    "all_titles": "All Titles",
-    "total": "Total"
-  },
   "theme": {
     "light": "Light",
     "dark": "Dark",
     "system": "System"
   },
   "toast": {
+    "no_login": "Not Logged In",
+    "login_first": "Please add your account in the settings first",
+    "no_records": "No records",
     "loading": "Loading...",
+    "error_load": "Load Failed",
     "error_user": "Failed to retrieve user information",
     "error_heatmap": "Failed to retrieve heatmap data",
-    "no_npsso": "Please log in to your PSN account first",
     "error_config": "Failed to load configuration",
     "save_config": "Settings saved",
     "import_success": "All data imported successfully",
     "import_failed": "Data imported completed, but {{platform}} platforms, {{game}} games and {{record}} records are failed",
     "export_success": "Exported {{count}} records",
     "delete_success": "Deleted {{count}} records",
-    "read_error": "Invalid JSON file"
+    "invalid_file": "Invalid file type",
+    "invalid_json": "Invalid JSON file"
   },
   "validate": {
     "required": "This field is required",
@@ -60,29 +55,30 @@
     "report": "Report"
   },
   "home": {
-    "error": {
-      "load_error": "Load Failed",
-      "no_login": "Not Logged In",
-      "login_first": "Please add your account in the settings first"
-    },
-    "offline": "Offline",
+    "total": "Total",
     "online": "Online",
+    "offline": "Offline",
     "waiting": "Waiting to play...",
-    "online_time": "online for",
-    "gaming_time": "played for",
+    "gaming_time": "Played for",
     "last_online": "Last Online",
     "last_gaming": "Last Played",
     "view_all": "View All Records"
   },
   "record": {
-    "cover": "Cover",
-    "title": "Title",
-    "platform": "Platform",
-    "user": "User",
-    "start_at": "Start At",
-    "end_at": "End At",
-    "play_time": "Play Time",
-    "no_records": "No records"
+    "filter": {
+      "all_platforms": "All Platforms",
+      "all_players": "All Players",
+      "all_games": "All Games"
+    },
+    "table": {
+      "cover": "Cover",
+      "name": "Game",
+      "platform": "Platform",
+      "player": "Player",
+      "start_at": "Start At",
+      "end_at": "End At",
+      "play_time": "Play Time"
+    }
   },
   "settings": {
     "title": "Settings",
@@ -91,7 +87,6 @@
       "monitor": "Tracking",
       "psn": "PlayStation",
       "ns": "Nintendo Switch",
-      "steam": "Steam",
       "system": "System",
       "account": "Account",
       "record": "Game Record"

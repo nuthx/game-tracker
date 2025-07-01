@@ -93,7 +93,7 @@ function Import() {
 
     const jsonData = await readFileAsJson(file)
     if (!jsonData.ok) {
-      toast.error(t("toast.read_error"))
+      toast.error(t("toast.invalid_json"))
       return
     }
 

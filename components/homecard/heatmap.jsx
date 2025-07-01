@@ -102,7 +102,7 @@ function HeatmapHover({ day }) {
               ))}
               <Separator className="bg-muted/30" />
               <div className="flex gap-4 justify-between">
-                <p>{t("filter.total")}</p>
+                <p>{t("home.total")}</p>
                 <TimeDisplay seconds={day.total.value} />
               </div>
             </>

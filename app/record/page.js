@@ -74,7 +74,7 @@ export default function Page() {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{t("filter.all_platforms")}</SelectItem>
+            <SelectItem value="all">{t("record.filter.all_platforms")}</SelectItem>
             {recordData?.platforms.map((platform) => (
               <SelectItem key={platform} value={platform}>
                 {platform}
@@ -85,10 +85,10 @@ export default function Page() {
 
         <Select value={currentPlayer} onValueChange={(newPlayer) => updateUrlParams(1, currentPlatform, currentGame, newPlayer)}>
           <SelectTrigger className="w-full bg-background">
-            <SelectValue placeholder={t("filter.search_player")} />
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{t("filter.all_players")}</SelectItem>
+            <SelectItem value="all">{t("record.filter.all_players")}</SelectItem>
             {recordData?.players.map((player) => (
               <SelectItem key={player} value={player}>
                 {player}
@@ -99,10 +99,10 @@ export default function Page() {
 
         <Select value={currentGame} onValueChange={(newGame) => updateUrlParams(1, currentPlatform, newGame, currentPlayer)}>
           <SelectTrigger className="w-full bg-background">
-            <SelectValue placeholder={t("filter.search_game")} />
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{t("filter.all_games")}</SelectItem>
+            <SelectItem value="all">{t("record.filter.all_games")}</SelectItem>
             {recordData?.games.map((game) => (
               <SelectItem key={game} value={game}>
                 {game}
@@ -122,13 +122,13 @@ export default function Page() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="pl-4 md:pl-6 py-4">{t("record.cover")}</TableHead>
-                    <TableHead>{t("record.name")}</TableHead>
-                    <TableHead>{t("record.platform")}</TableHead>
-                    <TableHead>{t("record.player")}</TableHead>
-                    <TableHead>{t("record.start_at")}</TableHead>
-                    <TableHead>{t("record.end_at")}</TableHead>
-                    <TableHead>{t("record.play_time")}</TableHead>
+                    <TableHead className="pl-4 md:pl-6 py-4">{t("record.table.cover")}</TableHead>
+                    <TableHead>{t("record.table.name")}</TableHead>
+                    <TableHead>{t("record.table.platform")}</TableHead>
+                    <TableHead>{t("record.table.player")}</TableHead>
+                    <TableHead>{t("record.table.start_at")}</TableHead>
+                    <TableHead>{t("record.table.end_at")}</TableHead>
+                    <TableHead>{t("record.table.play_time")}</TableHead>
                     {/* <TableHead></TableHead> */}
                   </TableRow>
                 </TableHeader>
@@ -170,7 +170,7 @@ export default function Page() {
               </Table>
             )
           : (
-              <p className="p-10 text-sm text-muted-foreground text-center">{t("record.no_records")}</p>
+              <p className="p-10 text-sm text-muted-foreground text-center">{t("toast.no_records")}</p>
             )}
       </div>
 

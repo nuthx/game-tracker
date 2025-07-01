@@ -31,7 +31,7 @@ export function PlayerCard() {
       <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
         <div className="rounded-full size-18 shrink-0 bg-muted"></div>
         <div className="flex flex-col gap-2 w-full">
-          <p className="font-bold">{t("home.error.load_error")}</p>
+          <p className="font-bold">{t("toast.error_load")}</p>
           <p className="text-sm text-muted-foreground">{presenceError.message}</p>
         </div>
       </div>
@@ -44,8 +44,8 @@ export function PlayerCard() {
       <div className="flex flex-row items-center gap-3 md:gap-6 p-3 md:p-6 border rounded-lg border shadow-xs bg-background">
         <div className="rounded-full size-18 shrink-0 bg-muted"></div>
         <div className="flex flex-col gap-2 w-full">
-          <p className="font-bold">{t("home.error.no_login")}</p>
-          <p className="text-sm text-muted-foreground">{t("home.error.login_first")}</p>
+          <p className="font-bold">{t("toast.no_login")}</p>
+          <p className="text-sm text-muted-foreground">{t("toast.login_first")}</p>
         </div>
       </div>
     )
