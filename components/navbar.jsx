@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { useState } from "react"
 import { useTheme } from "next-themes"
 import { useTranslation } from "react-i18next"
@@ -14,7 +13,8 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 import { Languages, Sun, Moon, Settings2 } from "lucide-react"
-import { Settings } from "@/components/settings"
+import { Settings } from "@/components/settings/layout"
+import { Logo } from "@/components/image"
 
 export function NavBar() {
   const pathname = usePathname()
@@ -32,7 +32,7 @@ export function NavBar() {
 
   return (
     <nav className="flex justify-between items-center h-16 px-4 md:px-12 sticky top-0 z-50 border-b bg-background/90 dark:bg-background backdrop-blur-sm">
-      <Image src="/logo.svg" alt="ゲーム時計" width={110} height={25} draggable="false" className="hidden md:block" />
+      <Logo className="w-26 h-8 hidden md:block" />
 
       <div className="flex gap-2 ml-2 md:ml-0">
         <Link href="/" className="text-sm cursor-pointer">

@@ -7,50 +7,78 @@ datasource db {
   url      = "file:../data/core.db"
 }
 
-// 用户
-model User {
-  id              Int          @id @default(autoincrement())
-  username        String       @unique
-  password        String
-  npsso           String       @default("")
-  onlineId        String       @default("")
-  accountId       String       @default("")
-  avatar          String       @default("")
-  monitorId       String       @default("me")
-  monitorName     String       @default("")
-  monitorAvatar   String       @default("")
-  monitorInterval String       @default("10")
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
+// 设置
+model Config {
+  id                    Int          @id @default(autoincrement())
+  username              String       @unique
+  password              String
+  psnNpsso              String       @default("") @map("psn_npsso")
+  psnMonitorFromId      String       @default("") @map("psn_monitor_from_id")
+  psnMonitorFromName    String       @default("") @map("psn_monitor_from_name")
+  psnMonitorFromAvatar  String       @default("") @map("psn_monitor_from_avatar")
+  psnMonitorToId        String       @default("") @map("psn_monitor_to_id")
+  psnMonitorToName      String       @default("") @map("psn_monitor_to_name")
+  psnMonitorToAvatar    String       @default("") @map("psn_monitor_to_avatar")
+  psnMonitorInterval    Int          @default(30) @map("psn_monitor_interval")
+  createdAt             DateTime     @default(now()) @map("created_at")
+  updatedAt             DateTime     @updatedAt @map("updated_at")
+
+  @@map("config")
 }
 
-// PSN游戏记录
-model PsnRecord {
+// 平台
+model Platform {
   id                Int        @id @default(autoincrement())
-  state             String
-  npTitleId         String     @default("")
-  titleName         String     @default("")
-  format            String     @default("")
-  launchPlatform    String     @default("")
-  conceptIconUrl    String     @default("")
-  userId            String     @default("")
-  userName          String     @default("")
-  startAt           DateTime   @default(now())
-  endAt             DateTime   @default(now())
-  playSeconds       Int        @default(0)
+  uname             String     @default("") @unique
+  name              String     @default("") @unique
+  color             String     @default("")
+  games             Game[]
+  records           Record[]
+  createdAt         DateTime   @default(now()) @map("created_at")
+  updatedAt         DateTime   @updatedAt @map("updated_at")
+
+  @@map("platform")
 }
 
-// Switch游戏记录（NX-Activity-Log）
-model NxRecord {
+// 游戏
+model Game {
   id                Int        @id @default(autoincrement())
-  state             String     @default("gaming")
-  gameId            String     @default("")
-  gameName          String     @default("")
-  gamePlatform      String     @default("NS")
-  gameCoverUrl      String     @default("")
-  userId            String     @default("")
-  userName          String     @default("")
-  startAt           DateTime   @default(now())
-  endAt             DateTime   @default(now())
-  playSeconds       Int        @default(0)
+  utitle            String     @default("") @unique
+  title             String     @default("") @unique
+  titleAlias        String     @default("") @unique @map("title_alias")
+  platform          Platform[]
+  description       String     @default("")
+  imageGrid         String     @default("") @map("image_grid")
+  imageHero         String     @default("") @map("image_hero")
+  imageLogo         String     @default("") @map("image_logo")
+  imageIcon         String     @default("") @map("image_icon")
+  releaseDate       DateTime?  @map("release_date")
+  userRate          Int        @default(0) @map("user_rate")
+  userStatus        Int        @default(0) @map("user_status")  // 1: 想玩, 2: 在玩, 3: 玩过, 4: 抛弃
+  userReview        String     @default("") @map("user_review")
+  userStartAt       DateTime?  @map("user_start_at")
+  userEndAt         DateTime?  @map("user_end_at")
+  userPlaySeconds   Int        @default(0) @map("user_play_seconds")
+  records           Record[]
+  createdAt         DateTime   @default(now()) @map("created_at")
+  updatedAt         DateTime   @updatedAt @map("updated_at")
+
+  @@map("game")
+}
+
+// 游戏记录
+model Record {
+  id                Int        @id @default(autoincrement())
+  platformId        Int        @map("platform_id")
+  platform          Platform   @relation(fields: [platformId], references: [id])
+  gameId            Int        @map("game_id")
+  game              Game       @relation(fields: [gameId], references: [id])
+  player            String     @default("")
+  startAt           DateTime   @default(now()) @map("start_at")
+  endAt             DateTime   @default(now()) @map("end_at")
+  playSeconds       Int        @default(0) @map("play_seconds")
+  hide              Int        @default(0)
+
+  @@map("record")
+  @@unique([startAt, endAt])
 }

@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
@@ -21,6 +20,7 @@ import {
 } from "@/components/ui/form"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Logo } from "@/components/image"
 
 export default function Page() {
   const router = useRouter()
@@ -45,7 +45,7 @@ export default function Page() {
     <div className="absolute inset-0 flex items-center justify-center">
       <Card className="w-100">
         <CardContent className="flex flex-col items-center gap-10">
-          <Image src="/logo.svg" alt="ゲーム時計" className="mt-3" width={120} height={30} draggable="false" />
+          <Logo className="w-30 h-8 mt-3" />
           <Form {...loginForm}>
             <form onSubmit={loginForm.handleSubmit((values) => handleLogin(values))} className="w-full space-y-6" noValidate>
               <FormField

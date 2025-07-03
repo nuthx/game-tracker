@@ -1,0 +1,106 @@
+{
+  "version": "v2",
+  "date": "2025-06-01T10:30:00.000Z",
+  "count": {
+    "total": 7,
+    "platform": 3,
+    "game": 2,
+    "record": 2
+  },
+  "platforms": [
+    {
+      "id": 1,
+      "uname": "PS4",
+      "name": "PS4",
+      "color": "#003791",
+      "createdAt": "2025-07-03T02:09:37.855Z",
+      "updatedAt": "2025-07-03T02:09:37.855Z"
+    },
+    {
+      "id": 2,
+      "uname": "PS5",
+      "name": "PS5",
+      "color": "#003791",
+      "createdAt": "2025-07-03T02:09:37.857Z",
+      "updatedAt": "2025-07-03T02:09:37.857Z"
+    },
+    {
+      "id": 3,
+      "uname": "Switch",
+      "name": "Switch",
+      "color": "#E60012",
+      "createdAt": "2025-07-03T02:09:37.858Z",
+      "updatedAt": "2025-07-03T02:09:37.858Z"
+    }
+  ],
+  "games": [
+    {
+      "id": 14,
+      "utitle": "暗喻幻想：ReFantazio",
+      "title": "暗喻幻想：ReFantazio",
+      "titleAlias": "暗喻幻想：ReFantazio",
+      "description": "",
+      "imageGrid": "",
+      "imageHero": "",
+      "imageLogo": "",
+      "imageIcon": "https://image.api.playstation.com/vulcan/ap/rnd/202405/2406/672cc5f97e84c564649093d4f6a3726f328e0de1814ab2e0.png",
+      "releaseDate": null,
+      "userRate": 0,
+      "userStatus": 0,
+      "userReview": "",
+      "userStartAt": null,
+      "userEndAt": null,
+      "userPlaySeconds": 0,
+      "createdAt": "2025-07-03T02:09:37.859Z",
+      "updatedAt": "2025-07-03T02:09:37.859Z",
+      "platform": [
+        "PS5"
+      ]
+    },
+    {
+      "id": 15,
+      "utitle": "DAVE THE DIVER",
+      "title": "DAVE THE DIVER",
+      "titleAlias": "DAVE THE DIVER",
+      "description": "",
+      "imageGrid": "",
+      "imageHero": "",
+      "imageLogo": "",
+      "imageIcon": "https://tinfoil.media/ti/010097F018538000/800/800",
+      "releaseDate": null,
+      "userRate": 0,
+      "userStatus": 0,
+      "userReview": "",
+      "userStartAt": null,
+      "userEndAt": null,
+      "userPlaySeconds": 0,
+      "createdAt": "2025-07-03T02:09:37.861Z",
+      "updatedAt": "2025-07-03T02:09:37.861Z",
+      "platform": [
+        "Switch"
+      ]
+    }
+  ],
+  "records": [
+    {
+      "id": 58,
+      "player": "Player1",
+      "startAt": "2025-06-01T10:30:51.887Z",
+      "endAt": "2025-06-01T10:35:51.887Z",
+      "playSeconds": 300,
+      "hide": 0,
+      "platform": "PS5",
+      "game": "暗喻幻想：ReFantazio"
+    },
+    {
+      "id": 59,
+      "player": "Player2",
+      "startAt": "2025-06-05T12:30:51.887Z",
+      "endAt": "2025-06-05T12:35:51.887Z",
+      "playSeconds": 300,
+      "hide": 0,
+      "platform": "Switch",
+      "game": "DAVE THE DIVER"
+    }
+  ]
+}

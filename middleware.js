@@ -5,6 +5,11 @@ export async function middleware(request) {
   const token = request.cookies.get("tktk")
   const isAuthenticated = await verifyToken(token)
 
+  // 排除auth
+  if (request.nextUrl.pathname.startsWith("/api/auth")) {
+    return NextResponse.next()
+  }
+
   // 如果登录，重定向到首页
   if (request.nextUrl.pathname === "/login") {
     return isAuthenticated
@@ -35,12 +40,10 @@ async function verifyToken(token) {
 
 export const config = {
   matcher: [
-    "/api/config",
-    "/api/presence",
-    "/api/record",
+    "/api/:path*",
 
     "/",
-    "/settings",
+    "/record",
 
     "/login" // 用于登录后重定向
   ]

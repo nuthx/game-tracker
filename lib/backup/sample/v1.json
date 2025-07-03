@@ -1,0 +1,56 @@
+{
+  "version": "v1",
+  "date": "6/1/2025, 10:30:00 AM",
+  "count": {
+    "total": 3,
+    "psn": 2,
+    "nx": 1
+  },
+  "records": {
+    "psn": [
+      {
+        "id": 2,
+        "state": "online",
+        "npTitleId": "",
+        "titleName": "",
+        "format": "",
+        "launchPlatform": "",
+        "conceptIconUrl": "",
+        "userId": "1234567890",
+        "userName": "Player1",
+        "startAt": "2025-06-01T20:30:51.887Z",
+        "endAt": "2025-06-01T20:32:51.887Z",
+        "playSeconds": 120
+      },
+      {
+        "id": 1,
+        "state": "gaming",
+        "npTitleId": "PPSA20800_00",
+        "titleName": "暗喻幻想：ReFantazio",
+        "format": "PS5",
+        "launchPlatform": "PS5",
+        "conceptIconUrl": "https://image.api.playstation.com/vulcan/ap/rnd/202405/2406/672cc5f97e84c564649093d4f6a3726f328e0de1814ab2e0.png",
+        "userId": "1234567890",
+        "userName": "Player1",
+        "startAt": "2025-06-01T10:30:51.887Z",
+        "endAt": "2025-06-01T10:35:51.887Z",
+        "playSeconds": 300
+      }
+    ],
+    "nx": [
+      {
+        "id": 1,
+        "state": "gaming",
+        "gameId": "010097F018538000",
+        "gameName": "DAVE THE DIVER",
+        "gamePlatform": "NS",
+        "gameCoverUrl": "https://tinfoil.media/ti/010097F018538000/800/800",
+        "userId": "1234567890",
+        "userName": "Player2",
+        "startAt": "2025-06-05T12:30:51.887Z",
+        "endAt": "2025-06-05T12:35:51.887Z",
+        "playSeconds": 300
+      }
+    ]
+  }
+}
