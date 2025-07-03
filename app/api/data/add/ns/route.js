@@ -1,4 +1,4 @@
-import { importNs } from "@/lib/import/ns"
+import { importNs } from "@/lib/ns/import"
 import { sendResponse } from "@/lib/http/response"
 
 export async function POST(request) {

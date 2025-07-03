@@ -1,5 +1,5 @@
-import { importV1 } from "@/lib/import/v1"
-import { importV2 } from "@/lib/import/v2"
+import { importV1 } from "@/lib/backup/v1"
+import { importV2 } from "@/lib/backup/v2"
 import { sendResponse } from "@/lib/http/response"
 
 export async function POST(request) {
