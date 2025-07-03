@@ -15,6 +15,7 @@
   },
   "toast": {
     "no_login": "未登录",
+    "no_games": "暂无游戏",
     "no_records": "暂无游戏记录",
     "login_first": "请先在设置中添加账号",
     "loading": "加载中...",
@@ -51,6 +52,7 @@
   },
   "navbar": {
     "overview": "总览",
+    "library": "游戏库",
     "record": "游戏记录",
     "report": "数据报告"
   },

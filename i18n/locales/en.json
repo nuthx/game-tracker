@@ -15,8 +15,9 @@
   },
   "toast": {
     "no_login": "Not Logged In",
-    "login_first": "Please add your account in the settings first",
+    "no_games": "No games",
     "no_records": "No records",
+    "login_first": "Please add your account in the settings first",
     "loading": "Loading...",
     "error_load": "Load Failed",
     "error_user": "Failed to retrieve user information",
@@ -51,8 +52,9 @@
   },
   "navbar": {
     "overview": "Overview",
-    "record": "Record",
-    "report": "Report"
+    "library": "Library",
+    "record": "Records",
+    "report": "Reports"
   },
   "home": {
     "total": "Total",

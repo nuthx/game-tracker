@@ -21,3 +21,16 @@ export function TimeDisplay({ seconds }) {
     </span>
   )
 }
+
+export function HourDisplay({ seconds }) {
+  let tHours = 1
+  if (seconds > 3600) {
+    tHours = Math.floor(seconds / 3600)
+  }
+
+  return (
+    <span>
+      {tHours}h
+    </span>
+  )
+}

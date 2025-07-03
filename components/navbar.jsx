@@ -40,6 +40,11 @@ export function NavBar() {
             {t("navbar.overview")}
           </Button>
         </Link>
+        <Link href="/library" className="text-sm cursor-pointer">
+          <Button variant="ghost" className={pathname === "/library" ? "" : "font-normal text-muted-foreground/70"}>
+            {t("navbar.library")}
+          </Button>
+        </Link>
         <Link href="/record" className="text-sm cursor-pointer">
           <Button variant="ghost" className={pathname === "/record" ? "" : "font-normal text-muted-foreground/70"}>
             {t("navbar.record")}
