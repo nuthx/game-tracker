@@ -55,14 +55,16 @@ export default function Page() {
   }
 
   const { data: recordData, error: recordError, isLoading: recordLoading } = useData(
-    `${API.RECORD}?page=${currentPage}&limit=50&platform=${currentPlatform}&game=${currentGame}&player=${currentPlayer}`
+    `${API.RECORD_DATA}?page=${currentPage}&limit=50&platform=${currentPlatform}&game=${currentGame}&player=${currentPlayer}`
   )
 
-  if (recordLoading) {
+  const { data: listData, error: listError, isLoading: listLoading } = useData(API.RECORD_LIST)
+
+  if (recordLoading || listLoading) {
     return <div className="flex justify-center text-sm text-muted-foreground">{t("toast.loading")}</div>
   }
 
-  if (recordError) {
+  if (recordError || listError) {
     return <div className="flex justify-center text-sm text-muted-foreground">{t("toast.error_user")}</div>
   }
 
@@ -75,7 +77,7 @@ export default function Page() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">{t("record.filter.all_platforms")}</SelectItem>
-            {recordData?.platforms.map((platform) => (
+            {listData?.platforms.map((platform) => (
               <SelectItem key={platform} value={platform}>
                 {platform}
               </SelectItem>
@@ -89,7 +91,7 @@ export default function Page() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">{t("record.filter.all_players")}</SelectItem>
-            {recordData?.players.map((player) => (
+            {listData?.players.map((player) => (
               <SelectItem key={player} value={player}>
                 {player}
               </SelectItem>
@@ -103,7 +105,7 @@ export default function Page() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">{t("record.filter.all_games")}</SelectItem>
-            {recordData?.games.map((game) => (
+            {listData?.games.map((game) => (
               <SelectItem key={game} value={game}>
                 {game}
               </SelectItem>

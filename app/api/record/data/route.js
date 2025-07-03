@@ -39,9 +39,6 @@ export async function GET(request) {
     return sendResponse(request, {
       data: {
         records: paginatedRecords,
-        platforms: [...new Set(records.map((r) => r.platform.name))].sort(),
-        games: [...new Set(records.map((r) => r.game.title))].sort(),
-        players: [...new Set(records.map((r) => r.player))].sort(),
         pagination: {
           total: records.length,
           page,

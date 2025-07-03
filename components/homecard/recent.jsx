@@ -13,7 +13,7 @@ import { Image } from "@/components/image"
 export function RecentCard() {
   const { t } = useTranslation()
 
-  const { data: recordData, error: recordError, isLoading: recordLoading } = useData(`${API.RECORD}?limit=10`)
+  const { data: recordData, error: recordError, isLoading: recordLoading } = useData(`${API.RECORD_DATA}?limit=10`)
 
   if (recordLoading) {
     return (
