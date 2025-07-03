@@ -55,7 +55,7 @@ export default function Page() {
   }
 
   const { data: recordData, error: recordError, isLoading: recordLoading } = useData(
-    `${API.RECORD_DATA}?page=${currentPage}&limit=50&platform=${currentPlatform}&game=${currentGame}&player=${currentPlayer}`
+    `${API.RECORD_DATA}?page=${currentPage}&platform=${currentPlatform}&game=${currentGame}&player=${currentPlayer}`
   )
 
   const { data: listData, error: listError, isLoading: listLoading } = useData(API.RECORD_LIST)
@@ -118,7 +118,7 @@ export default function Page() {
         </Button>
       </div>
 
-      <div className="border rounded-lg border shadow-xs bg-background">
+      <div className="border rounded-lg shadow-xs bg-background">
         {recordData.records.length > 0
           ? (
               <Table>
