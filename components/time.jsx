@@ -13,8 +13,10 @@ export function TimeDisplay({ seconds }) {
 
   return (
     <span>
-      {tHours > 0 && `${tHours} ${t(tHours === 1 ? "time.hour" : "time.hours")} `}
-      {tMinutes > 0 && `${tMinutes} ${t(tMinutes === 1 ? "time.minute" : "time.minutes")} `}
+      {tHours > 0 && `${tHours} ${t(tHours === 1 ? "time.hour" : "time.hours")}`}
+      {tHours > 0 && tMinutes > 0 && tSeconds > 0 && " "}
+      {tMinutes > 0 && `${tMinutes} ${t(tMinutes === 1 ? "time.minute" : "time.minutes")}`}
+      {tMinutes > 0 && tSeconds > 0 && " "}
       {tSeconds > 0 && `${tSeconds} ${t(tSeconds === 1 ? "time.second" : "time.seconds")}`}
     </span>
   )
